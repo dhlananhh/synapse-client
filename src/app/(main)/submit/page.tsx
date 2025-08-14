@@ -1,0 +1,43 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import CreatePostForm from "@/components/features/post/CreatePostForm";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
+
+export default function SubmitPage() {
+  const { currentUser } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (currentUser === undefined) return;
+
+    if (currentUser === null) {
+      router.push("/login?from=/submit");
+    }
+  }, [ currentUser, router ]);
+
+  if (currentUser === undefined) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-10">
+      <Card>
+        <CardHeader>
+          <CardTitle>Create a New Post</CardTitle>
+          <CardDescription>Share your thoughts with a community.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CreatePostForm />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

@@ -15,7 +15,11 @@ const PostCard = ({ post }: PostCardProps) => {
     <Card className="flex flex-col h-full">
       <CardHeader>
         <div className="text-xs text-muted-foreground">
-          Posted by <span className="font-semibold text-primary">u/{ post.author.username }</span> • { formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }
+          Posted by{ ' ' }
+          <Link href={ `/u/${post.author.username}` } className="font-semibold text-primary hover:underline">
+            u/{ post.author.username }
+          </Link>{ ' ' }
+          • { formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }
         </div>
         <CardTitle className="mt-1 text-lg leading-tight">
           <Link href={ `/p/${post.id}` } className="hover:underline">

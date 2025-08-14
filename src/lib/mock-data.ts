@@ -1,9 +1,27 @@
-import { Post, User, Community } from "@/types";
+import { Post, User, Community, UserComment } from "@/types";
 
 // Mock Users
-const user1: User = { id: 'u1', username: 'john_doe', avatarUrl: 'https://i.pravatar.cc/150?u=u1' };
-const user2: User = { id: 'u2', username: 'jane_smith', avatarUrl: 'https://i.pravatar.cc/150?u=u2' };
-const user3: User = { id: 'u3', username: 'dev_guru', avatarUrl: 'https://i.pravatar.cc/150?u=u3' };
+const user1: User = {
+  id: 'u1',
+  username: 'john_doe',
+  avatarUrl: 'https://i.pravatar.cc/150?u=u1',
+  createdAt: '2023-05-10T12:00:00Z',
+  karma: 1250
+};
+const user2: User = {
+  id: 'u2',
+  username: 'jane_smith',
+  avatarUrl: 'https://i.pravatar.cc/150?u=u2',
+  createdAt: '2023-08-01T09:00:00Z',
+  karma: 850
+};
+const user3: User = {
+  id: 'u3',
+  username: 'dev_guru',
+  avatarUrl: 'https://i.pravatar.cc/150?u=u3',
+  createdAt: '2022-11-20T15:30:00Z',
+  karma: 3400
+};
 
 // Mock Communities
 export const mockCommunities: Community[] = [
@@ -93,3 +111,26 @@ export const mockPosts: Post[] = [
     comments: [],
   },
 ];
+
+export const getAllComments = (): UserComment[] => {
+  const allComments: UserComment[] = [];
+
+  mockPosts.forEach(post => {
+    const mapComments = (comments: any[]) => {
+      comments.forEach(comment => {
+        allComments.push({
+          ...comment,
+          postId: post.id,
+          postTitle: post.title,
+          postAuthor: post.author.username,
+        });
+        if (comment.replies) {
+          mapComments(comment.replies);
+        }
+      });
+    };
+    mapComments(post.comments);
+  });
+
+  return allComments;
+}

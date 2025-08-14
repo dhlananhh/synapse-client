@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { BrainCircuit } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import UserNav from "./UserNav";
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from "./ThemeToggle";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const { currentUser } = useAuth();
@@ -17,6 +18,8 @@ const Navbar = () => {
           <BrainCircuit className="h-8 w-8 text-primary" />
           <p className="hidden sm:block text-xl font-bold text-foreground">Synapse</p>
         </Link>
+
+        <SearchBar />
 
         <div className="flex items-center gap-2">
           <ThemeToggle />

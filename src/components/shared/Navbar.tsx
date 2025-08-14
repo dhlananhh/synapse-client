@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BrainCircuit } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import UserNav from "./UserNav";
+import { ThemeToggle } from './ThemeToggle';
 
 const Navbar = () => {
   const { currentUser } = useAuth();
@@ -17,20 +18,24 @@ const Navbar = () => {
           <p className="hidden sm:block text-xl font-bold text-foreground">Synapse</p>
         </Link>
 
-        {
-          currentUser ? (
-            <UserNav />
-          ) : (
-            <div className="flex items-center gap-2">
-              <Button asChild variant="ghost">
-                <Link href="/login">Log In</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/register">Sign Up</Link>
-              </Button>
-            </div>
-          )
-        }
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+
+          {
+            currentUser ? (
+              <UserNav />
+            ) : (
+              <div className="hidden sm:flex items-center gap-2">
+                <Button asChild variant="ghost">
+                  <Link href="/login">Log In</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/register">Sign Up</Link>
+                </Button>
+              </div>
+            )
+          }
+        </div>
       </div>
     </header>
   )

@@ -3,6 +3,7 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import { User } from "@/types";
 import { TRegisterSchema } from "@/lib/validators/auth-validator";
+import { TUserProfileSchema } from '@/lib/validators/user-validator';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -13,6 +14,7 @@ interface AuthContextType {
   isSubscribed: (communityId: string) => boolean;
   subscribeToCommunity: (communityId: string) => void;
   unsubscribeFromCommunity: (communityId: string) => void;
+  updateUserProfile: (data: TUserProfileSchema) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ subscribedCommunityIds, setSubscribedCommunityIds ] = useState<string[]>([]);
 
   const login = (username: string) => {
-    const mockUser = { id: "u_dev", username: "dev_guru" };
+    const mockUser = { id: "u_dev", username: "dev_guru", createdAt: new Date().toISOString(), karma: 0 };
     setCurrentUser({ ...mockUser, username });
   };
 
@@ -34,6 +36,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const newUser: User = {
       id: `u_${Math.random().toString(36).substr(2, 9)}`,
       username: data.username,
+      createdAt: new Date().toISOString(),
+      karma: 0,
     };
     setCurrentUser(newUser);
   };
@@ -50,6 +54,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSubscribedCommunityIds(prev => prev.filter(id => id !== communityId));
   };
 
+  const updateUserProfile = (data: TUserProfileSchema) => {
+    if (currentUser) {
+      const updatedUser: User = {
+        ...currentUser,
+        username: data.username,
+      };
+      setCurrentUser(updatedUser);
+    }
+  };
+
   const value = {
     currentUser,
     login,
@@ -58,7 +72,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     subscribedCommunityIds,
     isSubscribed,
     subscribeToCommunity,
-    unsubscribeFromCommunity
+    unsubscribeFromCommunity,
+    updateUserProfile,
   };
 
   return <AuthContext.Provider value={ value }>{ children }</AuthContext.Provider>;

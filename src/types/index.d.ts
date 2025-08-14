@@ -2,6 +2,8 @@ export type User = {
   id: string;
   username: string;
   avatarUrl?: string;
+  createdAt: string;
+  karma: number;
 };
 
 export type Comment = {
@@ -12,6 +14,12 @@ export type Comment = {
   votes: number;
   replies?: Comment[];
 };
+
+export interface UserComment extends Comment {
+  postTitle: string;
+  postId: string;
+  postAuthor: string;
+}
 
 export type Community = {
   id: string;

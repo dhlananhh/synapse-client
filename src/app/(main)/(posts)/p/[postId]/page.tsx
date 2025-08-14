@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { mockPosts } from "@/lib/mock-data";
 import { Post } from "@/types";
 import { notFound } from "next/navigation";
@@ -26,8 +27,14 @@ export default function PostDetailPage({ params }: { params: { postId: string } 
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <UserAvatar user={ post.author } className="h-5 w-5" />
           <p>
-            Posted by <span className="font-semibold text-primary">u/{ post.author.username }</span> in{ " " }
-            <span className="font-semibold text-primary">c/{ post.community.slug }</span>
+            Posted by{ " " }
+            <Link href={ `/u/${post.author.username}` } className="font-semibold text-primary hover:underline">
+              u/{ post.author.username }
+            </Link>{ " " }
+            in{ " " }
+            <Link href={ `/c/${post.community.slug}` } className="font-semibold text-primary hover:underline">
+              c/{ post.community.slug }
+            </Link>
           </p>
           <span>•</span>
           <span>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</span>

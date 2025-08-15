@@ -45,3 +45,15 @@ export type Post = {
   votes: number;
   comments: Comment[];
 };
+
+export type NotificationType = 'NEW_COMMENT' | 'POST_UPVOTE' | 'NEW_FOLLOWER';
+
+export type Notification = {
+  id: string;
+  type: NotificationType;
+  actor: User;
+  entityUrl: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+};

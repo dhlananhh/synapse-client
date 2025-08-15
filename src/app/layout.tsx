@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import ChatWidget from '@/components/features/chat/ChatWidget';
 
 const inter = Inter({ subsets: [ "latin" ], variable: "--font-sans" });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         >
           <AuthProvider>
             { children }
+            <ChatWidget />
           </AuthProvider>
         </ThemeProvider>
       </body>

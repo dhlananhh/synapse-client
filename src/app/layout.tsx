@@ -9,6 +9,7 @@ import TopProgressBar from "@/components/providers/TopProgressBar";
 import ChatWidget from "@/components/features/chat/ChatWidget";
 import NotificationSimulator from "@/components/providers/NotificationSimulator";
 import GlobalModals from "@/components/providers/GlobalModals";
+import { CommandMenuProvider } from "@/context/CommandMenuContext";
 
 
 const inter = Inter({ subsets: [ "latin" ], variable: "--font-sans" });
@@ -34,14 +35,16 @@ export default function RootLayout({
         >
           <TopProgressBar />
 
-          <AuthProvider>
-            <NotificationSimulator />
-            { children }
-            <ChatWidget />
-            <GlobalModals />
-          </AuthProvider>
+          <CommandMenuProvider>
+            <AuthProvider>
+              <NotificationSimulator />
+              { children }
+              <ChatWidget />
+              <GlobalModals />
+            </AuthProvider>
+          </CommandMenuProvider>
 
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="top-right" theme="system" />
         </ThemeProvider>
       </body>
     </html>

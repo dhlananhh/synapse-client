@@ -44,6 +44,7 @@ export default function UpdateProfileForm() {
 
     toast.success("Profile Updated", {
       description: "Your public profile has been updated successfully.",
+      duration: 3000,
     });
   }
 

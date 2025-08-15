@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import TopProgressBar from "@/components/providers/TopProgressBar";
 import ChatWidget from "@/components/features/chat/ChatWidget";
 import NotificationSimulator from "@/components/providers/NotificationSimulator";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: [ "latin" ], variable: "--font-sans" });
 
@@ -36,6 +37,8 @@ export default function RootLayout({
             { children }
             <ChatWidget />
           </AuthProvider>
+
+          <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
     </html>

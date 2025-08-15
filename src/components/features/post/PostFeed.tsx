@@ -5,8 +5,9 @@ import { Post } from "@/types";
 import { fetchPosts } from "@/lib/api";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import PostCard from "./PostCard";
-import PostFeedSkeleton from './PostFeedSkeleton';
-import { Loader2 } from "lucide-react";
+import PostFeedSkeleton from "./PostFeedSkeleton";
+import EmptyState from "@/components/shared/EmptyState";
+import { Globe, Loader2 } from "lucide-react";
 
 
 export default function PostFeed() {
@@ -44,6 +45,20 @@ export default function PostFeed() {
 
   if (isInitialLoading) {
     return <PostFeedSkeleton />;
+  }
+
+  if (!isLoading && posts.length === 0) {
+    return (
+      <EmptyState
+        Icon={ Globe }
+        title="The Feed is Empty"
+        description="There are no posts to show right now. Why not be the first to create one?"
+        action={ {
+          label: "Create a Post",
+          href: "/submit"
+        } }
+      />
+    )
   }
 
   return (

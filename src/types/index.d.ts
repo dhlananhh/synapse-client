@@ -57,3 +57,5 @@ export type Notification = {
   isRead: boolean;
   createdAt: string;
 };
+
+export type SortType = "hot" | "new" | "top";

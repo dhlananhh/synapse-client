@@ -1,8 +1,14 @@
-import { UserComment } from "@/types";
+"use client";
+
+import React from "react";
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
+import { UserComment } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserAvatar } from "@/components/shared/UserAvatar";
-import { formatDistanceToNow } from "date-fns";
+import EmptyState from "@/components/shared/EmptyState";
+import { MessageCircleOff } from "lucide-react";
+
 
 function UserCommentCard({ comment }: { comment: UserComment }) {
   return (
@@ -23,14 +29,29 @@ function UserCommentCard({ comment }: { comment: UserComment }) {
   )
 }
 
+
 export default function UserCommentFeed({ comments }: { comments: UserComment[] }) {
+  if (comments.length === 0) {
+    return (
+      <div className="mt-6">
+        <EmptyState
+          Icon={ MessageCircleOff }
+          title="No Comments Yet"
+          description="This user hasn't made any comments. When they do, their comments will appear here."
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="mt-4 flex flex-col gap-4">
-      { comments.length > 0 ? (
-        comments.map(comment => <UserCommentCard key={ comment.id } comment={ comment } />)
-      ) : (
-        <p className="text-center text-muted-foreground mt-8">This user hasn"t made any comments yet.</p>
-      ) }
+      {
+        comments.map(
+          comment => (
+            <UserCommentCard key={ comment.id } comment={ comment } />
+          )
+        )
+      }
     </div>
-  )
+  );
 }

@@ -51,32 +51,16 @@ export default function VoteClient({ itemId, initialVotes }: VoteClientProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-1 sm:gap-0">
-      <Button
-        onClick={ () => performVote("UP") }
-        variant="ghost"
-        size="sm"
-        aria-label="Upvote"
-      >
-        <ArrowBigUp
-          className={
-            cn("h-6 w-6", currentVote === "UP" && "fill-primary text-primary")
-          }
-        />
+    <div className="flex flex-row items-center gap-1 bg-secondary p-1 rounded-full">
+      <Button onClick={ () => performVote("UP") } variant="ghost" size="sm" className="rounded-full h-8 w-8 p-1">
+        <ArrowBigUp className={ cn("h-5 w-5", currentVote === "UP" && "fill-primary text-primary") } />
       </Button>
-      <span className="text-lg font-bold">{ voteCount }</span>
-      <Button
-        onClick={ () => performVote("DOWN") }
-        variant="ghost"
-        size="sm"
 
-        aria-label="Downvote"
-      >
-        <ArrowBigDown className={
-          cn("h-6 w-6", currentVote === "DOWN" && "fill-red-500 text-red-500")
-        }
-        />
+      <span className="text-sm font-bold w-6 text-center">{ voteCount }</span>
+
+      <Button onClick={ () => performVote("DOWN") } variant="ghost" size="sm" className="rounded-full h-8 w-8 p-1">
+        <ArrowBigDown className={ cn("h-5 w-5", currentVote === "DOWN" && "fill-red-500 text-red-500") } />
       </Button>
     </div>
   );
-} 
+}

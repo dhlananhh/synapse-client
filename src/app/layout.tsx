@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import TopProgressBar from "@/components/providers/TopProgressBar";
 import ChatWidget from "@/components/features/chat/ChatWidget";
 import NotificationSimulator from "@/components/providers/NotificationSimulator";
 
@@ -28,6 +29,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <TopProgressBar />
+
           <AuthProvider>
             <NotificationSimulator />
             { children }

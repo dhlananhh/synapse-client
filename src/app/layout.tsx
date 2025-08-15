@@ -4,7 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import ChatWidget from '@/components/features/chat/ChatWidget';
+import ChatWidget from "@/components/features/chat/ChatWidget";
+import NotificationSimulator from "@/components/providers/NotificationSimulator";
 
 const inter = Inter({ subsets: [ "latin" ], variable: "--font-sans" });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
+            <NotificationSimulator />
             { children }
             <ChatWidget />
           </AuthProvider>

@@ -1,14 +1,29 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { Post } from "@/types";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, ArrowBigUp, ArrowBigDown } from "lucide-react";
+import {
+  MessageCircle,
+  ArrowBigUp,
+  ArrowBigDown
+} from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import VoteClient from './VoteClient';
+
 
 interface PostCardProps {
   post: Post;
 }
+
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
@@ -27,12 +42,16 @@ const PostCard = ({ post }: PostCardProps) => {
           </Link>
         </CardTitle>
       </CardHeader>
+
       <CardContent className="flex-grow">
         <p className="text-sm text-muted-foreground line-clamp-4">
           { post.content }
         </p>
       </CardContent>
+
       <CardFooter className="flex justify-between items-center bg-secondary/50 p-3">
+        <VoteClient itemId={ post.id } initialVotes={ post.votes } />
+
         <div className="flex items-center gap-1">
           <Button variant="ghost" size="sm" className="flex items-center gap-1">
             <ArrowBigUp className="h-5 w-5" />

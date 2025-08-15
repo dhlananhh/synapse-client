@@ -57,9 +57,10 @@ export default function CreatePostForm() {
 
     toast.success("Post Created!", {
       description: "Your new post is now live and ready for discussion.",
+      duration: 3000,
     });
 
-    router.push(`/p/${newPost.id}`);
+    setTimeout(() => router.push(`/p/${newPost.id}`), 500);
   }
 
   return (

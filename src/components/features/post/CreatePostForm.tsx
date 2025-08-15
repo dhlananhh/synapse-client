@@ -8,6 +8,7 @@ import { mockPosts } from "@/lib/mock-data";
 import { useAuth } from "@/context/AuthContext";
 import { Post } from "@/types";
 import Editor from "@/components/shared/Editor";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -53,6 +54,10 @@ export default function CreatePostForm() {
     };
 
     mockPosts.unshift(newPost);
+
+    toast.success("Post Created!", {
+      description: "Your new post is now live and ready for discussion.",
+    });
 
     router.push(`/p/${newPost.id}`);
   }

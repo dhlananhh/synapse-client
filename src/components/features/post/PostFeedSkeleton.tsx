@@ -1,3 +1,6 @@
+"use client";
+
+import React from "react";
 import PostCardSkeleton from "./PostCardSkeleton";
 
 const POSTS_PER_PAGE = 6;

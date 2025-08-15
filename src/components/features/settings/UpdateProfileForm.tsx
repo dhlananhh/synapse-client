@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
@@ -39,11 +40,11 @@ export default function UpdateProfileForm() {
 
   const onSubmit = async (data: TUserProfileSchema) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-
     updateUserProfile(data);
-    setSuccessMessage("Your profile has been updated successfully!");
 
-    setTimeout(() => setSuccessMessage(""), 3000);
+    toast.success("Profile Updated", {
+      description: "Your public profile has been updated successfully.",
+    });
   }
 
   if (!currentUser) {

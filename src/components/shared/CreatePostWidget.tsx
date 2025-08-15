@@ -1,4 +1,3 @@
-// File: src/components/shared/CreatePostWidget.tsx
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
@@ -13,7 +12,6 @@ export default function CreatePostWidget() {
   const router = useRouter();
   const { currentUser } = useAuth();
 
-  // On click, navigate to the submit page
   const goToSubmitPage = () => router.push("/submit");
 
   return (

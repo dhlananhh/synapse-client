@@ -1,15 +1,34 @@
-// File: src/components/features/user/UserPostFeed.tsx
-import { Post } from '@/types';
-import PostCard from '@/components/features/post/PostCard';
+"use client";
+
+import React from "react";
+import { Post } from "@/types";
+import PostCard from "@/components/features/post/PostCard";
+import EmptyState from '@/components/shared/EmptyState';
+import { MessageSquarePlus } from 'lucide-react';
+
 
 export default function UserPostFeed({ posts }: { posts: Post[] }) {
+  if (posts.length === 0) {
+    return (
+      <div className="mt-6 col-span-full">
+        <EmptyState
+          Icon={ MessageSquarePlus }
+          title="No Posts Yet"
+          description="This user hasn't created any posts. When they do, their posts will appear here."
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      { posts.length > 0 ? (
-        posts.map(post => <PostCard key={ post.id } post={ post } />)
-      ) : (
-        <p className="col-span-full text-center text-muted-foreground mt-8">This user hasn't made any posts yet.</p>
-      ) }
+      {
+        posts.map(
+          post => (
+            <PostCard key={ post.id } post={ post } />
+          )
+        )
+      }
     </div>
-  )
+  );
 }

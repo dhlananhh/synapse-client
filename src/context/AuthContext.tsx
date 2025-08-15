@@ -1,9 +1,11 @@
 "use client";
 
+
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import { User } from "@/types";
 import { TRegisterSchema } from "@/lib/validators/auth-validator";
 import { TUserProfileSchema } from '@/lib/validators/user-validator';
+
 
 interface AuthContextType {
   currentUser: User | null;
@@ -15,6 +17,8 @@ interface AuthContextType {
   subscribeToCommunity: (communityId: string) => void;
   unsubscribeFromCommunity: (communityId: string) => void;
   updateUserProfile: (data: TUserProfileSchema) => void;
+  isOnboardingModalOpen: boolean;
+  setIsOnboardingModalOpen: (isOpen: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,6 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [ currentUser, setCurrentUser ] = useState<User | null>(null);
   const [ subscribedCommunityIds, setSubscribedCommunityIds ] = useState<string[]>([]);
+  const [ isOnboardingModalOpen, setIsOnboardingModalOpen ] = useState(false);
 
   const login = (username: string) => {
     const mockUser = { id: "u_dev", username: "dev_guru", createdAt: new Date().toISOString(), karma: 0 };
@@ -40,6 +45,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       karma: 0,
     };
     setCurrentUser(newUser);
+    const hasCompletedOnboarding = localStorage.getItem('onboardingComplete');
+    if (!hasCompletedOnboarding) {
+      setIsOnboardingModalOpen(true);
+    }
   };
 
   const isSubscribed = (communityId: string) => {
@@ -74,6 +83,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     subscribeToCommunity,
     unsubscribeFromCommunity,
     updateUserProfile,
+    isOnboardingModalOpen,
+    setIsOnboardingModalOpen,
   };
 
   return <AuthContext.Provider value={ value }>{ children }</AuthContext.Provider>;

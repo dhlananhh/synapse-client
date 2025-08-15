@@ -15,7 +15,7 @@ import CommentSection from "@/components/features/comment/CommentSection";
 
 function PostView({ post }: { post: Post }) {
   return (
-    <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+    <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mt-10">
       <PostVoteClient initialVotes={ post.votes } />
       <div className="w-full rounded-md bg-card p-4 sm:p-6">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BrainCircuit } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import UserNav from "./UserNav";
+import MobileNav from "./MobileNav";
 import { ThemeToggle } from "./ThemeToggle";
 import SearchBar from "./SearchBar";
 import NotificationBell from "@/components/features/notifications/NotificationBell";
@@ -13,14 +14,22 @@ const Navbar = () => {
   const { currentUser } = useAuth();
 
   return (
-    <header className="fixed top-0 inset-x-0 h-16 z-[49] border-b bg-background/80 backdrop-blur-lg">
-      <div className="container h-full max-w-7xl mx-auto flex items-center justify-between gap-2">
-        <Link href="/" className="flex items-center gap-2">
-          <BrainCircuit className="h-8 w-8 text-primary" />
-          <p className="hidden sm:block text-xl font-bold text-foreground">Synapse</p>
-        </Link>
+    <header className="fixed top-0 inset-x-0 h-16 z-50 border-b bg-background/80 backdrop-blur-lg">
+      <div className="container h-full max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <div className="md:hidden">
+            <MobileNav />
+          </div>
 
-        <SearchBar />
+          <Link href="/" className="hidden md:flex items-center gap-2">
+            <BrainCircuit className="h-8 w-8 text-primary" />
+            <p className="hidden lg:block text-xl font-bold text-foreground">Synapse</p>
+          </Link>
+        </div>
+
+        <div className="hidden md:flex flex-1 justify-center">
+          <SearchBar />
+        </div>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />

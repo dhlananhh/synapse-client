@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import UserNav from "./UserNav";
 import { ThemeToggle } from "./ThemeToggle";
 import SearchBar from "./SearchBar";
+import NotificationBell from "@/components/features/notifications/NotificationBell";
 
 const Navbar = () => {
   const { currentUser } = useAuth();
@@ -26,7 +27,10 @@ const Navbar = () => {
 
           {
             currentUser ? (
-              <UserNav />
+              <>
+                <NotificationBell />
+                <UserNav />
+              </>
             ) : (
               <div className="hidden sm:flex items-center gap-2">
                 <Button asChild variant="ghost">

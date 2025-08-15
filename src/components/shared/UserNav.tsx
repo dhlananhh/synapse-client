@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -12,45 +13,72 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
+import ConfirmDialog from "./ConfirmDialog";
 
 export default function UserNav() {
   const { currentUser, logout } = useAuth();
+  const [ isLogoutDialogOpen, setIsLogoutDialogOpen ] = useState(false);
+  const [ isLoggingOut, setIsLoggingOut ] = useState(false);
 
-  if (!currentUser) return null;
+  if (!currentUser)
+    return null;
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    logout();
+    setIsLoggingOut(false);
+    setIsLogoutDialogOpen(false);
+  }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <UserAvatar user={ currentUser } />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <UserAvatar user={ currentUser } />
+          </Button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{ currentUser.username }</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              { currentUser.id }@synapse.io
-            </p>
-          </div>
-        </DropdownMenuLabel>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">{ currentUser.username }</p>
+              <p className="text-xs leading-none text-muted-foreground">
+                { currentUser.id }@synapse.io
+              </p>
+            </div>
+          </DropdownMenuLabel>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
-          <Link href={ `/u/${currentUser.username}` }>Profile</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/settings">Settings</Link>
-        </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href={ `/u/${currentUser.username}` }>Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/settings">Settings</Link>
+          </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={ logout }>
-          Log out
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem
+            onClick={ () => setIsLogoutDialogOpen(true) }
+            className="cursor-pointer"
+          >
+            Log out
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <ConfirmDialog
+        open={ isLogoutDialogOpen }
+        onOpenChange={ setIsLogoutDialogOpen }
+        onConfirm={ handleLogout }
+        title="Are you sure you want to log out?"
+        description="You will be returned to the login page."
+        confirmText="Log Out"
+        isConfirming={ isLoggingOut }
+      />
+    </>
   )
 }

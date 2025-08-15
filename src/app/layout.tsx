@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import TopProgressBar from "@/components/providers/TopProgressBar";
 import ChatWidget from "@/components/features/chat/ChatWidget";
 import NotificationSimulator from "@/components/providers/NotificationSimulator";
-import { Toaster } from "@/components/ui/sonner";
+import GlobalModals from "@/components/providers/GlobalModals";
+
 
 const inter = Inter({ subsets: [ "latin" ], variable: "--font-sans" });
 
@@ -36,6 +38,7 @@ export default function RootLayout({
             <NotificationSimulator />
             { children }
             <ChatWidget />
+            <GlobalModals />
           </AuthProvider>
 
           <Toaster richColors position="top-right" />

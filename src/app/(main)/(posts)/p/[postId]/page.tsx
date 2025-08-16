@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, useCallback } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchPostById } from "@/lib/api";
@@ -50,7 +50,7 @@ export default function PostDetailPage(props: { params: Promise<{ postId: string
   const [ isLoading, setIsLoading ] = useState(true);
   const [ error, setError ] = useState<string | null>(null);
 
-  const loadPost = async () => {
+  const loadPost = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -65,11 +65,11 @@ export default function PostDetailPage(props: { params: Promise<{ postId: string
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [ params.postId ]);
 
   useEffect(() => {
     loadPost();
-  }, [ params.postId ]);
+  }, [ params.postId, loadPost ]);
 
   if (isLoading) {
     return (

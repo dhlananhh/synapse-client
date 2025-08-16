@@ -1,7 +1,9 @@
+"use client";
 
 import React from "react";
 import Link from "next/link";
 import { Post } from "@/types";
+import { PATHS } from "@/lib/paths";
 import {
   Card,
   CardContent,

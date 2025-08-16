@@ -7,21 +7,29 @@ import { UserAvatar } from "@/components/shared/UserAvatar";
 import { cn } from "@/lib/utils";
 import { MessageSquare, ThumbsUp, UserPlus } from "lucide-react";
 
+
 const notificationIcons = {
   NEW_COMMENT: <MessageSquare className="h-4 w-4 text-blue-500" />,
   POST_UPVOTE: <ThumbsUp className="h-4 w-4 text-green-500" />,
   NEW_FOLLOWER: <UserPlus className="h-4 w-4 text-purple-500" />,
 };
 
+
 export default function NotificationItem({ notification }: { notification: Notification }) {
   const { markAsRead } = useNotificationStore();
 
   return (
-    <Link href={ notification.entityUrl } onClick={ () => markAsRead(notification.id) }>
-      <div className={ cn(
-        "flex items-start gap-3 p-3 hover:bg-secondary/80",
-        !notification.isRead && "bg-secondary"
-      ) }>
+    <Link
+      href={ notification.entityUrl }
+      onClick={ () => markAsRead(notification.id) }
+    >
+      <div className={
+        cn(
+          "flex items-start gap-3 p-3 hover:bg-secondary/80",
+          !notification.isRead && "bg-secondary"
+        )
+      }
+      >
         <div className="relative">
           <UserAvatar user={ notification.actor } className="h-8 w-8" />
           <div className="absolute -bottom-1 -right-1 bg-background p-0.5 rounded-full">
@@ -30,7 +38,10 @@ export default function NotificationItem({ notification }: { notification: Notif
         </div>
         <div className="flex-1">
           <p className="text-sm">
-            <span className="font-bold">{ notification.actor.username }</span> { notification.message }
+            <span className="font-bold">
+              { notification.actor.username }
+            </span>
+            { notification.message }
           </p>
           <p className="text-xs text-muted-foreground mt-0.5">
             { new Date(notification.createdAt).toLocaleTimeString() }

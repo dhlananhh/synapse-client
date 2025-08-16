@@ -18,21 +18,25 @@ const sortOptions: { value: SortType, label: string, Icon: React.ElementType }[]
 
 export default function SortTabs({ currentSort, onSortChange }: SortTabsProps) {
   return (
-    <div className="mb-4 bg-card p-2 rounded-md border flex items-center gap-2">
-      {
-        sortOptions.map(({ value, label, Icon }) => (
-          <Button
-            key={ value }
-            onClick={ () => onSortChange(value) }
-            variant={ currentSort === value ? "default" : "ghost" }
-            className="w-full justify-start md:w-auto"
-          >
-            <Icon className="h-5 w-5 mr-2" />
-            <span className="hidden md:inline">{ label }</span>
-            <span className="md:hidden">{ value.charAt(0).toUpperCase() + value.slice(1) }</span>
-          </Button>
-        ))
-      }
+    <div className="mb-4 bg-card p-1 rounded-lg border flex items-center gap-1 overflow-x-auto scrollbar-hide">
+      { sortOptions.map(({ value, label, Icon }) => (
+        <Button
+          key={ value }
+          onClick={ () => onSortChange(value) }
+          variant={ currentSort === value ? "default" : "ghost" }
+          className={ cn(
+            "flex-1 min-w-[90px] flex items-center justify-center px-2 py-2 rounded-md transition-all",
+            "md:w-auto md:px-4",
+            currentSort === value
+              ? "bg-primary text-primary-foreground font-semibold shadow"
+              : "hover:bg-muted"
+          ) }
+        >
+          <Icon className="h-5 w-5 mr-1 md:mr-2" />
+          <span className="hidden md:inline">{ label }</span>
+          <span className="md:hidden">{ value.charAt(0).toUpperCase() + value.slice(1) }</span>
+        </Button>
+      )) }
     </div>
   )
 }

@@ -53,7 +53,7 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
         <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 text-sm font-medium text-muted-foreground p-2 sm:px-4 border-t">
           <VoteClient itemId={ post.id } initialVotes={ post.votes } />
 
-          <Button asChild variant="ghost" size="sm" className="rounded-full flex items-center gap-1.5 px-2">
+          <Button asChild variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">
             <Link href={ `/p/${post.id}` }>
               <MessageCircle className="h-5 w-5" />
               <span className="hidden sm:inline">{ post.comments.length } Comments</span>
@@ -61,12 +61,12 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             </Link>
           </Button>
 
-          <Button variant="ghost" size="sm" className="rounded-full flex items-center gap-1.5 px-2">
+          <Button variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">
             <Ribbon className="h-5 w-5" />
             <span className="hidden sm:inline">Award</span>
           </Button>
 
-          <Button variant="ghost" size="sm" className="rounded-full flex items-center gap-1.5 px-2">
+          <Button variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">
             <Share2 className="h-5 w-5" />
             <span className="hidden sm:inline">Share</span>
           </Button>

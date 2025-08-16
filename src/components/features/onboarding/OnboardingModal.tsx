@@ -22,7 +22,7 @@ export default function OnboardingModal() {
 
   return (
     <Dialog open={ isOnboardingModalOpen } onOpenChange={ setIsOnboardingModalOpen }>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md md:max-w-lg md:m-10">
         <DialogHeader className="items-center text-center">
           <BrainCircuit className="h-12 w-12 text-primary" />
           <DialogTitle className="text-2xl mt-2">Welcome to Synapse!</DialogTitle>

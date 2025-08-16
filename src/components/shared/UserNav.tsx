@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import ConfirmDialog from "./ConfirmDialog";
 
+
 export default function UserNav() {
   const { currentUser, logout } = useAuth();
   const [ isLogoutDialogOpen, setIsLogoutDialogOpen ] = useState(false);
@@ -35,7 +36,7 @@ export default function UserNav() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="Open user menu">
             <UserAvatar user={ currentUser } />
           </Button>
         </DropdownMenuTrigger>

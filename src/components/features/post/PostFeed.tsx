@@ -68,7 +68,7 @@ export default function PostFeed() {
 
   useEffect(() => {
     loadPosts(true);
-  }, [ sortBy ]);
+  }, [ sortBy, loadPosts ]);
 
   const { lastElementRef } = useIntersectionObserver({
     onIntersect: () => loadPosts(false),

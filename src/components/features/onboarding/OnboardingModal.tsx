@@ -57,7 +57,7 @@ export default function OnboardingModal() {
 
         <DialogFooter>
           <Button onClick={ handleGetStarted } className="w-full">
-            Let"s Go!
+            Let's Go!
           </Button>
         </DialogFooter>
       </DialogContent>

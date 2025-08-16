@@ -1,5 +1,6 @@
 "use client";
 
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BrainCircuit } from "lucide-react";
@@ -28,7 +29,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex flex-1 justify-center">
-          <SearchBar />
+          <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Loading search...</div> }>
+            <SearchBar />
+          </Suspense>
         </div>
 
         <div className="flex items-center gap-2">

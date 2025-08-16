@@ -1,5 +1,6 @@
 import { mockPosts } from "./mock-data";
 import { Post } from "@/types";
+import { Comment } from '@/types';
 import { TPostSchema } from "./validators/post-validator";
 
 
@@ -101,3 +102,46 @@ export const deletePost = async (postId: string): Promise<void> => {
 
   mockPosts.splice(postIndex, 1);
 };
+
+const findCommentAndParent = (comments: Comment[], commentId: string): {
+  comment: Comment | null; parent: Comment[] | null
+} => {
+  for (const comment of comments) {
+    if (comment.id === commentId) {
+      return { comment, parent: comments };
+    }
+    if (comment.replies) {
+      const found = findCommentAndParent(comment.replies, commentId);
+      if (found.comment) return found;
+    }
+  }
+  return { comment: null, parent: null };
+};
+
+export const updateComment = async (postId: string, commentId: string, newText: string): Promise<Comment> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const post = mockPosts.find(p => p.id === postId);
+  if (!post) throw new Error("Post not found");
+
+  const { comment } = findCommentAndParent(post.comments, commentId);
+  if (!comment) throw new Error("Comment not found to update");
+
+  comment.text = newText;
+  return comment;
+}
+
+export const deleteComment = async (postId: string, commentId: string): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const post = mockPosts.find(p => p.id === postId);
+  if (!post) throw new Error("Post not found");
+
+  const { parent, comment } = findCommentAndParent(post.comments, commentId);
+  if (parent && comment) {
+    const index = parent.indexOf(comment);
+    if (index > -1) {
+      parent.splice(index, 1);
+    }
+  }
+}

@@ -29,7 +29,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex flex-1 justify-center">
-          <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Loading search...</div> }>
+          <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Searching...</div> }>
             <SearchBar />
           </Suspense>
         </div>

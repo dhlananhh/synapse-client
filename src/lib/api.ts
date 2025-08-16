@@ -1,5 +1,7 @@
 import { mockPosts } from "./mock-data";
 import { Post } from "@/types";
+import { TPostSchema } from "./validators/post-validator";
+
 
 const POSTS_PER_PAGE = 6;
 export type SortType = "hot" | "new" | "top";
@@ -67,3 +69,35 @@ export const fetchPostById = async (postId: string): Promise<Post> => {
 
   return post;
 }
+
+export const updatePost = async (
+  postId: string,
+  data: Pick<TPostSchema, 'title' | 'content'>
+): Promise<Post> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const postIndex = mockPosts.findIndex(p => p.id === postId);
+  if (postIndex === -1) {
+    throw new Error("Post not found to update");
+  }
+
+  mockPosts[ postIndex ] = {
+    ...mockPosts[ postIndex ],
+    title: data.title,
+    content: data.content,
+  };
+
+  return mockPosts[ postIndex ];
+};
+
+export const deletePost = async (postId: string): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const postIndex = mockPosts.findIndex(p => p.id === postId);
+  if (postIndex === -1) {
+    console.warn("Attempted to delete a post that was not found.");
+    return;
+  }
+
+  mockPosts.splice(postIndex, 1);
+};

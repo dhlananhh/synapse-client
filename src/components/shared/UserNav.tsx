@@ -53,10 +53,18 @@ export default function UserNav() {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem asChild>
-            <Link href={ `/u/${currentUser.username}` }>Profile</Link>
+            <Link
+              href={ `/u/${currentUser.username}` }
+            >
+              Profile
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/settings">Settings</Link>
+            <Link
+              href="/settings"
+            >
+              Settings
+            </Link>
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />

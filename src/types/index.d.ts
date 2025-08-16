@@ -59,3 +59,9 @@ export type Notification = {
 };
 
 export type SortType = "hot" | "new" | "top";
+
+export type Activity = {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}

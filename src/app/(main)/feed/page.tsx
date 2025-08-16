@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react";
 import CreatePostWidget from "@/components/shared/CreatePostWidget";
 import PostFeed from "@/components/features/post/PostFeed";
 

@@ -28,17 +28,26 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       >
         <CardHeader className="p-3 sm:p-4">
           <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1">
-            Posted by{ " " }
-            <Link href={ `/u/${post.author.username}` } className="font-medium text-foreground hover:underline">
+            Posted by { " " }
+            <Link
+              href={ `/u/${post.author.username}` }
+              className="font-medium text-foreground hover:underline"
+            >
               u/{ post.author.username }
             </Link>
-            • { formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) } in{ " " }
-            <Link href={ `/c/${post.community.slug}` } className="font-medium text-foreground hover:underline">
+            • { formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) } in { " " }
+            <Link
+              href={ `/c/${post.community.slug}` }
+              className="font-medium text-foreground hover:underline"
+            >
               c/{ post.community.slug }
             </Link>
           </div>
           <CardTitle className="mt-1 text-lg sm:text-xl font-semibold leading-tight break-words">
-            <Link href={ `/p/${post.id}` } className="hover:underline">
+            <Link
+              href={ `/p/${post.id}` }
+              className="hover:underline"
+            >
               { post.title }
             </Link>
           </CardTitle>

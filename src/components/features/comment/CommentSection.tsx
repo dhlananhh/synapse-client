@@ -63,7 +63,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
           <p className="text-sm mb-2">
             Comment as
             <span className="font-semibold text-primary">
-              { currentUser.username }
+              { " " } { currentUser.username }
             </span>
           </p>
           <CommentForm onCommentSubmit={ handleAddComment } />
@@ -76,7 +76,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
           >
             Log in
           </Link>
-          to post a comment.
+          { " " } to post a comment.
         </div>
       ) }
 

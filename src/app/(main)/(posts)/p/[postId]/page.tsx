@@ -3,11 +3,11 @@
 import React, { useEffect, useState, use, useCallback } from "react";
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
-import { toast } from 'sonner';
-import { useAuth } from '@/context/AuthContext';
+import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 import { fetchPostById, deletePost } from "@/lib/api";
 import { Post } from "@/types";
-import ConfirmDialog from '@/components/shared/ConfirmDialog';
+import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import PostCardSkeleton from "@/components/features/post/PostCardSkeleton";
 import ErrorDisplay from "@/components/shared/ErrorDisplay";
 import { UserAvatar } from "@/components/shared/UserAvatar";
@@ -20,8 +20,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from '@/components/ui/button';
-import { MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 
 
 function PostView({ post }: { post: Post }) {
@@ -55,17 +55,24 @@ function PostView({ post }: { post: Post }) {
           <div className="flex justify-start items-center gap-1 text-xs text-muted-foreground">
             <UserAvatar user={ post.author } className="h-5 w-5" />
             <p>
-              Posted by{ " " }
-              <Link href={ `/u/${post.author.username}` } className="font-semibold text-primary hover:underline">
+              Posted by { " " }
+              <Link
+                href={ `/u/${post.author.username}` }
+                className="font-semibold text-primary hover:underline"
+              >
                 u/{ post.author.username }
-              </Link>{ " " }
-              in{ " " }
-              <Link href={ `/c/${post.community.slug}` } className="font-semibold text-primary hover:underline">
+              </Link>
+              { " " } in{ " " }
+              <Link
+                href={ `/c/${post.community.slug}` } className="font-semibold text-primary hover:underline"
+              >
                 c/{ post.community.slug }
               </Link>
             </p>
             <span>•</span>
-            <span>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</span>
+            <span>
+              { formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }
+            </span>
           </div>
 
           {
@@ -82,7 +89,10 @@ function PostView({ post }: { post: Post }) {
                       <Pencil className="mr-2 h-4 w-4" /> Edit Post
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={ () => setIsDeleteDialogOpen(true) } className="text-destructive focus:bg-destructive/10 focus:text-destructive">
+                  <DropdownMenuItem
+                    onClick={ () => setIsDeleteDialogOpen(true) }
+                    className="text-destructive focus:bg-destructive/10 focus:text-destructive"
+                  >
                     <Trash2 className="mr-2 h-4 w-4" /> Delete Post
                   </DropdownMenuItem>
                 </DropdownMenuContent>

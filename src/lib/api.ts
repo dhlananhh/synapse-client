@@ -1,6 +1,7 @@
 import { mockPosts } from "./mock-data";
 import { Post } from "@/types";
-import { Comment } from '@/types';
+import { Comment } from "@/types";
+import { Activity } from "@/types";
 import { TPostSchema } from "./validators/post-validator";
 
 
@@ -73,7 +74,7 @@ export const fetchPostById = async (postId: string): Promise<Post> => {
 
 export const updatePost = async (
   postId: string,
-  data: Pick<TPostSchema, 'title' | 'content'>
+  data: Pick<TPostSchema, "title" | "content">
 ): Promise<Post> => {
   await new Promise(resolve => setTimeout(resolve, 1000));
 

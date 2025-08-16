@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchPostById } from "@/lib/api";
@@ -44,7 +44,8 @@ function PostView({ post }: { post: Post }) {
 }
 
 
-export default function PostDetailPage({ params }: { params: { postId: string } }) {
+export default function PostDetailPage(props: { params: Promise<{ postId: string }> }) {
+  const params = use(props.params);
   const [ post, setPost ] = useState<Post | null>(null);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ error, setError ] = useState<string | null>(null);

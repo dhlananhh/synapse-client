@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { use } from "react";
 import { notFound } from "next/navigation";
 import { mockPosts, mockCommunities } from "@/lib/mock-data";
 import CommunityHeader from "@/components/features/community/CommunityHeader";
@@ -19,7 +19,8 @@ const getCommunityPageData = (slug: string) => {
 }
 
 
-export default function CommunityPage({ params }: { params: { slug: string } }) {
+export default function CommunityPage(props: { params: Promise<{ slug: string }> }) {
+  const params = use(props.params);
   const data = getCommunityPageData(params.slug);
 
   if (!data) {

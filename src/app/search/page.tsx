@@ -1,7 +1,7 @@
 "use client";
 
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { mockPosts, mockCommunities } from "@/lib/mock-data";
 import { Post, Community } from "@/types";
 import PostCard from "@/components/features/post/PostCard";
@@ -38,7 +38,7 @@ function CommunityResultCard({ community }: { community: Community }) {
 }
 
 
-export default function SearchPage() {
+function SearchResultsContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
   const [ results, setResults ] = useState<SearchResults>({ posts: [], communities: [] });
@@ -113,5 +113,14 @@ export default function SearchPage() {
         )
       }
     </div>
+  );
+}
+
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Loading search...</div> }>
+      <SearchResultsContent />
+    </Suspense>
   );
 }

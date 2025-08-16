@@ -1,4 +1,10 @@
-import { Post, User, Community, UserComment } from "@/types";
+import {
+  Post,
+  User,
+  Community,
+  UserComment,
+  Activity
+} from "@/types";
 
 // Mock Users
 const user1: User = {
@@ -134,3 +140,37 @@ export const getAllComments = (): UserComment[] => {
 
   return allComments;
 }
+
+export const generateUserActivity = (username: string): Activity[] => {
+  const today = new Date();
+  const activities: Activity[] = [];
+
+  let seed = username.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+
+  for (let i = 0; i < 365; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+
+    seed = (seed * 9301 + 49297) % 233280;
+    const random = seed / 233280;
+
+    let count = 0;
+    if (random > 0.3) {
+      count = Math.floor(random * 10);
+    }
+
+    let level: Activity[ "level" ] = 0;
+    if (count > 0 && count <= 2) level = 1;
+    else if (count > 2 && count <= 4) level = 2;
+    else if (count > 4 && count <= 6) level = 3;
+    else if (count > 6) level = 4;
+
+    activities.push({
+      date: date.toISOString().slice(0, 10),
+      count,
+      level
+    });
+  }
+
+  return activities.reverse();
+};

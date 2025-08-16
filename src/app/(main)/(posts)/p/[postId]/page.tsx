@@ -92,7 +92,7 @@ function PostView({ post }: { post: Post }) {
 
           <h1 className="mt-2 text-2xl font-bold leading-tight">{ post.title }</h1>
           <p className="mt-4 text-foreground/80">{ post.content }</p>
-          <CommentSection initialComments={ post.comments } />
+          <CommentSection postId={ post.id } initialComments={ post.comments } />
         </div>
       </div>
 

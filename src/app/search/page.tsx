@@ -19,10 +19,15 @@ function CommunityResultCard({ community }: { community: Community }) {
   return (
     <Card>
       <CardContent className="p-4">
-        <Link href={ `/c/${community.slug}` } className="flex items-center gap-4 group">
+        <Link
+          href={ `/c/${community.slug}` }
+          className="flex items-center gap-4 group"
+        >
           <Avatar className="h-12 w-12">
             <AvatarImage src={ community.imageUrl } />
-            <AvatarFallback>{ community.name.slice(0, 2).toUpperCase() }</AvatarFallback>
+            <AvatarFallback>
+              { community.name.slice(0, 2).toUpperCase() }
+            </AvatarFallback>
           </Avatar>
           <div>
             <p className="font-bold group-hover:underline">c/{ community.slug }</p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -44,7 +44,9 @@ export default function MobileNav() {
         </SheetHeader>
 
         <div className="p-4">
-          <SearchBar />
+          <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Loading search...</div> }>
+            <SearchBar />
+          </Suspense>
         </div>
         <Separator />
 

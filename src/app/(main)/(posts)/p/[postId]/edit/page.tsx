@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { useRouter, notFound } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { fetchPostById } from "@/lib/api";
@@ -28,7 +28,8 @@ function EditPageSkeleton() {
 }
 
 
-export default function EditPostPage({ params }: { params: { postId: string } }) {
+export default function EditPostPage(props: { params: Promise<{ postId: string }> }) {
+  const params = use(props.params);
   const { currentUser } = useAuth();
   const router = useRouter();
   const [ post, setPost ] = useState<Post | null>(null);

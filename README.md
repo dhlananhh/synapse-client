@@ -52,55 +52,92 @@ Synapse is the client-side implementation of a feature-rich, modern discussion f
 - **Forms:** React Hook Form & Zod (for validation).
 - **UX Libraries:** `next-themes`, `nextjs-toploader`, `sonner`, `lucide-react`.
 
-## 📁 Project Structure
+## 📁 Final Project Structure
 
-The project follows a feature-centric architecture within the Next.js App Router paradigm. This structure is designed for scalability, maintainability, and clear separation of concerns.
+The project follows a feature-centric architecture within the Next.js App Router paradigm. This structure is designed for scalability, maintainability, and clear separation of concerns. It incorporates modern best practices, including a clear distinction between different types of components, hooks, and state management strategies.
 
 ```
 synapse-client/
-├── public/                         # 🏞️ Static assets (images, fonts, favicons)
+├── public/                                   # 🏞️ Static assets (images, fonts)
 └── src/
-    ├── app/                        # 🗺️ Next.js App Router (Routing & Pages)
-    │   ├── (auth)/                 # - Group for authentication pages (login, register)
-    │   ├── (main)/                 # - Group for main application layout (with Navbar, etc.)
+    ├── app/                                  # 🗺️ Next.js App Router (Routing & Pages)
+    │   ├── (auth)/                           # - Group for authentication pages (login, register)
+    │   │   ├── login
+    │   │   │     └── page.tsx
+    │   │   └── register
+    │   │   │     └── page.tsx
+    │   ├── (landing)/                        # - Group for the public, unauthenticated landing page
+    │   │   └── page.tsx                      #       -> Handles the root "/" URL
+    │   ├── (main)/                           # - Group for the main application layout (with Navbar, Footer, etc.)
     │   │   ├── (communities)/
-    │   │   │   └── c/[slug]/       # - Dynamic route for a single community
+    │   │   │   └── c/[slug]/                 # - Dynamic route for a single community (/c/nextjs)
+    │   │   │     └── page.tsx
     │   │   ├── (posts)/
-    │   │   │   └── p/[postId]/     # - Dynamic route for a single post
+    │   │   │   └── p/[postId]/               # - Dynamic routes for posts (/p/post123 and /p/post123/edit)
     │   │   ├── (user)/
-    │   │   │   └── u/[username]/   # - Dynamic route for a user profile
-    │   │   ├── feed/               # - The main post feed page (/feed)
-    │   │   ├── settings/           # - User settings page (/settings)
-    │   │   └── submit/             # - Create post page (/submit)
-    │   ├── search/                 # - Search results page (/search)
-    │   ├── layout.tsx              # - Root layout for the entire application
-    │   └── page.tsx                # - The public landing page
+    │   │   │   └── u/[username]/             # - Dynamic route for a user profile (/u/john_doe)
+    │   │   │     └── page.tsx
+    │   │   ├── feed/                         # - The main post feed page (/feed)
+    │   │   │     └── page.tsx
+    │   │   ├── settings/                     # - User settings page (/settings)
+    │   │   │     └── page.tsx
+    │   │   └── submit/                       # - Create post page (/submit)
+    │   │         └── page.tsx
+    │   ├── search/                           # - Search results page (/search)
+    │   │         └── page.tsx
+    │   ├── layout.tsx                        # - Root layout (<html> and <body>)
+    │   └── not-found.tsx                     # - Custom 404 error page
     │
-    ├── components/                 # 🧩 React Components
-    │   ├── features/               # - Large, feature-specific components (e.g., PostFeed, LoginForm)
-    │   ├── providers/              # - Global context providers (Theme, Auth, etc.)
-    │   ├── shared/                 # - Reusable components used across multiple features (Navbar, SearchBar)
-    │   └── ui/                     # - Primitive UI components from Shadcn UI (Button, Card, Sonner)
+    ├── components/                           # 🧩 React Components
+    │   ├── features/                         # - Large, feature-specific components
+    │   │   ├── auth/                         # - LoginForm, RegisterForm
+    │   │   ├── chat/                         # - ChatWidget
+    │   │   ├── command/                      # - CommandMenu
+    │   │   ├── comment/                      # - CommentSection, CommentItem, CommentForm
+    │   │   ├── community/                    # - CommunityHeader, TopCommunitiesWidget
+    │   │   ├── notifications/                # - NotificationBell, NotificationItem
+    │   │   ├── onboarding/                   # - OnboardingModal
+    │   │   ├── post/                         # - PostFeed, PostCard, VoteClient, CreatePostForm, etc.
+    │   │   ├── settings/                     # - UpdateProfileForm
+    │   │   └── user/                         # - UserProfile, ProfileHeader, ActivityCalendar, etc.
+    │   ├── providers/                        # - Global context providers & headless components
+    │   │   ├── CommandMenuProvider.tsx
+    │   │   ├── GlobalModals.tsx
+    │   │   ├── NotificationSimulator.tsx
+    │   │   ├── ThemeProvider.tsx
+    │   │   └── TopProgressBar.tsx
+    │   ├── shared/                           # - Highly reusable components used across many features
+    │   │   ├── ConfirmDialog.tsx
+    │   │   ├── MobileNav.tsx
+    │   │   ├── Navbar.tsx
+    │   │   ├── SearchBar.tsx
+    │   │   ├── UserAvatar.tsx
+    │   │   ├── UserNav.tsx
+    │   │   ├── EmptyState.tsx
+    │   │   ├── ErrorDisplay.tsx
+    │   │   └── Footer.tsx
+    │   └── ui/                               # - Primitive UI components from Shadcn UI (Button, Card, Sonner...)
     │
-    ├── context/                    # 🧠 Global State Management (React Context API)
-    │   ├── AuthContext.tsx         # - Manages user session, votes, subscriptions
-    │   └── CommandMenuContext.tsx  # - Manages the state of the command menu
+    ├── context/                              # 🧠 Global State Management (React Context API)
+    │   ├── AuthContext.tsx                   # - Manages user session, votes, subscriptions, modal triggers
+    │   └── CommandMenuContext.tsx            # - Manages the state and keyboard listeners for the command menu
     │
-    ├── hooks/                      # 🎣 Custom React Hooks
-    │   └── useIntersectionObserver.ts # - Logic for detecting when an element is visible
+    ├── hooks/                                # 🎣 Custom React Hooks
+    │   └── useIntersectionObserver.ts        # - Logic for detecting when an element is visible for infinite scroll
     │
-    ├── lib/                        # 📚 Libraries, Helpers & Utilities
-    │   ├── api.ts                  # - Simulated backend API functions (data fetching/mutation)
-    │   ├── mock-data.ts            # - The in-memory "database" for client-side development
-    │   ├── utils.ts                # - Utility functions (e.g., `cn` for classnames)
-    │   └── validators/             # - Zod schemas for form validation
+    ├── lib/                                  # 📚 Libraries, Helpers & Utilities
+    │   ├── api.ts                            # - Simulated backend API functions (fetch, create, update, delete)
+    │   ├── mock-data.ts                      # - The in-memory "database" with mock users, posts, communities
+    │   ├── paths.ts                          # - Centralized, type-safe route constants
+    │   ├── utils.ts                          # - General utility functions (e.g., `cn` for classnames)
+    │   └── validators/                       # - Zod schemas for form validation (auth, post, user)
     │
-    ├── store/                      # 🏪 Global State Management (Zustand)
-    │   ├── useChatStore.ts         # - State for the real-time chat feature
-    │   └── useNotificationStore.ts # - State for the global notification system
+    ├── store/                                # 🏪 Global State Management (Zustand)
+    │   ├── useChatStore.ts                   # - State for the real-time chat feature
+    │   └── useNotificationStore.ts           # - State for the global notification system
     │
-    └── types/                      # 📝 TypeScript Type Definitions
-        └── index.d.ts              # - Centralized definitions for User, Post, Comment, etc.
+    └── types/                                # 📝 TypeScript Type Definitions
+        └── index.d.ts                        # - Centralized definitions for all custom types (User, Post, etc.)
 ```
 
 ### Architectural Decisions Explained:
@@ -115,6 +152,15 @@ synapse-client/
   - **React Context (`context/`)**: Used for global state that does **not** update frequently (e.g., the current user's authentication status, theme). This is a simple, built-in solution.
   - **Zustand (`store/`)**: Used for global state that updates **frequently** and could cause performance issues with Context's re-renders (e.g., real-time chat messages, notifications). Zustand is highly optimized for such scenarios.
 - **`lib/` Directory**: A standard convention for code that isn't a React component, hook, or context. Placing our **simulated API** here makes the transition to a real backend straightforward—we would simply rewrite the function bodies in `api.ts` to use `fetch` without needing to change any of the components that call them.
+
+### Key Architectural Updates Reflected in this Structure:
+
+-   **Routing (`app/`):** The structure clearly shows the separation between the **`(landing)`** group for unauthenticated users and the **`(main)`** group for the core application experience. The move of the post feed to `/feed` is also documented. The addition of the `/edit` page for posts is now visible.
+-   **Components (`components/`):** The `features/` directory is now fully fleshed out, with a sub-folder for each major feature domain (auth, chat, post, user, etc.). This makes the project incredibly easy to navigate. The `providers/` directory now correctly lists all our global system components, like the `NotificationSimulator` and `GlobalModals`.
+-   **State Management (`context/` & `store/`):** The structure explicitly shows the strategic decision to use both React Context and Zustand for different state management needs, a hallmark of a mature architecture.
+-   **Libraries & Utilities (`lib/`):** The addition of the `paths.ts` file is a key highlight, demonstrating a commitment to maintainable code by centralizing route management.
+
+This final project structure is a complete and accurate representation of the sophisticated application you have built. It serves as an excellent architectural overview in your documentation.
 
 ## 🚀 Getting Started
 

@@ -1,63 +1,64 @@
 import { create } from "zustand";
-import { User, Post } from "@/types";
-import { mockPosts } from "@/libs/mock-data";
+import { User } from "@/types";
+
+export type Message = {
+  id: string;
+  text: string;
+  senderId: string;
+  timestamp: string;
+};
 
 export type Conversation = {
   contact: User;
-  messages: {
-    id: string;
-    text: string;
-    senderId: string;
-    timestamp: string;
-  }[];
+  messages: Message[];
 };
 
 interface ChatState {
   conversations: Conversation[];
-  activeConversation: Conversation | null;
-  isChatOpen: boolean;
-  openChatWith: (contact: User) => void;
+  activeConversationId: string | null;
+  isWidgetOpen: boolean;
+  openChat: (contact: User) => void;
   closeChat: () => void;
-  sendMessage: (text: string) => void;
+  sendMessage: (text: string, currentUser: User) => void;
+  _receiveSimulatedReply: (contactId: string, originalText: string) => void;
 }
-
-const findOrCreateConversation = (state: ChatState, contact: User): Conversation => {
-  let convo = state.conversations.find(c => c.contact.id === contact.id);
-  if (!convo) {
-    convo = {
-      contact,
-      messages: [
-        { id: `msg_auto_${Date.now()}`, text: `You are now connected with ${contact.username}`, senderId: "system", timestamp: new Date().toISOString() }
-      ],
-    };
-  }
-  return convo;
-};
 
 export const useChatStore = create<ChatState>((set, get) => ({
   conversations: [],
-  activeConversation: null,
-  isChatOpen: false,
+  activeConversationId: null,
+  isWidgetOpen: false,
 
-  openChatWith: (contact) => {
-    const convo = findOrCreateConversation(get(), contact);
-    set(state => ({
-      isChatOpen: true,
-      activeConversation: convo,
-      conversations: state.conversations.find(c => c.contact.id === contact.id)
-        ? state.conversations
-        : [ ...state.conversations, convo ]
-    }));
+  openChat: (contact) => {
+    set(state => {
+      const existingConvo = state.conversations.find(c => c.contact.id === contact.id);
+      if (existingConvo) {
+        return { isWidgetOpen: true, activeConversationId: contact.id };
+      }
+      const newConvo: Conversation = {
+        contact,
+        messages: [ {
+          id: `msg_auto_${Date.now()}`,
+          text: `You are now connected with ${contact.username}.`,
+          senderId: "system",
+          timestamp: new Date().toISOString()
+        } ],
+      };
+      return {
+        isWidgetOpen: true,
+        activeConversationId: contact.id,
+        conversations: [ ...state.conversations, newConvo ]
+      };
+    });
   },
 
-  closeChat: () => set({ isChatOpen: false, activeConversation: null }),
+  closeChat: () => set({ isWidgetOpen: false }),
 
-  sendMessage: (text) => {
-    const currentUser = { id: "u3", username: "dev_guru" };
-    if (!get().activeConversation || !currentUser) return;
+  sendMessage: (text, currentUser) => {
+    const activeId = get().activeConversationId;
+    if (!activeId) return;
 
-    const newMessage = {
-      id: `msg_${Date.now()}`,
+    const newMessage: Message = {
+      id: `msg_sent_${Date.now()}`,
       text,
       senderId: currentUser.id,
       timestamp: new Date().toISOString()
@@ -65,30 +66,36 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
     set(state => ({
       conversations: state.conversations.map(convo =>
-        convo.contact.id === state.activeConversation?.contact.id
+        convo.contact.id === activeId
           ? { ...convo, messages: [ ...convo.messages, newMessage ] }
           : convo
       )
     }));
 
-    setTimeout(() => {
-      const activeContact = get().activeConversation?.contact;
-      if (!activeContact) return;
-
-      const replyMessage = {
-        id: `msg_reply_${Date.now()}`,
-        text: `This is a simulated reply to "${text.substring(0, 15)}..."`,
-        senderId: activeContact.id,
-        timestamp: new Date().toISOString()
-      };
-
-      set(state => ({
-        conversations: state.conversations.map(convo =>
-          convo.contact.id === activeContact.id
-            ? { ...convo, messages: [ ...convo.messages, replyMessage ] }
-            : convo
-        )
-      }));
-    }, 1500);
+    get()._receiveSimulatedReply(activeId, text);
   },
+
+  _receiveSimulatedReply: (contactId, originalText) => {
+    setTimeout(() => {
+      set(state => {
+        const convo = state.conversations.find(c => c.contact.id === contactId);
+        if (!convo) return state;
+
+        const replyMessage: Message = {
+          id: `msg_reply_${Date.now()}`,
+          text: `This is a simulated reply to your message about "${originalText.substring(0, 15)}..."`,
+          senderId: contactId,
+          timestamp: new Date().toISOString()
+        };
+
+        return {
+          conversations: state.conversations.map(c =>
+            c.contact.id === contactId
+              ? { ...c, messages: [ ...c.messages, replyMessage ] }
+              : c
+          )
+        };
+      });
+    }, 1500);
+  }
 }));

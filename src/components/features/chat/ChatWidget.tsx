@@ -1,22 +1,64 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { cn } from "@/libs/utils";
+import { useChatStore, Conversation, Message } from "@/store/useChatStore";
 import { useAuth } from "@/context/AuthContext";
-import { useChatStore } from "@/store/useChatStore";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { X, MessageSquare, Send } from "lucide-react";
+import { X, Send, CornerDownLeft } from "lucide-react";
 import { UserAvatar } from "@/components/shared/UserAvatar";
+import { Textarea } from "@/components/ui/textarea";
+import { useRef, useEffect, useState } from "react";
+import { cn } from "@/libs/utils";
 import { format } from "date-fns";
+
+
+function ChatMessage({ message, conversation, currentUser }: {
+  message: Message,
+  conversation: Conversation,
+  currentUser: any
+}) {
+  const isSender = message.senderId === currentUser.id;
+  const author = isSender ? currentUser : conversation.contact;
+
+  if (message.senderId === "system") {
+    return <p className="text-xs text-center text-muted-foreground my-2">{ message.text }</p>
+  }
+
+  return (
+    <div className={ cn("flex items-end gap-2 text-sm", isSender ? "justify-end" : "justify-start") }>
+      {
+        !isSender && <UserAvatar user={ author } className="h-6 w-6" />
+      }
+      <div className="flex flex-col gap-1">
+        <div className={
+          cn(
+            "p-2.5 rounded-lg max-w-[250px] break-words",
+            isSender ? "bg-primary text-primary-foreground rounded-br-none" : "bg-muted rounded-bl-none"
+          )
+        }>
+          <p>{ message.text }</p>
+        </div>
+        <p className={
+          cn(
+            "text-xs text-muted-foreground",
+            isSender ? "text-right" : "text-left"
+          )
+        }>
+          { format(new Date(message.timestamp), "h:mm a") }
+        </p>
+      </div>
+    </div>
+  );
+}
 
 
 export default function ChatWidget() {
   const { currentUser } = useAuth();
-  const { isChatOpen, activeConversation, closeChat, sendMessage } = useChatStore();
+  const { isWidgetOpen, activeConversationId, conversations, closeChat, sendMessage } = useChatStore();
   const messageEndRef = useRef<HTMLDivElement>(null);
   const [ messageText, setMessageText ] = useState("");
+
+  const activeConversation = conversations.find(c => c.contact.id === activeConversationId);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,20 +66,27 @@ export default function ChatWidget() {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (messageText.trim()) {
-      sendMessage(messageText.trim());
+    if (messageText.trim() && currentUser) {
+      sendMessage(messageText.trim(), currentUser);
       setMessageText("");
     }
-  }
+  };
 
-  if (!isChatOpen || !activeConversation || !currentUser) return null;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage(e);
+    }
+  };
+
+  if (!isWidgetOpen || !activeConversation) return null;
 
   return (
-    <Card className="fixed bottom-4 right-4 z-50 w-full max-w-sm flex flex-col h-[60vh] max-h-[500px]">
-      <CardHeader className="flex flex-row items-center justify-between p-3 border-b">
-        <div className="flex items-center gap-2">
+    <Card className="fixed bottom-4 right-4 z-50 w-full max-w-sm flex flex-col h-[65vh] max-h-[550px] shadow-2xl">
+      <CardHeader className="flex flex-row items-center justify-between p-3 border-b bg-card">
+        <div className="flex items-center gap-3">
           <UserAvatar user={ activeConversation.contact } />
-          <p className="font-bold">{ activeConversation.contact.username }</p>
+          <CardTitle className="text-base">{ activeConversation.contact.username }</CardTitle>
         </div>
         <Button variant="ghost" size="icon" onClick={ closeChat }>
           <X className="h-5 w-5" />
@@ -46,44 +95,31 @@ export default function ChatWidget() {
 
       <CardContent className="p-3 flex-grow overflow-y-auto">
         <div className="space-y-4">
-          {
-            activeConversation.messages.map(msg => (
-              <div key={ msg.id } className={ cn(
-                "flex items-end gap-2 text-sm",
-                msg.senderId === currentUser.id ? "justify-end" : "justify-start"
-              ) }>
-                {
-                  msg.senderId !== currentUser.id && (
-                    <UserAvatar user={ activeConversation.contact } className="h-6 w-6" />
-                  )
-                }
-                <div className={ cn(
-                  "p-2 rounded-lg max-w-[75%]",
-                  msg.senderId === currentUser.id ? "bg-primary text-primary-foreground" : "bg-muted"
-                ) }>
-                  <p>{ msg.text }</p>
-                </div>
-              </div>
-            ))
-          }
+          { activeConversation.messages.map(msg => (
+            <ChatMessage key={ msg.id } message={ msg } conversation={ activeConversation } currentUser={ currentUser } />
+          )) }
+          <div ref={ messageEndRef } />
         </div>
-        <div ref={ messageEndRef } />
       </CardContent>
 
-      <div className="p-3 border-t">
-        <form onSubmit={ handleSendMessage } className="flex items-center gap-2">
+      <div className="p-3 border-t bg-card">
+        <form onSubmit={ handleSendMessage } className="relative">
           <Textarea
             value={ messageText }
             onChange={ (e) => setMessageText(e.target.value) }
-            placeholder="Type a message..."
-            rows={ 1 }
-            className="resize-none"
+            onKeyDown={ handleKeyDown }
+            placeholder={ `Message ${activeConversation.contact.username}...` }
+            rows={ 2 }
+            className="resize-none pr-20"
           />
-          <Button type="submit" size="icon">
-            <Send className="h-5 w-5" />
-          </Button>
+          <div className="absolute right-2 bottom-2 flex items-center gap-1">
+            <p className="text-xs text-muted-foreground"><CornerDownLeft /></p>
+            <Button type="submit" size="icon" disabled={ !messageText.trim() }>
+              <Send className="h-5 w-5" />
+            </Button>
+          </div>
         </form>
       </div>
     </Card>
-  )
+  );
 }

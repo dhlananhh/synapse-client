@@ -11,9 +11,14 @@ import { Button } from "@/components/ui/button";
 
 export default function ProfileHeader({ user, postCount }: { user: User, postCount: number }) {
   const { currentUser } = useAuth();
-  const { openChatWith } = useChatStore();
+  const { openChat } = useChatStore();
 
   const canChat = currentUser && currentUser.id !== user.id;
+
+  const handleMessageClick = () => {
+    if (!canChat) return;
+    openChat(user);
+  }
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 sm:items-end justify-between">
@@ -42,7 +47,7 @@ export default function ProfileHeader({ user, postCount }: { user: User, postCou
 
       {
         canChat && (
-          <Button onClick={ () => openChatWith(user) }>
+          <Button onClick={ handleMessageClick }>
             <MessageSquare className="h-4 w-4 mr-2" />
             Message
           </Button>

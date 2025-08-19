@@ -125,19 +125,31 @@ synapse-client/
     ├── hooks/                                # 🎣 Custom React Hooks
     │   └── useIntersectionObserver.ts        # - Logic for detecting when an element is visible for infinite scroll
     │
-    ├── lib/                                  # 📚 Libraries, Helpers & Utilities
+    ├── libs/                                 # 📚 Libraries, Helpers & Utilities
     │   ├── api.ts                            # - Simulated backend API functions (fetch, create, update, delete)
     │   ├── mock-data.ts                      # - The in-memory "database" with mock users, posts, communities
     │   ├── paths.ts                          # - Centralized, type-safe route constants
     │   ├── utils.ts                          # - General utility functions (e.g., `cn` for classnames)
     │   └── validators/                       # - Zod schemas for form validation (auth, post, user)
     │
+    ├── locales/                                 
+    │   ├── en.json                          
+    │   └── vn.json                     
+    │
     ├── store/                                # 🏪 Global State Management (Zustand)
     │   ├── useChatStore.ts                   # - State for the real-time chat feature
     │   └── useNotificationStore.ts           # - State for the global notification system
     │
-    └── types/                                # 📝 TypeScript Type Definitions
-        └── index.d.ts                        # - Centralized definitions for all custom types (User, Post, etc.)
+    ├── styles/                                
+    │   ├── globals.css                        
+    │   └── tailwind.config.ts 
+    │
+    ├── types/                                # 📝 TypeScript Type Definitions
+    │   ├── globals.d.ts
+    │   └── index.d.ts                        # - Centralized definitions for all custom types (User, Post, etc.)
+    │
+    └── utils/                      
+
 ```
 
 ### Architectural Decisions Explained:

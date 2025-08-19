@@ -39,7 +39,7 @@ export default function NotificationItem({ notification }: { notification: Notif
         <div className="flex-1">
           <p className="text-sm">
             <span className="font-bold">
-              { notification.actor.username }
+              { notification.actor.username } { " " }
             </span>
             { notification.message }
           </p>

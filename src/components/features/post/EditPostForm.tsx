@@ -3,9 +3,9 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { PostSchema, TPostSchema } from "@/lib/validators/post-validator";
+import { PostSchema, TPostSchema } from "@/libs/validators/post-validator";
 import { Post } from "@/types";
-import { updatePost } from "@/lib/api";
+import { updatePost } from "@/libs/api";
 import { toast } from "sonner";
 
 import Editor from "@/components/shared/Editor";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TRegisterSchema, RegisterSchema } from "@/lib/validators/auth-validator";
+import { TRegisterSchema, RegisterSchema } from "@/libs/validators/auth-validator";
 import { useAuth } from "@/context/AuthContext";
 
 import { Button } from "@/components/ui/button";

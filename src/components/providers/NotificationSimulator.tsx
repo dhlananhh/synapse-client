@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNotificationStore } from "@/store/useNotificationStore";
-import { mockPosts } from "@/lib/mock-data";
+import { mockPosts } from "@/libs/mock-data";
 import { Notification, NotificationType, User } from "@/types";
 
 const mockActors: User[] = [

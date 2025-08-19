@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Post } from "@/types";
-import { fetchPosts, SortType } from "@/lib/api";
+import { fetchPosts, SortType } from "@/libs/api";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 import SortTabs from "./SortTabs";

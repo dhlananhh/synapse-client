@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { toast } from "sonner";
 
 interface VoteClientProps {

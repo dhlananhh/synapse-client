@@ -1,9 +1,9 @@
 "use client";
 
-import { SortType } from "@/lib/api";
+import { SortType } from "@/libs/api";
 import { Button } from "@/components/ui/button";
 import { Flame, Sparkles, TrendingUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 
 interface SortTabsProps {
   currentSort: SortType;

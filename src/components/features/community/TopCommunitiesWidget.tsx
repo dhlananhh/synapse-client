@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { mockCommunities } from "@/lib/mock-data";
+import { mockCommunities } from "@/libs/mock-data";
 import { Community } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

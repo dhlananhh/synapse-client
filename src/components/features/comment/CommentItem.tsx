@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Comment } from "@/types";
-import { deleteComment, updateComment } from "@/lib/api";
+import { deleteComment, updateComment } from "@/libs/api";
 import { toast } from "sonner";
 
 import { useForm } from "react-hook-form";

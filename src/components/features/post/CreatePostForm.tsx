@@ -3,8 +3,8 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { PostSchema, TPostSchema } from "@/lib/validators/post-validator";
-import { mockPosts } from "@/lib/mock-data";
+import { PostSchema, TPostSchema } from "@/libs/validators/post-validator";
+import { mockPosts } from "@/libs/mock-data";
 import { useAuth } from "@/context/AuthContext";
 import { Post } from "@/types";
 import Editor from "@/components/shared/Editor";

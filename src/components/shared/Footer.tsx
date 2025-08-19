@@ -3,7 +3,7 @@
 import React from "react";
 import { BrainCircuit } from "lucide-react";
 import Link from "next/link";
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/libs/paths";
 
 
 export default function Footer() {

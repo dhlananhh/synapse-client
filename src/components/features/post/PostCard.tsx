@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Post } from "@/types";
-import { PATHS } from "@/lib/paths";
+import { PATHS } from "@/libs/paths";
 import {
   Card,
   CardContent,

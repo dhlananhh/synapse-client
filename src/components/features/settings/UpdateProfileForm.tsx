@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   TUserProfileSchema,
   UserProfileSchema
-} from "@/lib/validators/user-validator";
+} from "@/libs/validators/user-validator";
 import { Button } from "@/components/ui/button";
 import {
   Card,

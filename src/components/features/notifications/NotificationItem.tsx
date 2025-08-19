@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Notification } from "@/types";
 import { useNotificationStore } from "@/store/useNotificationStore";
 import { UserAvatar } from "@/components/shared/UserAvatar";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { MessageSquare, ThumbsUp, UserPlus } from "lucide-react";
 
 

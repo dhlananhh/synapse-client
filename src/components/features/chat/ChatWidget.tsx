@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { useAuth } from "@/context/AuthContext";
 import { useChatStore } from "@/store/useChatStore";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

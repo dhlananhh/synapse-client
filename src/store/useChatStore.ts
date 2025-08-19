@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { User, Post } from "@/types";
-import { mockPosts } from "@/lib/mock-data";
+import { mockPosts } from "@/libs/mock-data";
 
 export type Conversation = {
   contact: User;

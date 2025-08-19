@@ -4,8 +4,15 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import CreatePostForm from "@/components/features/post/CreatePostForm";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+
 
 export default function SubmitPage() {
   const { currentUser } = useAuth();

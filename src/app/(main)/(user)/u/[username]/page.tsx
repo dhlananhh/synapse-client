@@ -2,8 +2,8 @@
 
 import React, { use } from "react";
 import { notFound } from "next/navigation";
-import { mockPosts, mockCommunities } from "@/lib/mock-data";
-import { getAllComments, generateUserActivity } from "@/lib/mock-data";
+import { mockPosts, mockCommunities } from "@/libs/mock-data";
+import { getAllComments, generateUserActivity } from "@/libs/mock-data";
 import UserProfile from "@/components/features/user/UserProfile";
 import { User, Post, UserComment } from "@/types";
 

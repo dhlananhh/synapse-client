@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { mockPosts, mockCommunities } from "@/lib/mock-data";
+import { mockPosts, mockCommunities } from "@/libs/mock-data";
 import { Post, Community } from "@/types";
 import PostCard from "@/components/features/post/PostCard";
 import { Card, CardContent } from "@/components/ui/card";

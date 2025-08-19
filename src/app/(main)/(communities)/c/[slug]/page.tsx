@@ -2,7 +2,7 @@
 
 import React, { use } from "react";
 import { notFound } from "next/navigation";
-import { mockPosts, mockCommunities } from "@/lib/mock-data";
+import { mockPosts, mockCommunities } from "@/libs/mock-data";
 import CommunityHeader from "@/components/features/community/CommunityHeader";
 import CreatePostWidget from "@/components/shared/CreatePostWidget";
 import PostCard from "@/components/features/post/PostCard";

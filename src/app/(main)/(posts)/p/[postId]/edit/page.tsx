@@ -3,7 +3,7 @@
 import { useEffect, useState, use } from "react";
 import { useRouter, notFound } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { fetchPostById } from "@/lib/api";
+import { fetchPostById } from "@/libs/api";
 import { Post } from "@/types";
 import EditPostForm from "@/components/features/post/EditPostForm";
 import { Skeleton } from "@/components/ui/skeleton";

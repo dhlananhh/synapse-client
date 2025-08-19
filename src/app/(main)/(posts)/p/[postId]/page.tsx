@@ -5,7 +5,7 @@ import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
-import { fetchPostById, deletePost } from "@/lib/api";
+import { fetchPostById, deletePost } from "@/libs/api";
 import { Post } from "@/types";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import PostCardSkeleton from "@/components/features/post/PostCardSkeleton";

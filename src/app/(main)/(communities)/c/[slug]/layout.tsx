@@ -2,7 +2,7 @@
 
 import React, { use } from "react";
 import { notFound } from "next/navigation";
-import { mockCommunities } from "@/lib/mock-data";
+import { mockCommunities } from "@/libs/mock-data";
 import AboutCommunityWidget from "@/components/features/community/AboutCommunityWidget";
 
 interface CommunityLayoutProps {

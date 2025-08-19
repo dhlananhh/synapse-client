@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
 import { cn } from "@/libs/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";

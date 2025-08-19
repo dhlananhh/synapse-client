@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
-import { mockCommunities, mockPosts } from "@/lib/mock-data";
-import { PATHS } from "@/lib/paths";
+import { mockCommunities, mockPosts } from "@/libs/mock-data";
+import { PATHS } from "@/libs/paths";
 
 
 export default function sitemap(): MetadataRoute.Sitemap {

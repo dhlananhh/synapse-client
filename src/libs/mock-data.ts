@@ -6,6 +6,15 @@ import {
   Activity
 } from "@/types";
 
+// Mock Admin
+export const adminUser: User = {
+  id: 'u_admin',
+  username: 'synapse_admin',
+  avatarUrl: 'https://i.pravatar.cc/150?u=admin',
+  createdAt: '2024-01-01T00:00:00Z',
+  karma: 9999
+};
+
 // Mock Users
 const user1: User = {
   id: 'u1',
@@ -28,6 +37,8 @@ const user3: User = {
   createdAt: '2022-11-20T15:30:00Z',
   karma: 3400
 };
+
+export const allMockUsers = [ adminUser, user1, user2, user3 ];
 
 // Mock Communities
 export const mockCommunities: Community[] = [

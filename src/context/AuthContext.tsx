@@ -2,11 +2,12 @@
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import { User } from "@/types";
-import { TRegisterSchema } from "@/lib/validators/auth-validator";
-import { TUserProfileSchema } from '@/lib/validators/user-validator';
+import { TRegisterSchema } from "@/libs/validators/auth-validator";
+import { TUserProfileSchema } from "@/libs/validators/user-validator";
+import { allMockUsers } from "@/libs/mock-data";
+import { toast } from "sonner";
 
-
-type UserVote = 'UP' | 'DOWN';
+type UserVote = "UP" | "DOWN";
 type UserVotes = Record<string, UserVote>;
 
 interface AuthContextType {
@@ -35,8 +36,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ userVotes, setUserVotes ] = useState<UserVotes>({});
 
   const login = (username: string) => {
-    const mockUser = { id: "u_dev", username: "dev_guru", createdAt: new Date().toISOString(), karma: 0 };
-    setCurrentUser({ ...mockUser, username });
+    const userToLogin = allMockUsers.find(u => u.username === username);
+
+    if (userToLogin) {
+      setCurrentUser(userToLogin);
+    } else {
+      console.warn(`Login failed: User "${username}" not found in mock data.`);
+      toast.error("Login Failed", { description: "Invalid username or password." });
+    }
   };
 
   const logout = () => {
@@ -51,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       karma: 0,
     };
     setCurrentUser(newUser);
-    const hasCompletedOnboarding = localStorage.getItem('onboardingComplete');
+    const hasCompletedOnboarding = localStorage.getItem("onboardingComplete");
     if (!hasCompletedOnboarding) {
       setIsOnboardingModalOpen(true);
     }

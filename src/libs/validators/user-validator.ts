@@ -22,6 +22,12 @@ export const UpdateGenderSchema = z.object({
 export type TUpdateGenderSchema = z.infer<typeof UpdateGenderSchema>;
 
 
+export const UpdateDisplayNameSchema = z.object({
+  displayName: z.string().max(50, "Display name cannot exceed 50 characters.").optional(),
+});
+export type TUpdateDisplayNameSchema = z.infer<typeof UpdateDisplayNameSchema>;
+
+
 export const UpdateDescriptionSchema = z.object({
   description: z.string().max(200, "Description cannot exceed 200 characters.").optional(),
 });

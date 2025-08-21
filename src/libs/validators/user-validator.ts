@@ -6,5 +6,17 @@ export const UserProfileSchema = z.object({
     .max(24, { message: "Username must be no longer than 24 characters." })
     .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
 });
-
 export type TUserProfileSchema = z.infer<typeof UserProfileSchema>;
+
+
+export const ChangeEmailSchema = z.object({
+  newEmail: z.string().email("Please enter a valid email address."),
+  password: z.string().min(1, "Password is required to confirm your identity."),
+});
+export type TChangeEmailSchema = z.infer<typeof ChangeEmailSchema>;
+
+
+export const UpdateGenderSchema = z.object({
+  gender: z.enum([ "male", "female", "other", "prefer_not_to_say", "none" ]),
+});
+export type TUpdateGenderSchema = z.infer<typeof UpdateGenderSchema>;

@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import SettingsRow from "./SettingsRow";
 import ChangeEmailDialog from "./dialogs/ChangeEmailDialog";
 import UpdateGenderDialog from "./dialogs/UpdateGenderDialog";
+import DeleteAccountDialog from "./dialogs/DeleteAccountDialog";
 import { ChevronRight } from "lucide-react";
 
 
@@ -20,6 +21,8 @@ export default function AccountTab() {
   const { currentUser } = useAuth();
   const [ isEmailDialogOpen, setIsEmailDialogOpen ] = useState(false);
   const [ isGenderDialogOpen, setIsGenderDialogOpen ] = useState(false);
+  const [ isDeleteDialogOpen, setIsDeleteDialogOpen ] = useState(false);
+
   const userEmail = "youremail@gmail.com";
 
   return (
@@ -30,33 +33,28 @@ export default function AccountTab() {
         </CardHeader>
         <CardContent className="p-0">
           <h3 className="font-semibold px-4 pt-2">General</h3>
-          {/* <SettingsRow
-            title="Email address"
-            description="youremail@example.com"
-            href="#"
+
+          <div
+            onClick={ () => setIsEmailDialogOpen(true) }
+            className="cursor-pointer"
           >
-            <span>Change</span>
-          </SettingsRow> */}
-          <div onClick={ () => setIsEmailDialogOpen(true) } className="cursor-pointer">
-            <SettingsRow title="Email address" description={ userEmail }>
+            <SettingsRow
+              title="Email address"
+              description={ userEmail }
+            >
               <span className="text-sm font-semibold">Change</span>
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
-          {/* <SettingsRow
-            title="Gender"
-            description="Update your gender"
-            href="#"
-          >
-            <span></span>
-          </SettingsRow> */}
-
           <div
             onClick={ () => setIsGenderDialogOpen(true) }
             className="cursor-pointer"
           >
-            <SettingsRow title="Gender" description="Update your gender">
+            <SettingsRow
+              title="Gender"
+              description="Update your gender"
+            >
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
@@ -70,7 +68,8 @@ export default function AccountTab() {
           </SettingsRow>
           <SettingsRow
             title="Apple"
-            description="Connect to log in with your Apple account">
+            description="Connect to log in with your Apple account"
+          >
             <Button variant="default" size="sm">Connect</Button>
           </SettingsRow>
           <SettingsRow
@@ -81,25 +80,37 @@ export default function AccountTab() {
           </SettingsRow>
 
           <h3 className="font-semibold px-4 pt-6">Advanced</h3>
-          <SettingsRow
-            title="Delete account"
-            description="Permanently delete your account and all data"
-            href="#"
+
+          <div
+            onClick={ () => setIsDeleteDialogOpen(true) }
+            className="cursor-pointer text-destructive focus:text-destructive"
           >
-            <span></span>
-          </SettingsRow>
+            <SettingsRow
+              title="Delete account"
+              description="Permanently delete your account and all data"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </SettingsRow>
+          </div>
         </CardContent>
       </Card>
+
 
       <ChangeEmailDialog
         isOpen={ isEmailDialogOpen }
         onOpenChange={ setIsEmailDialogOpen }
         currentEmail={ userEmail }
       />
+
       <UpdateGenderDialog
         isOpen={ isGenderDialogOpen }
         onOpenChange={ setIsGenderDialogOpen }
         currentGender={ currentUser?.gender }
+      />
+
+      <DeleteAccountDialog
+        isOpen={ isDeleteDialogOpen }
+        onOpenChange={ setIsDeleteDialogOpen }
       />
     </>
   );

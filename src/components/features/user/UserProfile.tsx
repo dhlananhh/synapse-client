@@ -27,7 +27,7 @@ interface UserProfileProps {
 
 export default function UserProfile({ user, userPosts, userComments, activity }: UserProfileProps) {
   return (
-    <div className="mt-10">
+    <div className="mt-10 mb-10">
       <ProfileHeader user={ user } postCount={ userPosts.length } />
       <ActivityCalendar activityData={ activity } />
 

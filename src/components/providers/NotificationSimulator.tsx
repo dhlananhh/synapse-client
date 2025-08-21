@@ -7,8 +7,24 @@ import { mockPosts } from "@/libs/mock-data";
 import { Notification, NotificationType, User } from "@/types";
 
 const mockActors: User[] = [
-  { id: "u1", username: "john_doe", avatarUrl: "https://i.pravatar.cc/150?u=u1", createdAt: "", karma: 0 },
-  { id: "u2", username: "jane_smith", avatarUrl: "https://i.pravatar.cc/150?u=u2", createdAt: "", karma: 0 },
+  {
+    id: "u1",
+    username: "john_doe",
+    displayName: "John Doe",
+    avatarUrl: "https://i.pravatar.cc/150?u=u1",
+    createdAt: "",
+    karma: 0,
+    gender: "Male",
+  },
+  {
+    id: "u2",
+    username: "jane_smith",
+    displayName: "Jane Smith",
+    avatarUrl: "https://i.pravatar.cc/150?u=u2",
+    createdAt: "",
+    karma: 0,
+    gender: "Female",
+  },
 ];
 
 const generateRandomNotification = (currentUser: User): Notification => {

@@ -4,6 +4,7 @@ export type User = {
   avatarUrl?: string;
   createdAt: string;
   karma: number;
+  gender: string;
 };
 
 export type Comment = {

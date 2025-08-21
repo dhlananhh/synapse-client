@@ -1,14 +1,24 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode
+} from "react";
 import { User } from "@/types";
 import { TRegisterSchema } from "@/libs/validators/auth-validator";
-import { TUserProfileSchema } from "@/libs/validators/user-validator";
+import {
+  TUserProfileSchema,
+  TUpdateDisplayNameSchema
+} from "@/libs/validators/user-validator";
 import { allMockUsers } from "@/libs/mock-data";
 import { toast } from "sonner";
 
+
 type UserVote = "UP" | "DOWN";
 type UserVotes = Record<string, UserVote>;
+
 
 interface AuthContextType {
   currentUser: User | null;
@@ -19,7 +29,7 @@ interface AuthContextType {
   isSubscribed: (communityId: string) => boolean;
   subscribeToCommunity: (communityId: string) => void;
   unsubscribeFromCommunity: (communityId: string) => void;
-  updateUserProfile: (data: TUserProfileSchema) => void;
+  updateUserProfile: (data: TUserProfileSchema | TUpdateDisplayNameSchema) => void;
   isOnboardingModalOpen: boolean;
   setIsOnboardingModalOpen: (isOpen: boolean) => void;
   userVotes: UserVotes;
@@ -27,7 +37,9 @@ interface AuthContextType {
   handleVote: (itemId: string, newVote: UserVote) => void;
 }
 
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [ currentUser, setCurrentUser ] = useState<User | null>(null);
@@ -54,6 +66,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const newUser: User = {
       id: `u_${Math.random().toString(36).substr(2, 9)}`,
       username: data.username,
+      displayName: data.displayName,
+      gender: data.gender,
       createdAt: new Date().toISOString(),
       karma: 0,
     };
@@ -76,11 +90,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSubscribedCommunityIds(prev => prev.filter(id => id !== communityId));
   };
 
-  const updateUserProfile = (data: TUserProfileSchema) => {
+  const updateUserProfile = (data: TUserProfileSchema | TUpdateDisplayNameSchema) => {
     if (currentUser) {
       const updatedUser: User = {
         ...currentUser,
-        username: data.username,
+        username: "username" in data ? data.username : currentUser.username,
+        displayName: "displayName" in data ? data.displayName : currentUser.displayName,
       };
       setCurrentUser(updatedUser);
     }
@@ -123,8 +138,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     handleVote,
   };
 
-  return <AuthContext.Provider value={ value }>{ children }</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={ value }>
+      { children }
+    </AuthContext.Provider>
+  )
 }
+
 
 export function useAuth() {
   const context = useContext(AuthContext);

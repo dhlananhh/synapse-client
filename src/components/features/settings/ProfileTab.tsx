@@ -8,8 +8,10 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
 import SettingsRow from "./SettingsRow";
 import ChangeDisplayNameDialog from "./dialogs/ChangeDisplayNameDialog";
+import ChangeUsernameDialog from "./dialogs/ChangeUsernameDialog";
 import UpdateDescriptionDialog from "./dialogs/UpdateDescriptionDialog";
 import { ChevronRight } from "lucide-react";
 
@@ -17,6 +19,7 @@ import { ChevronRight } from "lucide-react";
 export default function ProfileTab() {
   const [ isDisplayNameDialogOpen, setIsDisplayNameDialogOpen ] = useState(false);
   const [ isDescriptionDialogOpen, setIsDescriptionDialogOpen ] = useState(false);
+  const [ isUsernameDialogOpen, setIsUsernameDialogOpen ] = useState(false);
 
   const mockUserDescription = "A Senior Software Engineer with over 10 years of experience.";
 
@@ -24,8 +27,9 @@ export default function ProfileTab() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Profile Customization</CardTitle>
+          <CardTitle className="uppercase">Profile Customization</CardTitle>
         </CardHeader>
+
         <CardContent className="p-0">
           <h3 className="font-semibold px-4 pt-2">General</h3>
 
@@ -35,9 +39,22 @@ export default function ProfileTab() {
           >
             <SettingsRow
               title="Display name"
-              description="Changing your display name won't change your username"
+              description="Help people discover your account by using the name you're known by: either your full name, nickname, or business name."
             >
-              <span className="text-sm font-semibold">Change</span>
+              <Button variant="outline" size="sm">Change</Button>
+              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            </SettingsRow>
+          </div>
+
+          <div
+            onClick={ () => setIsUsernameDialogOpen(true) }
+            className="cursor-pointer"
+          >
+            <SettingsRow
+              title="Username"
+              description="Your unique username"
+            >
+              <Button variant="outline" size="sm">Change</Button>
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
@@ -50,7 +67,7 @@ export default function ProfileTab() {
               title="About description"
               description="A brief description of yourself"
             >
-              <span className="text-sm font-semibold">Edit</span>
+              <Button variant="outline" size="sm">Update</Button>
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
@@ -96,6 +113,11 @@ export default function ProfileTab() {
         isOpen={ isDescriptionDialogOpen }
         onOpenChange={ setIsDescriptionDialogOpen }
         currentDescription={ mockUserDescription }
+      />
+
+      <ChangeUsernameDialog
+        isOpen={ isUsernameDialogOpen }
+        onOpenChange={ setIsUsernameDialogOpen }
       />
     </>
   );

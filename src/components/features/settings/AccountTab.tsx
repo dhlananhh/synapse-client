@@ -29,7 +29,7 @@ export default function AccountTab() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Account Settings</CardTitle>
+          <CardTitle className="uppercase">Account Settings</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <h3 className="font-semibold px-4 pt-2">General</h3>
@@ -42,7 +42,7 @@ export default function AccountTab() {
               title="Email address"
               description={ userEmail }
             >
-              <span className="text-sm font-semibold">Change</span>
+              <Button variant="outline" size="sm">Change</Button>
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
@@ -55,6 +55,7 @@ export default function AccountTab() {
               title="Gender"
               description="Update your gender"
             >
+              <Button variant="outline" size="sm">Update</Button>
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>

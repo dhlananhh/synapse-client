@@ -9,17 +9,15 @@ import {
 } from "@/components/ui/tabs";
 import AccountTab from "@/components/features/settings/AccountTab";
 import ProfileTab from "@/components/features/settings/ProfileTab";
-
-
-const PrivacyTab = () => <div className="text-muted-foreground p-4">Privacy settings will be here.</div>;
-const PreferencesTab = () => <div className="text-muted-foreground p-4">Preferences settings will be here.</div>;
-const NotificationsTab = () => <div className="text-muted-foreground p-4">Notifications settings will be here.</div>;
-const EmailTab = () => <div className="text-muted-foreground p-4">Email settings will be here.</div>;
+import NotificationsTab from "@/components/features/settings/NotificationsTab";
+import EmailTab from "@/components/features/settings/EmailTab";
+import PreferencesTab from "@/components/features/settings/PreferencesTab";
+import PrivacyTab from "@/components/features/settings/PrivacyTab";
 
 
 export default function SettingsPage() {
   return (
-    <div>
+    <div className="mt-10 mb-10">
       <h1 className="text-3xl font-bold mb-6">Settings</h1>
 
       <Tabs defaultValue="account" className="w-full">

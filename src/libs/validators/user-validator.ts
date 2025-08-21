@@ -20,3 +20,9 @@ export const UpdateGenderSchema = z.object({
   gender: z.enum([ "male", "female", "other", "prefer_not_to_say", "none" ]),
 });
 export type TUpdateGenderSchema = z.infer<typeof UpdateGenderSchema>;
+
+
+export const UpdateDescriptionSchema = z.object({
+  description: z.string().max(200, "Description cannot exceed 200 characters.").optional(),
+});
+export type TUpdateDescriptionSchema = z.infer<typeof UpdateDescriptionSchema>;

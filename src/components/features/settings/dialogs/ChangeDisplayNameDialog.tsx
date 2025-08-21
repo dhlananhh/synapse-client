@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  TUserProfileSchema,
-  UserProfileSchema
+  TUpdateDisplayNameSchema,
+  UpdateDisplayNameSchema
 } from "@/libs/validators/user-validator";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
@@ -39,39 +38,32 @@ export default function ChangeDisplayNameDialog({
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting }
-  } = useForm<TUserProfileSchema>({
-    resolver: zodResolver(UserProfileSchema),
+    formState: { errors, isSubmitting, isDirty }
+  } = useForm<TUpdateDisplayNameSchema>({
+    resolver: zodResolver(UpdateDisplayNameSchema),
     defaultValues: {
-      username: currentUser?.username || ""
+      displayName: currentUser?.displayName || ""
     }
   });
 
-  const onSubmit = async (data: TUserProfileSchema) => {
+  const onSubmit = async (data: TUpdateDisplayNameSchema) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log("Updating username:", data);
+    console.log("Updating display name:", data);
     updateUserProfile(data);
 
     toast.success("Display name updated successfully.");
     onOpenChange(false);
   };
 
-  const handleOpenChange = (open: boolean) => {
-    if (!open) {
-      reset({ username: currentUser?.username || "" });
-    }
-    onOpenChange(open);
-  }
-
   return (
-    <Dialog open={ isOpen } onOpenChange={ handleOpenChange }>
+    <Dialog open={ isOpen } onOpenChange={ onOpenChange }>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Change your display name</DialogTitle>
           <DialogDescription>
-            This will also be your new username. Choose wisely, you can only change this once every 30 days.
+            Help people discover your account by using the name you're known by: either your full name, nickname, or business name.
+            You can only change this twice within 14 days.
           </DialogDescription>
         </DialogHeader>
 
@@ -81,9 +73,13 @@ export default function ChangeDisplayNameDialog({
           className="space-y-4 py-4"
         >
           <div className="space-y-2">
-            <Label htmlFor="username">New display name</Label>
-            <Input id="username" type="text" { ...register("username") } />
-            { errors.username && <p className="text-sm text-destructive">{ errors.username.message }</p> }
+            <Label htmlFor="displayName">Display Name</Label>
+            <Input
+              id="displayName"
+              type="text" { ...register("displayName") }
+              placeholder="e.g., Alex Smith"
+            />
+            { errors.displayName && <p className="text-sm text-destructive">{ errors.displayName.message }</p> }
           </div>
         </form>
 
@@ -98,7 +94,7 @@ export default function ChangeDisplayNameDialog({
           <Button
             type="submit"
             form="change-display-name-form"
-            disabled={ isSubmitting }
+            disabled={ isSubmitting || !isDirty }
           >
             { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
             Save
@@ -106,5 +102,5 @@ export default function ChangeDisplayNameDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

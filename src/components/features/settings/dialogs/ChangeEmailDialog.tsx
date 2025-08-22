@@ -2,7 +2,10 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TChangeEmailSchema, ChangeEmailSchema } from "@/libs/validators/user-validator";
+import {
+  TChangeEmailSchema,
+  ChangeEmailSchema
+} from "@/libs/validators/user-validator";
 import { toast } from "sonner";
 import {
   Dialog,

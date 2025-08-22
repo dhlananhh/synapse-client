@@ -8,7 +8,7 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import SettingsRow from "./SettingsRow";
+import SettingsRow from "../SettingsRow";
 
 
 export default function EmailTab() {

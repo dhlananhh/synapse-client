@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import SettingsRow from "./SettingsRow";
+import SettingsRow from "../SettingsRow";
 
 
 export default function PrivacyTab() {

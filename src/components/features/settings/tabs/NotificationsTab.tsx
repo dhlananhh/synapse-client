@@ -8,7 +8,7 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import SettingsRow from "./SettingsRow";
+import SettingsRow from "../SettingsRow";
 
 
 export default function NotificationsTab() {

@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import SettingsRow from "./SettingsRow";
-import ChangeEmailDialog from "./dialogs/ChangeEmailDialog";
-import UpdateGenderDialog from "./dialogs/UpdateGenderDialog";
-import DeleteAccountDialog from "./dialogs/DeleteAccountDialog";
+import SettingsRow from "../SettingsRow";
+import ChangeEmailDialog from "../dialogs/ChangeEmailDialog";
+import UpdateGenderDialog from "../dialogs/UpdateGenderDialog";
+import DeleteAccountDialog from "../dialogs/DeleteAccountDialog";
 import { ChevronRight } from "lucide-react";
 
 

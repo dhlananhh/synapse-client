@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import SettingsRow from "./SettingsRow";
-import ChangeDisplayNameDialog from "./dialogs/ChangeDisplayNameDialog";
-import ChangeUsernameDialog from "./dialogs/ChangeUsernameDialog";
-import UpdateDescriptionDialog from "./dialogs/UpdateDescriptionDialog";
+import SettingsRow from "../SettingsRow";
+import ChangeDisplayNameDialog from "../dialogs/ChangeDisplayNameDialog";
+import ChangeUsernameDialog from "../dialogs/ChangeUsernameDialog";
+import UpdateDescriptionDialog from "../dialogs/UpdateDescriptionDialog";
 import { ChevronRight } from "lucide-react";
 
 

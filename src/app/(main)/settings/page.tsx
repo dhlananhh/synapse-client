@@ -7,12 +7,12 @@ import {
   TabsList,
   TabsTrigger
 } from "@/components/ui/tabs";
-import AccountTab from "@/components/features/settings/AccountTab";
-import ProfileTab from "@/components/features/settings/ProfileTab";
-import NotificationsTab from "@/components/features/settings/NotificationsTab";
-import EmailTab from "@/components/features/settings/EmailTab";
-import PreferencesTab from "@/components/features/settings/PreferencesTab";
-import PrivacyTab from "@/components/features/settings/PrivacyTab";
+import AccountTab from "@/components/features/settings/tabs/AccountTab";
+import ProfileTab from "@/components/features/settings/tabs/ProfileTab";
+import NotificationsTab from "@/components/features/settings/tabs/NotificationsTab";
+import EmailTab from "@/components/features/settings/tabs/EmailTab";
+import PreferencesTab from "@/components/features/settings/tabs/PreferencesTab";
+import PrivacyTab from "@/components/features/settings/tabs/PrivacyTab";
 
 
 export default function SettingsPage() {

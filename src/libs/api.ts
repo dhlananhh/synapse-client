@@ -1,12 +1,13 @@
 import { mockPosts } from "./mock-data";
-import { Post } from "@/types";
-import { Comment } from "@/types";
-import { Activity } from "@/types";
+import {
+  Post,
+  Comment,
+  SortType
+} from "@/types";
 import { TPostSchema } from "./validators/post-validator";
 
 
 const POSTS_PER_PAGE = 6;
-export type SortType = "hot" | "new" | "top";
 
 
 // export const fetchPosts = async (page: number): Promise<{ data: Post[], hasMore: boolean }> => {

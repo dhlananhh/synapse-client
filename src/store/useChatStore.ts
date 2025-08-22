@@ -1,27 +1,10 @@
 import { create } from "zustand";
-import { User } from "@/types";
+import {
+  Message,
+  Conversation,
+  ChatState
+} from "@/types";
 
-export type Message = {
-  id: string;
-  text: string;
-  senderId: string;
-  timestamp: string;
-};
-
-export type Conversation = {
-  contact: User;
-  messages: Message[];
-};
-
-interface ChatState {
-  conversations: Conversation[];
-  activeConversationId: string | null;
-  isWidgetOpen: boolean;
-  openChat: (contact: User) => void;
-  closeChat: () => void;
-  sendMessage: (text: string, currentUser: User) => void;
-  _receiveSimulatedReply: (contactId: string, originalText: string) => void;
-}
 
 export const useChatStore = create<ChatState>((set, get) => ({
   conversations: [],

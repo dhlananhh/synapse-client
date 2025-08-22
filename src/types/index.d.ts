@@ -1,3 +1,6 @@
+import { FC } from "react";
+
+// User type
 export type User = {
   id: string;
   username: string;
@@ -8,6 +11,7 @@ export type User = {
   gender: string;
 };
 
+// Comment type
 export type Comment = {
   id: string;
   text: string;
@@ -17,12 +21,14 @@ export type Comment = {
   replies?: Comment[];
 };
 
+// UserComment interface
 export interface UserComment extends Comment {
   postTitle: string;
   postId: string;
   postAuthor: string;
 }
 
+// Community type
 export type Community = {
   id: string;
   slug: string;
@@ -33,6 +39,7 @@ export type Community = {
   memberCount: number;
 };
 
+// Post type
 export type Post = {
   id: string;
   title: string;
@@ -48,8 +55,10 @@ export type Post = {
   comments: Comment[];
 };
 
-export type NotificationType = 'NEW_COMMENT' | 'POST_UPVOTE' | 'NEW_FOLLOWER';
+// NotificationType
+export type NotificationType = "NEW_COMMENT" | "POST_UPVOTE" | "NEW_FOLLOWER";
 
+// Notification type
 export type Notification = {
   id: string;
   type: NotificationType;
@@ -60,10 +69,53 @@ export type Notification = {
   createdAt: string;
 };
 
+// SortType
 export type SortType = "hot" | "new" | "top";
 
+// Activity type
 export type Activity = {
   date: string;
   count: number;
   level: 0 | 1 | 2 | 3 | 4;
 }
+
+// Message type
+export type Message = {
+  id: string;
+  text: string;
+  senderId: string;
+  timestamp: string;
+};
+
+// Conversation type
+export type Conversation = {
+  contact: User;
+  messages: Message[];
+};
+
+// ChatState interface
+export interface ChatState {
+  conversations: Conversation[];
+  activeConversationId: string | null;
+  isWidgetOpen: boolean;
+  openChat: (contact: User) => void;
+  closeChat: () => void;
+  sendMessage: (text: string, currentUser: User) => void;
+  _receiveSimulatedReply: (contactId: string, originalText: string) => void;
+};
+
+// NotificationState interface
+export interface NotificationState {
+  notifications: Notification[];
+  unreadCount: number;
+  addNotification: (notification: Notification) => void;
+  markAsRead: (notificationId: string) => void;
+  markAllAsRead: () => void;
+};
+
+// Language type
+export type Language = {
+  code: string;
+  name: string;
+  FlagComponent: FC<React.SVGProps<SVGSVGElement>>;
+};

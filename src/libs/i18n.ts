@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import en from "@/locales/en.json";
 import vi from "@/locales/vi.json";
+import de from "@/locales/de.json";
 
 i18n
   .use(LanguageDetector)
@@ -21,6 +22,9 @@ i18n
       },
       vi: {
         translation: vi,
+      },
+      de: {
+        translation: de,
       },
     },
   });

@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { Post } from "@/types";
-import { PATHS } from "@/libs/paths";
 import {
   Card,
   CardContent,
@@ -11,13 +10,15 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Ribbon, Share2 } from "lucide-react";
+import { MessageCircle, Share2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import VoteClient from "./VoteClient";
+
 
 interface PostCardProps {
   post: Post;
 }
+
 
 const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
   ({ post }, ref) => {
@@ -70,11 +71,6 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               <span className="hidden sm:inline">{ post.comments.length } Comments</span>
               <span className="inline sm:hidden">{ post.comments.length }</span>
             </Link>
-          </Button>
-
-          <Button variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">
-            <Ribbon className="h-5 w-5" />
-            <span className="hidden sm:inline">Award</span>
           </Button>
 
           <Button variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">

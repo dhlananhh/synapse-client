@@ -1,0 +1,34 @@
+{
+  "navbar": {
+    "search_placeholder": "Tìm kiếm cộng đồng và bài viết...",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "tabs": {
+      "account": "Tài khoản",
+      "profile": "Hồ sơ",
+      "privacy": "Bảo mật",
+      "preferences": "Tùy chỉnh",
+      "notifications": "Thông báo",
+      "email": "Email"
+    },
+    "preferences": {
+      "title": "Tùy chỉnh Feed",
+      "language_section": "Ngôn ngữ",
+      "display_language": "Ngôn ngữ hiển thị",
+      "display_language_desc": "Chọn ngôn ngữ bạn muốn xem cho giao diện Synapse",
+      "content_languages": "Ngôn ngữ nội dung",
+      "content_languages_desc": "Chọn ngôn ngữ cho nội dung bạn muốn xem"
+    }
+  },
+  "dialogs": {
+    "display_language": {
+      "title": "Chọn ngôn ngữ hiển thị",
+      "description": "Chọn ngôn ngữ bạn muốn sử dụng cho toàn bộ giao diện của Synapse.",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    }
+  }
+}

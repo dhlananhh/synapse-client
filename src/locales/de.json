@@ -1,0 +1,34 @@
+{
+  "navbar": {
+    "search_placeholder": "Communitys und Beiträge durchsuchen...",
+    "login": "Anmelden",
+    "signup": "Registrieren"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "tabs": {
+      "account": "Kontoeinstellungen",
+      "profile": "Profileinstellungen",
+      "privacy": "Datenschutzeinstellungen",
+      "preferences": "Voreinstellungen",
+      "notifications": "Benachrichtigungen",
+      "email": "E-Mail"
+    },
+    "preferences": {
+      "title": "Feed-Einstellungen",
+      "language_section": "Sprache",
+      "display_language": "Anzeigesprache",
+      "display_language_desc": "Sprache der Benutzeroberfläche auswählen",
+      "content_languages": "Inhaltssprachen",
+      "content_languages_desc": "Sprachen für Inhalte wählen"
+    }
+  },
+  "dialogs": {
+    "display_language": {
+      "title": "Anzeigesprache auswählen",
+      "description": "Wähle die Sprache, die du in der Synapse-Oberfläche sehen möchtest.",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    }
+  }
+}

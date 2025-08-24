@@ -1,0 +1,34 @@
+{
+  "navbar": {
+    "search_placeholder": "Search communities and posts...",
+    "login": "Log In",
+    "signup": "Sign Up"
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "account": "Account",
+      "profile": "Profile",
+      "privacy": "Privacy",
+      "preferences": "Preferences",
+      "notifications": "Notifications",
+      "email": "Email"
+    },
+    "preferences": {
+      "title": "Feed Preferences",
+      "language_section": "Language",
+      "display_language": "Display language",
+      "display_language_desc": "Select the language for your UI",
+      "content_languages": "Content languages",
+      "content_languages_desc": "Choose languages for the content you see"
+    }
+  },
+  "dialogs": {
+    "display_language": {
+      "title": "Select display language",
+      "description": "Choose the language you want to see throughout the Synapse interface.",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  }
+}

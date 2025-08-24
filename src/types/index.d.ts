@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 // User type
 export type User = {
   id: string;
@@ -117,5 +115,5 @@ export interface NotificationState {
 export type Language = {
   code: string;
   name: string;
-  FlagComponent: FC<React.SVGProps<SVGSVGElement>>;
+  FlagComponent: React.ElementType;
 };

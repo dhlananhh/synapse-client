@@ -20,31 +20,49 @@ import { ChevronRight } from "lucide-react";
 
 export default function PreferencesTab() {
   const { t } = useTranslation();
-  const { displayLanguage, contentLanguages } = useAuth();
+
   const [ isDisplayLangDialogOpen, setIsDisplayLangDialogOpen ] = useState(false);
   const [ isContentLangDialogOpen, setIsContentLangDialogOpen ] = useState(false);
 
+  const { displayLanguage, contentLanguages } = useAuth();
+
   const currentDisplayLanguageName = SUPPORTED_LANGUAGES.find(lang => lang.code === displayLanguage)?.name;
+
+  const getContentLanguagesDescription = () => {
+    const count = contentLanguages.length;
+    if (count === 0) {
+      return "No languages selected";
+    }
+    if (count === 1) {
+      return SUPPORTED_LANGUAGES.find(lang => lang.code === contentLanguages[ 0 ])?.name || "1 language selected";
+    }
+    return `${count} languages selected`;
+  };
+
+  const currentContentLanguagesDesc = getContentLanguagesDescription();
 
   return (
     <>
       <Card>
         <CardHeader>
           <CardTitle className="uppercase">
-            { t('settings.preferences.title') }
+            { t("settings.preferences.title") }
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
 
           <h3 className="font-semibold text-sm px-4 pt-2 text-muted-foreground uppercase tracking-wider">
-            { t('settings.preferences.language_section') }
+            { t("settings.preferences.language_section") }
           </h3>
 
           <div
             onClick={ () => setIsDisplayLangDialogOpen(true) }
             className="cursor-pointer"
           >
-            <SettingsRow title="Display language" description="Select the language for your UI">
+            <SettingsRow
+              title={ t("settings.preferences.display_language") }
+              description={ t("settings.preferences.display_language_desc") }
+            >
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold">
                   { currentDisplayLanguageName }
@@ -58,13 +76,20 @@ export default function PreferencesTab() {
             onClick={ () => setIsContentLangDialogOpen(true) }
             className="cursor-pointer"
           >
-            <SettingsRow title="Content languages" description="Choose languages for the content you see">
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            <SettingsRow
+              title={ t("settings.preferences.content_languages") }
+              description={ t("settings.preferences.content_languages_desc") }>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold">
+                  { currentContentLanguagesDesc }
+                </span>
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              </div>
             </SettingsRow>
           </div>
 
           <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
-            Content
+            { t("settings.preferences.content_languages") }
           </h3>
           <SettingsRow
             title="Show mature content (I'm over 18)"

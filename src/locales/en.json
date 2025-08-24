@@ -1,8 +1,42 @@
 {
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "go_home": "Go to Homepage"
+  },
   "navbar": {
     "search_placeholder": "Search communities and posts...",
     "login": "Log In",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "create_post": "Create Post"
+  },
+  "landing_page": {
+    "welcome": "Welcome to",
+    "tagline": "The modern discussion forum where minds connect. Join communities, share your thoughts, and discover new ideas in a vibrant, user-driven ecosystem.",
+    "explore_feed": "Explore Feed",
+    "features": {
+      "discover": "Discover Communities",
+      "discover_desc": "Find your niche in thousands of communities.",
+      "engage": "Engage & Connect",
+      "engage_desc": "Vote on content, comment, and chat in real-time.",
+      "share": "Share Your Knowledge",
+      "share_desc": "Create posts and become a voice in your community."
+    }
+  },
+  "auth": {
+    "login_title": "Login to your account",
+    "username": "Username",
+    "password": "Password",
+    "forgot_password": "Forgot your password?",
+    "dont_have_account": "Don't have an account?",
+    "register_title": "Create your account to start connecting",
+    "email": "Email",
+    "confirm_password": "Confirm Password",
+    "already_have_account": "Already have an account?"
   },
   "settings": {
     "title": "Settings",
@@ -13,6 +47,13 @@
       "preferences": "Preferences",
       "notifications": "Notifications",
       "email": "Email"
+    },
+    "account": {
+      "title": "Account Settings",
+      "email_address": "Email address",
+      "email_desc": "Your currently verified email address",
+      "delete_account": "Delete account",
+      "delete_account_desc": "Permanently delete your account and all data"
     },
     "preferences": {
       "title": "Feed Preferences",
@@ -29,6 +70,27 @@
       "description": "Choose the language you want to see throughout the Synapse interface.",
       "save": "Save",
       "cancel": "Cancel"
+    },
+    "content_language": {
+      "title": "Select content languages",
+      "description": "We will show you content in the languages you select."
+    },
+    "delete_account": {
+      "title": "Are you absolutely sure?",
+      "description": "This action cannot be undone. This will permanently delete your account, posts, comments, and remove all your data from our servers.",
+      "confirm_instructions": "Please type",
+      "confirm_instructions_2": "to confirm."
+    }
+  },
+  "toasts": {
+    "success": {
+      "profile_updated": "Profile Updated",
+      "profile_updated_desc": "Your public profile has been updated successfully.",
+      "post_created": "Post Created!",
+      "post_created_desc": "Your new post is now live and ready for discussion."
+    },
+    "error": {
+      "login_required": "Please log in to perform this action."
     }
   }
 }

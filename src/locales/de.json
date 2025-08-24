@@ -1,26 +1,67 @@
 {
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "confirm": "Bestätigen",
+    "submit": "Absenden",
+    "go_home": "Zur Startseite"
+  },
   "navbar": {
     "search_placeholder": "Communitys und Beiträge durchsuchen...",
     "login": "Anmelden",
-    "signup": "Registrieren"
+    "signup": "Registrieren",
+    "create_post": "Beitrag erstellen"
+  },
+  "landing_page": {
+    "welcome": "Willkommen bei",
+    "tagline": "Das moderne Diskussionsforum, wo sich Köpfe vernetzen. Treten Sie Communitys bei, teilen Sie Ihre Gedanken und entdecken Sie neue Ideen in einem lebendigen, nutzergesteuerten Ökosystem.",
+    "explore_feed": "Feed erkunden",
+    "features": {
+      "discover": "Communitys entdecken",
+      "discover_desc": "Finden Sie Ihre Nische in Tausenden von Communitys.",
+      "engage": "Engagieren & Verbinden",
+      "engage_desc": "Bewerten Sie Inhalte, kommentieren Sie und chatten Sie in Echtzeit.",
+      "share": "Teilen Sie Ihr Wissen",
+      "share_desc": "Erstellen Sie Beiträge und werden Sie eine Stimme in Ihrer Community."
+    }
+  },
+  "auth": {
+    "login_title": "Melden Sie sich bei Ihrem Konto an",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "forgot_password": "Passwort vergessen?",
+    "dont_have_account": "Haben Sie noch kein Konto?",
+    "register_title": "Erstellen Sie Ihr Konto, um sich zu vernetzen",
+    "email": "E-Mail",
+    "confirm_password": "Passwort bestätigen",
+    "already_have_account": "Haben Sie bereits ein Konto?"
   },
   "settings": {
     "title": "Einstellungen",
     "tabs": {
-      "account": "Kontoeinstellungen",
-      "profile": "Profileinstellungen",
-      "privacy": "Datenschutzeinstellungen",
-      "preferences": "Voreinstellungen",
+      "account": "Konto",
+      "profile": "Profil",
+      "privacy": "Datenschutz",
+      "preferences": "Präferenzen",
       "notifications": "Benachrichtigungen",
       "email": "E-Mail"
     },
+    "account": {
+      "title": "Kontoeinstellungen",
+      "email_address": "E-Mail-Adresse",
+      "email_desc": "Ihre aktuell verifizierte E-Mail-Adresse",
+      "delete_account": "Konto löschen",
+      "delete_account_desc": "Löschen Sie Ihr Konto und alle Daten endgültig"
+    },
     "preferences": {
-      "title": "Feed-Einstellungen",
+      "title": "Feed-Präferenzen",
       "language_section": "Sprache",
       "display_language": "Anzeigesprache",
-      "display_language_desc": "Sprache der Benutzeroberfläche auswählen",
+      "display_language_desc": "Wählen Sie die Sprache für Ihre Benutzeroberfläche",
       "content_languages": "Inhaltssprachen",
-      "content_languages_desc": "Sprachen für Inhalte wählen"
+      "content_languages_desc": "Wählen Sie Sprachen für die Inhalte, die Sie sehen"
     }
   },
   "dialogs": {
@@ -29,6 +70,27 @@
       "description": "Wähle die Sprache, die du in der Synapse-Oberfläche sehen möchtest.",
       "save": "Speichern",
       "cancel": "Abbrechen"
+    },
+    "content_language": {
+      "title": "Inhaltssprachen auswählen",
+      "description": "Wir zeigen Ihnen Inhalte in den von Ihnen ausgewählten Sprachen."
+    },
+    "delete_account": {
+      "title": "Sind Sie absolut sicher?",
+      "description": "Diese Aktion kann nicht rückgängig gemacht werden. Dadurch werden Ihr Konto, Ihre Beiträge, Kommentare und alle Ihre Daten dauerhaft von unseren Servern gelöscht.",
+      "confirm_instructions": "Bitte geben Sie",
+      "confirm_instructions_2": "ein, um zu bestätigen."
+    }
+  },
+  "toasts": {
+    "success": {
+      "profile_updated": "Profil aktualisiert",
+      "profile_updated_desc": "Ihr öffentliches Profil wurde erfolgreich aktualisiert.",
+      "post_created": "Beitrag erstellt!",
+      "post_created_desc": "Ihr neuer Beitrag ist jetzt live und bereit für die Diskussion."
+    },
+    "error": {
+      "login_required": "Bitte melden Sie sich an, um diese Aktion auszuführen."
     }
   }
 }

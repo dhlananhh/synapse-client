@@ -1,8 +1,42 @@
 {
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "confirm": "Xác nhận",
+    "submit": "Gửi",
+    "go_home": "Về trang chủ"
+  },
   "navbar": {
     "search_placeholder": "Tìm kiếm cộng đồng và bài viết...",
     "login": "Đăng nhập",
-    "signup": "Đăng ký"
+    "signup": "Đăng ký",
+    "create_post": "Tạo bài viết"
+  },
+  "landing_page": {
+    "welcome": "Chào mừng đến với",
+    "tagline": "Diễn đàn thảo luận hiện đại nơi tri thức kết nối. Tham gia cộng đồng, chia sẻ suy nghĩ và khám phá những ý tưởng mới trong một hệ sinh thái sôi động do người dùng điều khiển.",
+    "explore_feed": "Khám phá Feed",
+    "features": {
+      "discover": "Khám phá Cộng đồng",
+      "discover_desc": "Tìm thấy không gian của riêng bạn trong hàng ngàn cộng đồng.",
+      "engage": "Tương tác & Kết nối",
+      "engage_desc": "Bình chọn cho nội dung, bình luận và trò chuyện trong thời gian thực.",
+      "share": "Chia sẻ Kiến thức",
+      "share_desc": "Tạo bài viết và trở thành một tiếng nói trong cộng đồng của bạn."
+    }
+  },
+  "auth": {
+    "login_title": "Đăng nhập vào tài khoản của bạn",
+    "username": "Tên người dùng",
+    "password": "Mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "dont_have_account": "Chưa có tài khoản?",
+    "register_title": "Tạo tài khoản để bắt đầu kết nối",
+    "email": "Email",
+    "confirm_password": "Xác nhận mật khẩu",
+    "already_have_account": "Đã có tài khoản?"
   },
   "settings": {
     "title": "Cài đặt",
@@ -13,6 +47,13 @@
       "preferences": "Tùy chỉnh",
       "notifications": "Thông báo",
       "email": "Email"
+    },
+    "account": {
+      "title": "Cài đặt Tài khoản",
+      "email_address": "Địa chỉ email",
+      "email_desc": "Địa chỉ email đã được xác minh của bạn",
+      "delete_account": "Xóa tài khoản",
+      "delete_account_desc": "Xóa vĩnh viễn tài khoản và tất cả dữ liệu"
     },
     "preferences": {
       "title": "Tùy chỉnh Feed",
@@ -29,6 +70,27 @@
       "description": "Chọn ngôn ngữ bạn muốn sử dụng cho toàn bộ giao diện của Synapse.",
       "save": "Lưu",
       "cancel": "Hủy"
+    },
+    "content_language": {
+      "title": "Chọn ngôn ngữ nội dung",
+      "description": "Chúng tôi sẽ hiển thị nội dung theo các ngôn ngữ bạn đã chọn."
+    },
+    "delete_account": {
+      "title": "Bạn có hoàn toàn chắc chắn không?",
+      "description": "Hành động này không thể hoàn tác. Nó sẽ xóa vĩnh viễn tài khoản, bài viết, bình luận của bạn và xóa tất cả dữ liệu của bạn khỏi máy chủ của chúng tôi.",
+      "confirm_instructions": "Vui lòng gõ",
+      "confirm_instructions_2": "để xác nhận."
+    }
+  },
+  "toasts": {
+    "success": {
+      "profile_updated": "Hồ sơ đã được cập nhật",
+      "profile_updated_desc": "Hồ sơ công khai của bạn đã được cập nhật thành công.",
+      "post_created": "Bài viết đã được tạo!",
+      "post_created_desc": "Bài viết mới của bạn hiện đã được đăng và sẵn sàng để thảo luận."
+    },
+    "error": {
+      "login_required": "Vui lòng đăng nhập để thực hiện hành động này."
     }
   }
 }

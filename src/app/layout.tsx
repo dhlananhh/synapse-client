@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import { cn } from "@/libs/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";
+import I18nProvider from "@/components/providers/I18nProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import TopProgressBar from "@/components/providers/TopProgressBar";
 import ChatWidget from "@/components/features/chat/ChatWidget";
@@ -39,25 +40,27 @@ export default function RootLayout({
           lexend.variable
         )
       }>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TopProgressBar />
+        <I18nProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TopProgressBar />
 
-          <CommandMenuProvider>
-            <AuthProvider>
-              <NotificationSimulator />
-              { children }
-              <ChatWidget />
-              <GlobalModals />
-            </AuthProvider>
-          </CommandMenuProvider>
+            <CommandMenuProvider>
+              <AuthProvider>
+                <NotificationSimulator />
+                { children }
+                <ChatWidget />
+                <GlobalModals />
+              </AuthProvider>
+            </CommandMenuProvider>
 
-          <Toaster richColors position="top-right" theme="system" />
-        </ThemeProvider>
+            <Toaster richColors position="top-right" theme="system" />
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );

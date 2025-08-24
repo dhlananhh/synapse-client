@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { useLocale } from '@/context/LocaleContext';
-import { SUPPORTED_LANGUAGES } from '@/libs/languages';
+import { useTranslation } from "react-i18next";
+import { useAuth } from "@/context/AuthContext";
+import { SUPPORTED_LANGUAGES } from "@/libs/languages";
 import {
   Card,
   CardContent,
@@ -18,46 +19,46 @@ import { ChevronRight } from "lucide-react";
 
 
 export default function PreferencesTab() {
+  const { t } = useTranslation();
+  const { displayLanguage, contentLanguages } = useAuth();
   const [ isDisplayLangDialogOpen, setIsDisplayLangDialogOpen ] = useState(false);
   const [ isContentLangDialogOpen, setIsContentLangDialogOpen ] = useState(false);
-  const { displayLanguage, contentLanguages } = useLocale();
 
-  const currentLanguageObject = SUPPORTED_LANGUAGES.find(l => l.code === displayLanguage);
-  const currentDisplayLangName = currentLanguageObject?.name || "English";
-  const CurrentFlagComponent = currentLanguageObject?.FlagComponent;
+  const currentDisplayLanguageName = SUPPORTED_LANGUAGES.find(lang => lang.code === displayLanguage)?.name;
 
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="uppercase">Feed Preferences</CardTitle>
+          <CardTitle className="uppercase">
+            { t('settings.preferences.title') }
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
 
           <h3 className="font-semibold text-sm px-4 pt-2 text-muted-foreground uppercase tracking-wider">
-            Language
+            { t('settings.preferences.language_section') }
           </h3>
 
-          <div onClick={ () => setIsDisplayLangDialogOpen(true) } className="cursor-pointer">
+          <div
+            onClick={ () => setIsDisplayLangDialogOpen(true) }
+            className="cursor-pointer"
+          >
             <SettingsRow title="Display language" description="Select the language for your UI">
               <div className="flex items-center gap-2">
-                <span className="text-xl w-6 h-6 flex items-center justify-center">
-                  { CurrentFlagComponent && <CurrentFlagComponent /> }
+                <span className="text-sm font-semibold">
+                  { currentDisplayLanguageName }
                 </span>
-                <Button variant="outline" size="sm">
-                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </Button>
-
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
               </div>
             </SettingsRow>
           </div>
 
-          <div onClick={ () => setIsContentLangDialogOpen(true) } className="cursor-pointer">
-            <SettingsRow
-              title="Content languages"
-              description="Choose languages for the content you see"
-            >
-              <Button variant="outline" size="sm">Change</Button>
+          <div
+            onClick={ () => setIsContentLangDialogOpen(true) }
+            className="cursor-pointer"
+          >
+            <SettingsRow title="Content languages" description="Choose languages for the content you see">
               <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
@@ -129,6 +130,7 @@ export default function PreferencesTab() {
         isOpen={ isDisplayLangDialogOpen }
         onOpenChange={ setIsDisplayLangDialogOpen }
       />
+
       <ChangeContentLanguagesDialog
         isOpen={ isContentLangDialogOpen }
         onOpenChange={ setIsContentLangDialogOpen }

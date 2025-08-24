@@ -3,10 +3,12 @@
 import React, {
   createContext,
   useState,
+  useEffect,
   useContext,
   ReactNode
 } from "react";
-import { User } from "@/types";
+import { useTranslation } from "react-i18next";
+import { User, Language } from "@/types";
 import { TRegisterSchema } from "@/libs/validators/auth-validator";
 import {
   TUserProfileSchema,
@@ -35,6 +37,10 @@ interface AuthContextType {
   userVotes: UserVotes;
   getVoteStatus: (itemId: string) => UserVote | null;
   handleVote: (itemId: string, newVote: UserVote) => void;
+  displayLanguage: string;
+  contentLanguages: string[];
+  setDisplayLanguage: (langCode: string) => void;
+  setContentLanguages: (langCodes: string[]) => void;
 }
 
 
@@ -42,10 +48,23 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const { i18n } = useTranslation();
+
   const [ currentUser, setCurrentUser ] = useState<User | null>(null);
   const [ subscribedCommunityIds, setSubscribedCommunityIds ] = useState<string[]>([]);
   const [ isOnboardingModalOpen, setIsOnboardingModalOpen ] = useState(false);
   const [ userVotes, setUserVotes ] = useState<UserVotes>({});
+  const [ displayLanguage, setDisplayLanguage ] = useState<string>(i18n.language.split('-')[ 0 ]);
+  const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split('-')[ 0 ] ]);
+
+
+  useEffect(() => {
+    const currentLang = i18n.language.split('-')[ 0 ];
+    if (displayLanguage !== currentLang) {
+      i18n.changeLanguage(displayLanguage);
+    }
+  }, [ displayLanguage, i18n ]);
+
 
   const login = (username: string) => {
     const userToLogin = allMockUsers.find(u => u.username === username);
@@ -136,6 +155,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     userVotes,
     getVoteStatus,
     handleVote,
+    displayLanguage,
+    contentLanguages,
+    setDisplayLanguage,
+    setContentLanguages,
   };
 
   return (

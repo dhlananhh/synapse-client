@@ -1,5 +1,8 @@
 "use client";
 
+
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
@@ -16,6 +19,8 @@ type TSearchSchema = z.infer<typeof SearchSchema>;
 
 
 export default function SearchBar() {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setIsOpen } = useCommandMenu();
@@ -38,7 +43,7 @@ export default function SearchBar() {
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             { ...register("query") }
-            placeholder="Search communities and posts..."
+            placeholder={ t("navbar.search_placeholder") }
             className="pl-9"
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 text-xs text-muted-foreground border rounded-sm px-1.5 py-0.5">

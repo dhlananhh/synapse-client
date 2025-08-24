@@ -1,17 +1,21 @@
 "use client";
 
+
 import React, { Suspense } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { BrainCircuit } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
 import UserNav from "./UserNav";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "./ThemeToggle";
 import SearchBar from "./SearchBar";
 import NotificationBell from "@/components/features/notifications/NotificationBell";
+import { BrainCircuit } from "lucide-react";
+
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
 
   return (
@@ -46,10 +50,14 @@ const Navbar = () => {
             ) : (
               <div className="hidden sm:flex items-center gap-2">
                 <Button asChild variant="ghost">
-                  <Link href="/login">Log In</Link>
+                  <Link href="/login">
+                    { t('navbar.login') }
+                  </Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/register">Sign Up</Link>
+                  <Link href="/register">
+                    { t('navbar.signup') }
+                  </Link>
                 </Button>
               </div>
             )

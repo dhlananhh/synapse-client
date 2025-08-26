@@ -1,6 +1,8 @@
 "use client";
 
-import { useChatStore, Conversation, Message } from "@/store/useChatStore";
+import React from "react";
+import { useChatStore } from "@/store/useChatStore";
+import { Conversation, Message } from "@/types"
 import { useAuth } from "@/context/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

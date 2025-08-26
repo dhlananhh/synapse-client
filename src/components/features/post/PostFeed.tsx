@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { Post } from "@/types";
-import { fetchPosts, SortType } from "@/libs/api";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Post, SortType } from "@/types";
+import { fetchPosts } from "@/libs/api";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import SortTabs from "./SortTabs";
 import PostCard from "./PostCard";
 import PostFeedSkeleton from "./PostFeedSkeleton";
 import EmptyState from "@/components/shared/EmptyState";
 import { Globe, Loader2 } from "lucide-react";
+
 
 export default function PostFeed() {
   const [ posts, setPosts ] = useState<Post[]>([]);

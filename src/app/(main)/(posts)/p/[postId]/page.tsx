@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useEffect, useState, use, useCallback } from "react";
+
+import React, {
+  use,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -8,7 +14,6 @@ import { useAuth } from "@/context/AuthContext";
 import { fetchPostById, deletePost } from "@/libs/api";
 import { Post } from "@/types";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
-import PostCardSkeleton from "@/components/features/post/PostCardSkeleton";
 import ErrorDisplay from "@/components/shared/ErrorDisplay";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { formatDistanceToNow } from "date-fns";
@@ -21,7 +26,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import {
+  MoreHorizontal,
+  Pencil,
+  Trash2
+} from "lucide-react";
 
 
 function PostView({ post }: { post: Post }) {
@@ -64,7 +73,8 @@ function PostView({ post }: { post: Post }) {
               </Link>
               { " " } in{ " " }
               <Link
-                href={ `/c/${post.community.slug}` } className="font-semibold text-primary hover:underline"
+                href={ `/c/${post.community.slug}` }
+                className="font-semibold text-primary hover:underline"
               >
                 c/{ post.community.slug }
               </Link>

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ServerCrash } from "lucide-react";
+import { ServerCrash, Home } from "lucide-react";
 
 
 export default function NotFoundDisplay() {
@@ -18,11 +18,13 @@ export default function NotFoundDisplay() {
       </h1>
 
       <p className="mt-4 max-w-md text-muted-foreground">
-        Oops! The page you are looking for does not exist. It might have been moved, deleted, or you may have typed the URL incorrectly.
+        Oops! The page you are looking for does not exist.
+        It might have been moved, deleted, or you may have typed the URL incorrectly.
       </p>
 
       <Button asChild className="mt-8">
         <Link href="/">
+          <Home className="mr-1 h-5 w-5" />
           Go back to Homepage
         </Link>
       </Button>

@@ -1,8 +1,9 @@
-import { mockPosts } from "./mock-data";
+import { mockPosts, allMockUsers } from "./mock-data";
 import {
+  User,
   Post,
   Comment,
-  SortType
+  SortType,
 } from "@/types";
 import { TPostSchema } from "./validators/post-validator";
 
@@ -120,6 +121,7 @@ const findCommentAndParent = (comments: Comment[], commentId: string): {
   return { comment: null, parent: null };
 };
 
+
 export const updateComment = async (postId: string, commentId: string, newText: string): Promise<Comment> => {
   await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -132,6 +134,7 @@ export const updateComment = async (postId: string, commentId: string, newText: 
   comment.text = newText;
   return comment;
 }
+
 
 export const deleteComment = async (postId: string, commentId: string): Promise<void> => {
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -146,4 +149,26 @@ export const deleteComment = async (postId: string, commentId: string): Promise<
       parent.splice(index, 1);
     }
   }
+}
+
+
+export const fetchCommunityMembers = async (
+  communitySlug: string,
+  page: number
+): Promise<{ data: User[], hasMore: boolean }> => {
+  await new Promise(resolve => setTimeout(resolve, 750));
+
+  const membersWithRoles = allMockUsers.map((user, index) => ({
+    ...user,
+    role: index === 0 ? 'Moderator' : 'Member',
+  }));
+
+  const MEMBERS_PER_PAGE = 20;
+  const start = (page - 1) * MEMBERS_PER_PAGE;
+  const end = start + MEMBERS_PER_PAGE;
+
+  const membersSlice = membersWithRoles.slice(start, end);
+  const hasMore = end < membersWithRoles.length;
+
+  return { data: membersSlice, hasMore };
 }

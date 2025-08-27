@@ -1,0 +1,96 @@
+{
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "confirm": "Conferma",
+    "submit": "Invia",
+    "go_home": "Vai alla Homepage"
+  },
+  "navbar": {
+    "search_placeholder": "Cerca community e post...",
+    "login": "Accedi",
+    "signup": "Registrati",
+    "create_post": "Crea Post"
+  },
+  "landing_page": {
+    "welcome": "Benvenuto in",
+    "tagline": "Il moderno forum di discussione dove le menti si connettono. Unisciti a community, condividi i tuoi pensieri e scopri nuove idee in un ecosistema vibrante e guidato dagli utenti.",
+    "explore_feed": "Esplora il Feed",
+    "features": {
+      "discover": "Scopri Community",
+      "discover_desc": "Trova la tua nicchia in migliaia di community.",
+      "engage": "Interagisci e Connettiti",
+      "engage_desc": "Vota i contenuti, commenta e chatta in tempo reale.",
+      "share": "Condividi la tua Conoscenza",
+      "share_desc": "Crea post e diventa una voce nella tua community."
+    }
+  },
+  "auth": {
+    "login_title": "Accedi al tuo account",
+    "username": "Nome utente",
+    "password": "Password",
+    "forgot_password": "Password dimenticata?",
+    "dont_have_account": "Non hai un account?",
+    "register_title": "Crea il tuo account per iniziare a connetterti",
+    "email": "Email",
+    "confirm_password": "Conferma Password",
+    "already_have_account": "Hai già un account?"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "tabs": {
+      "account": "Account",
+      "profile": "Profilo",
+      "privacy": "Privacy",
+      "preferences": "Preferenze",
+      "notifications": "Notifiche",
+      "email": "Email"
+    },
+    "account": {
+      "title": "Impostazioni Account",
+      "email_address": "Indirizzo email",
+      "email_desc": "Il tuo indirizzo email attualmente verificato",
+      "delete_account": "Elimina account",
+      "delete_account_desc": "Elimina permanentemente il tuo account e tutti i dati"
+    },
+    "preferences": {
+      "title": "Preferenze del Feed",
+      "language_section": "Lingua",
+      "display_language": "Lingua di visualizzazione",
+      "display_language_desc": "Seleziona la lingua per la tua interfaccia utente",
+      "content_languages": "Lingue dei contenuti",
+      "content_languages_desc": "Scegli le lingue per i contenuti che vedi"
+    }
+  },
+  "dialogs": {
+    "display_language": {
+      "title": "Seleziona la lingua di visualizzazione",
+      "description": "Scegli la lingua che vuoi vedere in tutta l'interfaccia di Synapse.",
+      "save": "Salva",
+      "cancel": "Annulla"
+    },
+    "content_language": {
+      "title": "Seleziona le lingue dei contenuti",
+      "description": "Ti mostreremo contenuti nelle lingue che selezioni."
+    },
+    "delete_account": {
+      "title": "Sei assolutamente sicuro?",
+      "description": "Questa azione non può essere annullata. Eliminerà permanentemente il tuo account, i tuoi post, i commenti e rimuoverà tutti i tuoi dati dai nostri server.",
+      "confirm_instructions": "Per favore, digita",
+      "confirm_instructions_2": "per confermare."
+    }
+  },
+  "toasts": {
+    "success": {
+      "profile_updated": "Profilo aggiornato",
+      "profile_updated_desc": "Il tuo profilo pubblico è stato aggiornato con successo.",
+      "post_created": "Post creato!",
+      "post_created_desc": "Il tuo nuovo post è ora online e pronto per la discussione."
+    },
+    "error": {
+      "login_required": "Per favore, accedi per eseguire questa azione."
+    }
+  }
+}

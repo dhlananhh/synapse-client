@@ -1,0 +1,96 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "confirm": "Confirmer",
+    "submit": "Envoyer",
+    "go_home": "Retour à l'accueil"
+  },
+  "navbar": {
+    "search_placeholder": "Rechercher des communautés et des publications...",
+    "login": "Se connecter",
+    "signup": "S'inscrire",
+    "create_post": "Créer une publication"
+  },
+  "landing_page": {
+    "welcome": "Bienvenue sur",
+    "tagline": "Le forum de discussion moderne où les esprits se connectent. Rejoignez des communautés, partagez vos pensées et découvrez de nouvelles idées dans un écosystème dynamique et centré sur l'utilisateur.",
+    "explore_feed": "Explorer le fil",
+    "features": {
+      "discover": "Découvrez des Communautés",
+      "discover_desc": "Trouvez votre niche parmi des milliers de communautés.",
+      "engage": "Interagissez & Connectez-vous",
+      "engage_desc": "Votez sur le contenu, commentez et discutez en temps réel.",
+      "share": "Partagez vos Connaissances",
+      "share_desc": "Créez des publications et devenez une voix dans votre communauté."
+    }
+  },
+  "auth": {
+    "login_title": "Connectez-vous à votre compte",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "dont_have_account": "Pas encore de compte ?",
+    "register_title": "Créez votre compte pour commencer à vous connecter",
+    "email": "E-mail",
+    "confirm_password": "Confirmez le mot de passe",
+    "already_have_account": "Vous avez déjà un compte ?"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "tabs": {
+      "account": "Compte",
+      "profile": "Profil",
+      "privacy": "Confidentialité",
+      "preferences": "Préférences",
+      "notifications": "Notifications",
+      "email": "E-mail"
+    },
+    "account": {
+      "title": "Paramètres du Compte",
+      "email_address": "Adresse e-mail",
+      "email_desc": "Votre adresse e-mail actuellement vérifiée",
+      "delete_account": "Supprimer le compte",
+      "delete_account_desc": "Supprimer définitivement votre compte et toutes les données"
+    },
+    "preferences": {
+      "title": "Préférences du Fil",
+      "language_section": "Langue",
+      "display_language": "Langue d'affichage",
+      "display_language_desc": "Sélectionnez la langue de votre interface utilisateur",
+      "content_languages": "Langues du contenu",
+      "content_languages_desc": "Choisissez les langues pour le contenu que vous voyez"
+    }
+  },
+  "dialogs": {
+    "display_language": {
+      "title": "Sélectionner la langue d'affichage",
+      "description": "Choisissez la langue que vous souhaitez voir dans toute l'interface de Synapse.",
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "content_language": {
+      "title": "Sélectionner les langues du contenu",
+      "description": "Nous vous montrerons du contenu dans les langues que vous sélectionnez."
+    },
+    "delete_account": {
+      "title": "Êtes-vous absolument sûr ?",
+      "description": "Cette action est irréversible. Elle supprimera définitivement votre compte, vos publications, vos commentaires et toutes vos données de nos serveurs.",
+      "confirm_instructions": "Veuillez taper",
+      "confirm_instructions_2": "pour confirmer."
+    }
+  },
+  "toasts": {
+    "success": {
+      "profile_updated": "Profil mis à jour",
+      "profile_updated_desc": "Votre profil public a été mis à jour avec succès.",
+      "post_created": "Publication créée !",
+      "post_created_desc": "Votre nouvelle publication est maintenant en ligne et prête pour la discussion."
+    },
+    "error": {
+      "login_required": "Veuillez vous connecter pour effectuer cette action."
+    }
+  }
+}

@@ -4,7 +4,7 @@ import React from "react";
 import { Post } from "@/types";
 import PostCard from "@/components/features/post/PostCard";
 import EmptyState from '@/components/shared/EmptyState';
-import { MessageSquarePlus } from 'lucide-react';
+import { MessageSquarePlus } from "lucide-react";
 
 
 export default function UserPostFeed({ posts }: { posts: Post[] }) {

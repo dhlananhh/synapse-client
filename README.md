@@ -64,6 +64,7 @@ This name was chosen because it perfectly encapsulates the core mission of this 
 - **Component Library:** Shadcn UI (Radix UI + Tailwind)
 - **State Management:** React Context API (for low-frequency updates) & Zustand (for high-frequency updates like chat and notifications).
 - **Forms:** React Hook Form & Zod (for validation).
+- **Internationalization (i18n):** `react-i18next` & `i18next`.
 - **UX Libraries:** `next-themes`, `nextjs-toploader`, `sonner`, `lucide-react`.
 
 ## 📁 Final Project Structure

@@ -1,11 +1,13 @@
 "use client";
 
+
 import React, { use } from "react";
 import { notFound } from "next/navigation";
 import { mockPosts, mockCommunities } from "@/libs/mock-data";
 import { getAllComments, generateUserActivity } from "@/libs/mock-data";
 import UserProfile from "@/components/features/user/UserProfile";
 import { User, Post, UserComment } from "@/types";
+
 
 const getUserProfileData = (username: string) => {
   const allUsers: User[] = [
@@ -24,6 +26,7 @@ const getUserProfileData = (username: string) => {
 
   return { user, userPosts, userComments, activity };
 }
+
 
 export default function ProfilePage(props: { params: Promise<{ username: string }> }) {
   const params = use(props.params);

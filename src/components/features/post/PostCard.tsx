@@ -1,5 +1,6 @@
 "use client";
 
+
 import React from "react";
 import Link from "next/link";
 import { Post } from "@/types";
@@ -10,7 +11,10 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Share2 } from "lucide-react";
+import {
+  MessageCircle,
+  Share2
+} from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import VoteClient from "./VoteClient";
 

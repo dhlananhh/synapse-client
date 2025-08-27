@@ -7,12 +7,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function MemberCardSkeleton() {
   return (
     <Card>
-      <CardContent className="p-4 flex items-center gap-4">
-        <Skeleton className="h-12 w-12 rounded-full" />
-        <div className="space-y-2 flex-1">
-          <Skeleton className="h-4 w-2/5" />
-          <Skeleton className="h-3 w-3/5" />
-        </div>
+      <CardContent className="p-6 flex flex-col items-center text-center">
+        <Skeleton className="h-20 w-20 rounded-full mb-3" />
+
+        <Skeleton className="h-5 w-3/5 mb-1.5" />
+        <Skeleton className="h-4 w-2/5" />
+
+        <Skeleton className="h-5 w-1/4 mt-2" />
+
+        <Skeleton className="h-10 w-full mt-4" />
       </CardContent>
     </Card>
   );

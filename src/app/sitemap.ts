@@ -1,17 +1,19 @@
 import { MetadataRoute } from "next";
-import { mockCommunities, mockPosts } from "@/libs/mock-data";
-import { PATHS } from "@/libs/paths";
+import {
+  mockCommunities,
+  mockPosts
+} from "@/libs/mock-data";
 
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   const staticRoutes = [
-    PATHS.home,
-    PATHS.feed,
-    PATHS.login,
-    PATHS.register,
-    PATHS.submit,
+    "/",
+    "/feed",
+    "/login",
+    "/register",
+    "/submit",
   ].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -20,22 +22,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const communityRoutes = mockCommunities.map((community) => ({
-    url: `${siteUrl}${PATHS.community(community.slug)}`,
+    url: `${siteUrl}/c/${community.slug}`,
     lastModified: new Date().toISOString(),
     changeFrequency: "daily" as const,
     priority: 0.9,
   }));
 
   const postRoutes = mockPosts.map((post) => ({
-    url: `${siteUrl}${PATHS.post(post.id)}`,
+    url: `${siteUrl}/p/${post.id}`,
     lastModified: new Date(post.createdAt).toISOString(),
     changeFrequency: "weekly" as const,
     priority: 1.0,
   }));
 
   const allUsers = [ ...new Map(mockPosts.map(post => [ post.author.username, post.author ])).values() ];
+
   const userRoutes = allUsers.map((user) => ({
-    url: `${siteUrl}${PATHS.userProfile(user.username)}`,
+    url: `${siteUrl}/u/${user.username}`,
     lastModified: new Date().toISOString(),
     changeFrequency: "weekly" as const,
     priority: 0.7,
@@ -48,4 +51,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...postRoutes,
     ...userRoutes
   ];
-} 
+}

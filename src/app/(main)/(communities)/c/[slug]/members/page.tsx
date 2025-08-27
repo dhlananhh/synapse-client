@@ -54,7 +54,7 @@ export default function MembersPage() {
   }, [ slug ]);
 
   return (
-    <div>
+    <div className="mt-5">
       <div className="mb-4">
         <Link
           href={ `/c/${slug}` }
@@ -103,7 +103,10 @@ export default function MembersPage() {
       {
         hasMore && !isLoading && (
           <div className="mt-6 text-center">
-            <Button onClick={ () => loadMembers(false) } disabled={ isLoadingMore }>
+            <Button
+              onClick={ () => loadMembers(false) }
+              disabled={ isLoadingMore }
+            >
               { isLoadingMore && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
               Load More
             </Button>

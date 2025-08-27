@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 
 interface MemberCardProps {
@@ -16,29 +17,36 @@ interface MemberCardProps {
 
 export default function MemberCard({ member }: MemberCardProps) {
   return (
-    <Card className="hover:bg-secondary/50 transition-colors">
-      <CardContent className="p-4 flex items-center justify-between">
-
+    <Card className="hover:border-primary/50 hover:shadow-lg transition-all">
+      <CardContent className="p-6 flex flex-col items-center text-center">
         <Link
           href={ `/u/${member.username}` }
-          className="flex items-center gap-4 group"
+          className="flex flex-col items-center group"
         >
-          <UserAvatar user={ member } className="h-12 w-12" />
-          <div>
-            <p className="font-bold group-hover:underline">
-              { member.displayName || member.username }
-            </p>
-            <p className="text-sm text-muted-foreground">
-              u/{ member.username }
-            </p>
-          </div>
+          <UserAvatar user={ member } className="h-20 w-20 mb-3" />
+          <p className="font-bold text-lg group-hover:underline">
+            { member.displayName || member.username }
+          </p>
+          <p className="text-sm text-muted-foreground">
+            u/{ member.username }
+          </p>
         </Link>
 
         {
           member.role === "Moderator" && (
-            <Badge variant="outline">{ member.role }</Badge>
+            <Badge variant="secondary" className="mt-2">
+              { member.role }
+            </Badge>
           )
         }
+
+        <Button asChild className="w-full mt-4">
+          <Link
+            href={ `/u/${member.username}` }
+          >
+            View Profile
+          </Link>
+        </Button>
       </CardContent>
     </Card>
   )

@@ -15,11 +15,14 @@ import { Button } from "@/components/ui/button";
 import SettingsRow from "../SettingsRow";
 import ChangeDisplayLanguageDialog from "../dialogs/ChangeDisplayLanguageDialog";
 import ChangeContentLanguagesDialog from "../dialogs/ChangeContentLanguagesDialog";
+import MutedCommunitiesDialog from "../dialogs/MutedCommunitiesDialog";
 import { ChevronRight } from "lucide-react";
 
 
 export default function PreferencesTab() {
   const { t } = useTranslation();
+
+  const [ isMutedCommunitiesDialogOpen, setIsMutedCommunitiesDialogOpen ] = useState(false);
 
   const [ isDisplayLangDialogOpen, setIsDisplayLangDialogOpen ] = useState(false);
   const [ isContentLangDialogOpen, setIsContentLangDialogOpen ] = useState(false);
@@ -108,13 +111,17 @@ export default function PreferencesTab() {
           >
             <Switch defaultChecked />
           </SettingsRow>
-          <SettingsRow
-            title="Muted communities"
-            description="Manage communities you've muted"
-            href="#"
+          <div
+            onClick={ () => setIsMutedCommunitiesDialogOpen(true) }
+            className="cursor-pointer"
           >
-            <span></span>
-          </SettingsRow>
+            <SettingsRow
+              title="Muted communities"
+              description="Manage communities you've muted"
+            >
+              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            </SettingsRow>
+          </div>
 
           <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
             Experience
@@ -159,6 +166,11 @@ export default function PreferencesTab() {
       <ChangeContentLanguagesDialog
         isOpen={ isContentLangDialogOpen }
         onOpenChange={ setIsContentLangDialogOpen }
+      />
+
+      <MutedCommunitiesDialog
+        isOpen={ isMutedCommunitiesDialogOpen }
+        onOpenChange={ setIsMutedCommunitiesDialogOpen }
       />
     </>
   );

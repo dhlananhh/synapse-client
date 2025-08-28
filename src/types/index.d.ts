@@ -35,6 +35,8 @@ export type Community = {
   description: string;
   createdAt: string;
   memberCount: number;
+  ownerId: string;
+  moderatorIds: string[];
 };
 
 // Post type

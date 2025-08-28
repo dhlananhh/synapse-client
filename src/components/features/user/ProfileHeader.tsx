@@ -77,7 +77,7 @@ export default function ProfileHeader({
 
           <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-bold">{ user.username }</h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mt-2">
               <div className="flex items-center gap-1">
                 <Zap className="h-4 w-4" />
                 <span>{ user.karma.toLocaleString() } Karma</span>
@@ -95,33 +95,35 @@ export default function ProfileHeader({
           </div>
         </div>
 
-        { canInteract && (
-          <div className="flex items-center gap-1">
-            <Button onClick={ handleMessageClick }>
-              <MessageSquare className="h-4 w-4" />
-              Message
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem
-                  onClick={ handleBlock }
-                  className={ isUserBlocked
-                    ? "focus:bg-green-100 dark:focus:bg-green-900"
-                    : "text-destructive focus:bg-destructive/10 focus:text-destructive"
-                  }
-                >
-                  { isUserBlocked ? <ShieldOff className="mr-2 h-4 w-4" /> : <UserX className="mr-2 h-4 w-4" /> }
-                  { isUserBlocked ? "Unblock User" : "Block User" }
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) }
+        {
+          canInteract && (
+            <div className="flex items-center gap-1">
+              <Button onClick={ handleMessageClick }>
+                <MessageSquare className="h-4 w-4" />
+                Message
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    onClick={ handleBlock }
+                    className={ isUserBlocked
+                      ? "focus:bg-green-100 dark:focus:bg-green-900"
+                      : "text-destructive focus:bg-destructive/10 focus:text-destructive"
+                    }
+                  >
+                    { isUserBlocked ? <ShieldOff className="mr-2 h-4 w-4" /> : <UserX className="mr-2 h-4 w-4" /> }
+                    { isUserBlocked ? "Unblock User" : "Block User" }
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )
+        }
       </div>
 
 

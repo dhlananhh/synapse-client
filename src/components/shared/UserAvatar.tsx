@@ -1,15 +1,25 @@
 import { User } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from "@/components/ui/avatar";
 
-interface UserAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: User;
-}
+type UserAvatarProps =
+  | { user: User; name?: never; imageUrl?: never }
+  | { user?: never; name: string; imageUrl?: string };
 
-export function UserAvatar({ user, ...props }: UserAvatarProps) {
+type CombinedProps = UserAvatarProps & React.HTMLAttributes<HTMLSpanElement>;
+
+
+export function UserAvatar({ user, name, imageUrl, ...props }: CombinedProps) {
+  const src = user?.avatarUrl || imageUrl;
+  const displayName = user?.username || name;
+
   return (
     <Avatar { ...props }>
-      <AvatarImage src={ user.avatarUrl } alt={ user.username } />
-      <AvatarFallback>{ user.username.slice(0, 2).toUpperCase() }</AvatarFallback>
+      <AvatarImage src={ src } alt={ displayName } />
+      <AvatarFallback>{ displayName?.slice(0, 2).toUpperCase() || "??" }</AvatarFallback>
     </Avatar>
-  )
+  );
 }

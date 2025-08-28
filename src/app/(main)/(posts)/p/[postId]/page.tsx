@@ -14,6 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import { fetchPostById, deletePost } from "@/libs/api";
 import { Post } from "@/types";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
+import ReportDialog from "@/components/features/report/ReportDialog";
 import ErrorDisplay from "@/components/shared/ErrorDisplay";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { formatDistanceToNow } from "date-fns";
@@ -29,16 +30,20 @@ import { Button } from "@/components/ui/button";
 import {
   MoreHorizontal,
   Pencil,
-  Trash2
+  Trash2,
+  Flag
 } from "lucide-react";
 
 
 function PostView({ post }: { post: Post }) {
   const { currentUser } = useAuth();
   const router = useRouter();
+
   const isAuthor = currentUser?.id === post.author.id;
+
   const [ isDeleting, setIsDeleting ] = useState(false);
   const [ isDeleteDialogOpen, setIsDeleteDialogOpen ] = useState(false);
+  const [ isReportDialogOpen, setIsReportDialogOpen ] = useState(false);
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -110,20 +115,34 @@ function PostView({ post }: { post: Post }) {
             )
           }
 
+          { !isAuthor && (
+            <DropdownMenuItem onClick={ () => setIsReportDialogOpen(true) }>
+              <Flag className="mr-2 h-4 w-4" />Report
+            </DropdownMenuItem>
+          ) }
+
           <h1 className="mt-2 text-2xl font-bold leading-tight">{ post.title }</h1>
           <p className="mt-4 text-foreground/80">{ post.content }</p>
           <CommentSection postId={ post.id } initialComments={ post.comments } />
         </div>
       </div>
 
+
       <ConfirmDialog
         open={ isDeleteDialogOpen }
         onOpenChange={ setIsDeleteDialogOpen }
         onConfirm={ handleDelete }
         title="Are you sure you want to delete this post?"
-        description="This action cannot be undone. All comments and votes associated with this post will be permanently lost."
+        description={ `This action cannot be undone. All comments and votes associated with this post will be permanently lost.` }
         confirmText="Delete Post"
         isConfirming={ isDeleting }
+      />
+
+      <ReportDialog
+        isOpen={ isReportDialogOpen }
+        onOpenChange={ setIsReportDialogOpen }
+        itemId={ post.id }
+        itemType="POST"
       />
     </>
   );

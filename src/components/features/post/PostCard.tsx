@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import VoteClient from "./VoteClient";
+import SavePostButton from './SavePostButton';
 
 
 interface PostCardProps {
@@ -76,6 +77,8 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               <span className="inline sm:hidden">{ post.comments.length }</span>
             </Link>
           </Button>
+
+          <SavePostButton postId={ post.id } />
 
           <Button variant="ghost" size="lg" className="rounded-full flex items-center gap-1.5 px-2">
             <Share2 className="h-5 w-5" />

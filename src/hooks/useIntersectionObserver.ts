@@ -1,10 +1,16 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useCallback
+} from "react";
+
 
 interface UseIntersectionObserverProps {
   onIntersect: () => void;
   isLoading: boolean;
   hasMore: boolean;
 }
+
 
 export function useIntersectionObserver({
   onIntersect,

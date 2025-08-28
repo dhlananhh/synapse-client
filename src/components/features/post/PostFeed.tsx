@@ -1,9 +1,15 @@
 "use client";
 
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef
+} from "react";
 import { Post, SortType } from "@/types";
 import { fetchPosts } from "@/libs/api";
+import { useAuth } from "@/context/AuthContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import SortTabs from "./SortTabs";
 import PostCard from "./PostCard";
@@ -19,6 +25,7 @@ export default function PostFeed() {
   const [ isInitialLoading, setIsInitialLoading ] = useState(true);
   const [ hasMore, setHasMore ] = useState(true);
   const [ sortBy, setSortBy ] = useState<SortType>("hot");
+  const { mutedCommunityIds } = useAuth();
 
   const initialLoadPerformed = useRef(false);
 
@@ -30,7 +37,11 @@ export default function PostFeed() {
     const pageToFetch = isNewSort ? 1 : page;
 
     try {
-      const { data: newPosts, hasMore: newHasMore } = await fetchPosts(pageToFetch, sortBy);
+      const { data: newPosts, hasMore: newHasMore } = await fetchPosts(
+        pageToFetch,
+        sortBy,
+        mutedCommunityIds
+      );
 
       setPosts(prevPosts => isNewSort ? newPosts : [ ...prevPosts, ...newPosts ]);
       setPage(pageToFetch + 1);
@@ -43,7 +54,7 @@ export default function PostFeed() {
         setIsInitialLoading(false);
       }
     }
-  }, [ isLoading, hasMore, page, sortBy, isInitialLoading ]);
+  }, [ isLoading, hasMore, page, sortBy, isInitialLoading, mutedCommunityIds ]);
 
   useEffect(() => {
     if (!initialLoadPerformed.current) {

@@ -44,6 +44,9 @@ interface AuthContextType {
   mutedCommunityIds: string[];
   isMuted: (communityId: string) => boolean;
   toggleMuteCommunity: (communityId: string) => void;
+  blockedUserIds: string[];
+  isBlocked: (userId: string) => boolean;
+  toggleBlockUser: (userId: string) => void;
 }
 
 
@@ -60,6 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ displayLanguage, setDisplayLanguage ] = useState<string>(i18n.language.split('-')[ 0 ]);
   const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split('-')[ 0 ] ]);
   const [ mutedCommunityIds, setMutedCommunityIds ] = useState<string[]>([]);
+  const [ blockedUserIds, setBlockedUserIds ] = useState<string[]>([]);
 
 
   useEffect(() => {
@@ -160,6 +164,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const isBlocked = (userId: string): boolean => {
+    return blockedUserIds.includes(userId);
+  };
+
+  const toggleBlockUser = (userId: string) => {
+    setBlockedUserIds(prevBlocked => {
+      if (prevBlocked.includes(userId)) {
+        // If already blocked, unblock
+        return prevBlocked.filter(id => id !== userId);
+      } else {
+        // If not blocked, block
+        return [ ...prevBlocked, userId ];
+      }
+    });
+  };
+
   const value = {
     currentUser,
     login,
@@ -182,6 +202,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     mutedCommunityIds,
     isMuted,
     toggleMuteCommunity,
+    blockedUserIds,
+    isBlocked,
+    toggleBlockUser,
   };
 
   return (

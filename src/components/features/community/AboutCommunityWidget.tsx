@@ -3,6 +3,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 import { Community } from "@/types";
 import {
   Card,
@@ -21,6 +22,9 @@ interface AboutCommunityWidgetProps {
 
 
 export default function AboutCommunityWidget({ community }: AboutCommunityWidgetProps) {
+  const { currentUser } = useAuth();
+  const isOwner = currentUser?.id === community.ownerId;
+
   return (
     <Card>
       <CardHeader>
@@ -50,12 +54,29 @@ export default function AboutCommunityWidget({ community }: AboutCommunityWidget
           </Link>
         </div>
 
-        <Button asChild className="w-full mt-2">
+        <Button
+          asChild
+          className="w-full mt-2"
+        >
           <Link href={ `/c/${community.slug}/members` }>
             View All Members
           </Link>
         </Button>
       </CardContent>
+
+      {
+        isOwner && (
+          <Button
+            asChild
+            className="w-full mt-2"
+            variant="secondary"
+          >
+            <Link href={ `/c/${community.slug}/manage` }>
+              Manage Community
+            </Link>
+          </Button>
+        )
+      }
     </Card>
   )
 }

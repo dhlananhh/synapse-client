@@ -223,3 +223,24 @@ export const updateCommunityModerators = async (
   community.moderatorIds = moderatorIds;
   console.log(`Moderators for community ${community.slug} updated.`);
 }
+
+
+export const reportContent = async (
+  itemId: string,
+  itemType: 'POST' | 'COMMENT',
+  reason: string,
+  reportingUserId: string
+): Promise<{ success: true }> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  console.log(`
+    --- CONTENT REPORT SUBMITTED ---
+    Item ID: ${itemId}
+    Item Type: ${itemType}
+    Reason: ${reason}
+    Reported by User: ${reportingUserId}
+    ---------------------------------
+    `);
+
+  return { success: true };
+};

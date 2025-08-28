@@ -1,4 +1,8 @@
-import { mockPosts, allMockUsers } from "./mock-data";
+import {
+  mockPosts,
+  allMockUsers,
+  mockCommunities
+} from "./mock-data";
 import {
   User,
   Post,
@@ -171,4 +175,46 @@ export const fetchCommunityMembers = async (
   const hasMore = end < membersWithRoles.length;
 
   return { data: membersSlice, hasMore };
+}
+
+
+export const deleteCommunity = async (communityId: string): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  const communityIndex = mockCommunities.findIndex(c => c.id === communityId);
+
+  if (communityIndex === -1) {
+    console.warn("Attempted to delete a community that was not found.");
+    throw new Error("Community not found.");
+  }
+
+
+  const postsToDelete = mockPosts.filter(p => p.community.id === communityId);
+
+  postsToDelete.forEach(post => {
+    const postIndex = mockPosts.findIndex(p => p.id === post.id);
+    if (postIndex > -1) {
+      mockPosts.splice(postIndex, 1);
+    }
+  });
+
+  mockCommunities.splice(communityIndex, 1);
+
+  console.log(`Community with ID ${communityId} and all its posts have been deleted.`);
+};
+
+
+export const updateCommunityModerators = async (
+  communityId: string,
+  moderatorIds: string[]
+): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 750));
+
+  const community = mockCommunities.find(c => c.id === communityId);
+  if (!community) {
+    throw new Error("Community not found while updating moderators.");
+  }
+
+  community.moderatorIds = moderatorIds;
+  console.log(`Moderators for community ${community.slug} updated.`);
 }

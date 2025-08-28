@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import ConfirmDialog from "./ConfirmDialog";
+import { Bookmark } from "lucide-react";
 
 
 export default function UserNav() {
@@ -60,6 +61,16 @@ export default function UserNav() {
               Profile
             </Link>
           </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
+            <Link
+              href="/saved"
+            >
+              <Bookmark className="mr-2 h-4 w-4" />
+              Saved
+            </Link>
+          </DropdownMenuItem>
+
           <DropdownMenuItem asChild>
             <Link
               href="/settings"
@@ -78,6 +89,7 @@ export default function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
 
       <ConfirmDialog
         open={ isLogoutDialogOpen }

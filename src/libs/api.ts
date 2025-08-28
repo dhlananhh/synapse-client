@@ -244,3 +244,12 @@ export const reportContent = async (
 
   return { success: true };
 };
+
+
+export const fetchPostsByIds = async (postIds: string[]): Promise<Post[]> => {
+  await new Promise(resolve => setTimeout(resolve, 750));
+
+  const foundPosts = mockPosts.filter(post => postIds.includes(post.id));
+
+  return foundPosts.sort((a, b) => postIds.indexOf(a.id) - postIds.indexOf(b.id));
+}

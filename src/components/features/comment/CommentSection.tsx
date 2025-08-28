@@ -15,7 +15,7 @@ interface CommentSectionProps {
 
 
 export default function CommentSection({ postId, initialComments }: CommentSectionProps) {
-  const { currentUser } = useAuth();
+  const { currentUser, isBlocked } = useAuth();
   const [ comments, setComments ] = useState<Comment[]>(initialComments);
 
   const handleAddComment = async (text: string) => {
@@ -55,6 +55,18 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
     setComments(updateRecursive);
   }
 
+  const filterBlockedComments = (commentList: Comment[]): Comment[] => {
+    return commentList
+      .filter(comment => !isBlocked(comment.author.id))
+      .map(comment => {
+        if (comment.replies && comment.replies.length > 0) {
+          return { ...comment, replies: filterBlockedComments(comment.replies) };
+        }
+        return comment;
+      });
+  };
+  const visibleComments = filterBlockedComments(comments);
+
   return (
     <div className="mt-8">
       <hr className="my-6" />
@@ -82,7 +94,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
 
       <div className="mt-6 flex flex-col gap-4">
         {
-          comments.map(comment => (
+          visibleComments.map(comment => (
             <CommentItem
               key={ comment.id }
               comment={ comment }

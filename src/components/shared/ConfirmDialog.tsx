@@ -1,5 +1,6 @@
 "use client";
 
+
 import React from "react";
 import {
   AlertDialog,
@@ -14,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
+
 interface ConfirmDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -24,6 +26,7 @@ interface ConfirmDialogProps {
   isDestructive?: boolean;
   isConfirming?: boolean;
 }
+
 
 export default function ConfirmDialog({
   open,
@@ -37,10 +40,15 @@ export default function ConfirmDialog({
 }: ConfirmDialogProps) {
 
   return (
-    <AlertDialog open={ open } onOpenChange={ onOpenChange }>
+    <AlertDialog
+      open={ open }
+      onOpenChange={ onOpenChange }
+    >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{ title }</AlertDialogTitle>
+          <AlertDialogTitle>
+            { title }
+          </AlertDialogTitle>
           <AlertDialogDescription>
             { description }
           </AlertDialogDescription>

@@ -1,0 +1,75 @@
+"use client";
+
+
+import React from "react";
+import { useParams, notFound } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { mockCommunities } from "@/libs/mock-data";
+import ForbiddenDisplay from "@/components/shared/ForbiddenDisplay";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "@/components/ui/tabs";
+import ManageMembersTab from "@/components/features/community/manage/ManageMembersTab";
+import DangerZoneTab from "@/components/features/community/manage/DangerZoneTab";
+
+
+export default function ManageCommunityPage() {
+  const params = useParams();
+  const slug = typeof params.slug === "string" ? params.slug : "";
+  const { currentUser } = useAuth();
+
+  const community = mockCommunities.find(c => c.slug === slug);
+
+  if (currentUser === undefined || !community) {
+    return <Skeleton className="h-48 w-full" />;
+  }
+
+  const isOwner = currentUser?.id === community.ownerId;
+
+  if (!isOwner) {
+    return <ForbiddenDisplay
+      title="Permission Denied"
+      description="You must be the community owner to access these settings."
+    />;
+  }
+
+  if (!community) {
+    notFound();
+  }
+
+  return (
+    <div className="mt-5">
+      <h1 className="text-3xl font-bold">
+        Manage Community
+      </h1>
+      <p className="text-muted-foreground mt-2">
+        You are managing { " " }
+        <span className="font-semibold text-primary">
+          c/{ community.slug }
+        </span>
+      </p>
+
+      <Tabs defaultValue="members" className="w-full mt-6">
+        <TabsList>
+          <TabsTrigger value="members">Members & Moderators</TabsTrigger>
+          <TabsTrigger value="settings">General Settings</TabsTrigger>
+          <TabsTrigger value="danger">Danger Zone</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="members">
+          <ManageMembersTab community={ community } />
+        </TabsContent>
+        <TabsContent value="settings">
+          <p className="p-4 text-muted-foreground">Community general settings will be here...</p>
+        </TabsContent>
+        <TabsContent value="danger">
+          <DangerZoneTab community={ community } />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}

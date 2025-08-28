@@ -25,7 +25,8 @@ export default function PostFeed() {
   const [ isInitialLoading, setIsInitialLoading ] = useState(true);
   const [ hasMore, setHasMore ] = useState(true);
   const [ sortBy, setSortBy ] = useState<SortType>("hot");
-  const { mutedCommunityIds } = useAuth();
+
+  const { mutedCommunityIds, isBlocked } = useAuth();
 
   const initialLoadPerformed = useRef(false);
 
@@ -106,12 +107,16 @@ export default function PostFeed() {
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
-            { posts.map((post, index) => {
-              if (index === posts.length - 1) {
-                return <PostCard ref={ lastElementRef } key={ post.id } post={ post } />;
-              }
-              return <PostCard key={ post.id } post={ post } />;
-            }) }
+            {
+              posts
+                .filter(post => !isBlocked(post.author.id))
+                .map((post, index) => {
+                  if (index === posts.length - 1) {
+                    return <PostCard ref={ lastElementRef } key={ post.id } post={ post } />;
+                  }
+                  return <PostCard key={ post.id } post={ post } />;
+                })
+            }
           </div>
 
           { isLoading && !isInitialLoading && (

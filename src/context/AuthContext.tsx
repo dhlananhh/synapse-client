@@ -41,6 +41,9 @@ interface AuthContextType {
   contentLanguages: string[];
   setDisplayLanguage: (langCode: string) => void;
   setContentLanguages: (langCodes: string[]) => void;
+  mutedCommunityIds: string[];
+  isMuted: (communityId: string) => boolean;
+  toggleMuteCommunity: (communityId: string) => void;
 }
 
 
@@ -56,6 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ userVotes, setUserVotes ] = useState<UserVotes>({});
   const [ displayLanguage, setDisplayLanguage ] = useState<string>(i18n.language.split('-')[ 0 ]);
   const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split('-')[ 0 ] ]);
+  const [ mutedCommunityIds, setMutedCommunityIds ] = useState<string[]>([]);
 
 
   useEffect(() => {
@@ -140,6 +144,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const isMuted = (communityId: string): boolean => {
+    return mutedCommunityIds.includes(communityId);
+  };
+
+  const toggleMuteCommunity = (communityId: string) => {
+    setMutedCommunityIds(prevMuted => {
+      if (prevMuted.includes(communityId)) {
+        // If already muted, unmute it
+        return prevMuted.filter(id => id !== communityId);
+      } else {
+        // If not muted, mute it
+        return [ ...prevMuted, communityId ];
+      }
+    });
+  };
+
   const value = {
     currentUser,
     login,
@@ -159,6 +179,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     contentLanguages,
     setDisplayLanguage,
     setContentLanguages,
+    mutedCommunityIds,
+    isMuted,
+    toggleMuteCommunity,
   };
 
   return (

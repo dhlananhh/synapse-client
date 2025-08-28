@@ -47,6 +47,9 @@ interface AuthContextType {
   blockedUserIds: string[];
   isBlocked: (userId: string) => boolean;
   toggleBlockUser: (userId: string) => void;
+  savedPostIds: string[];
+  isPostSaved: (postId: string) => boolean;
+  toggleSavePost: (postId: string) => void;
 }
 
 
@@ -64,6 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split('-')[ 0 ] ]);
   const [ mutedCommunityIds, setMutedCommunityIds ] = useState<string[]>([]);
   const [ blockedUserIds, setBlockedUserIds ] = useState<string[]>([]);
+  const [ savedPostIds, setSavedPostIds ] = useState<string[]>([ 'p2' ]);
 
 
   useEffect(() => {
@@ -180,6 +184,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const isPostSaved = (postId: string): boolean => {
+    return savedPostIds.includes(postId);
+  };
+
+  const toggleSavePost = (postId: string) => {
+    setSavedPostIds(prevSaved => {
+      if (prevSaved.includes(postId)) {
+        // If already saved, unsave it
+        return prevSaved.filter(id => id !== postId);
+      } else {
+        // If not saved, save it
+        return [ ...prevSaved, postId ];
+      }
+    });
+  };
+
+
   const value = {
     currentUser,
     login,
@@ -205,7 +226,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     blockedUserIds,
     isBlocked,
     toggleBlockUser,
+    savedPostIds,
+    isPostSaved,
+    toggleSavePost,
   };
+
 
   return (
     <AuthContext.Provider value={ value }>

@@ -33,7 +33,8 @@ const POSTS_PER_PAGE = 6;
 
 export const fetchPosts = async (
   page: number,
-  sortBy: SortType = "hot"
+  sortBy: SortType = "hot",
+  mutedCommunityIds: string[] = []
 ): Promise<{ data: Post[], hasMore: boolean }> => {
 
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -46,11 +47,15 @@ export const fetchPosts = async (
     sortedPosts.sort((a, b) => b.votes - a.votes);
   }
 
+  const visiblePosts = sortedPosts.filter(
+    post => !mutedCommunityIds.includes(post.community.id)
+  );
+
   const start = (page - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
 
-  const postsSlice = sortedPosts.slice(start, end);
-  const hasMore = end < sortedPosts.length;
+  const postsSlice = visiblePosts.slice(start, end);
+  const hasMore = end < visiblePosts.length;
 
   return {
     data: postsSlice,

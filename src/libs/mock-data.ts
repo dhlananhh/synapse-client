@@ -29,24 +29,227 @@ const user1: User = {
 };
 const user2: User = {
   id: "u2",
-  username: "jane_smith",
-  displayName: "Jane Smith",
-  avatarUrl: "https://i.pravatar.cc/150?u=u2",
-  createdAt: "2023-08-01T09:00:00Z",
-  karma: 850,
-  gender: "Female",
-};
-const user3: User = {
-  id: "u3",
   username: "dev_guru",
   displayName: "Dev Guru",
-  avatarUrl: "https://i.pravatar.cc/150?u=u3",
+  avatarUrl: "https://i.pravatar.cc/150?u=u2",
   createdAt: "2022-11-20T15:30:00Z",
   karma: 3400,
   gender: "Male",
 };
+const user3: User = {
+  id: "u3",
+  username: "jane_smith",
+  displayName: "Jane Smith",
+  avatarUrl: "https://i.pravatar.cc/150?u=u3",
+  createdAt: "2022-11-20T15:30:00Z",
+  karma: 850,
+  gender: "Female",
+};
 
-export const allMockUsers = [ adminUser, user1, user2, user3 ];
+const user4: User = {
+  id: "u4",
+  username: "code_wizard",
+  displayName: "Alex Riley",
+  avatarUrl: "https://i.pravatar.cc/150?u=u4",
+  createdAt: "2023-02-15T18:45:00Z",
+  karma: 2100,
+  gender: "Male",
+};
+
+const user5: User = {
+  id: "u5",
+  username: "pixel_artist",
+  displayName: "Chloe Davis",
+  avatarUrl: "https://i.pravatar.cc/150?u=u5",
+  createdAt: "2023-11-05T20:00:00Z",
+  karma: 1550,
+  gender: "Female",
+};
+
+const user6: User = {
+  id: "u6",
+  username: "gamer_girl99",
+  displayName: "Mia Evans",
+  avatarUrl: "https://i.pravatar.cc/150?u=u6",
+  createdAt: "2024-03-20T11:10:00Z",
+  karma: 450,
+  gender: "Female",
+};
+
+const user7: User = {
+  id: "u7",
+  username: "happy_explorer",
+  displayName: "Leo Carter",
+  avatarUrl: "https://i.pravatar.cc/150?u=u7",
+  createdAt: "2022-09-12T08:00:00Z",
+  karma: 320,
+  gender: "Male",
+};
+
+const user8: User = {
+  id: "u8",
+  username: "quantum_leap",
+  displayName: "Dr. Evelyn Reed",
+  avatarUrl: "https://i.pravatar.cc/150?u=u8",
+  createdAt: "2023-01-30T14:25:00Z",
+  karma: 5600,
+  gender: "Female",
+};
+
+const user9: User = {
+  id: "u9",
+  username: "data_dynamo",
+  displayName: "Sam Jones",
+  avatarUrl: "https://i.pravatar.cc/150?u=u9",
+  createdAt: "2023-07-22T16:05:00Z",
+  karma: 1800,
+  gender: "Other",
+};
+
+const user10: User = {
+  id: "u10",
+  username: "ux_unicorn",
+  displayName: "Olivia Chen",
+  avatarUrl: "https://i.pravatar.cc/150?u=u10",
+  createdAt: "2023-04-18T22:30:00Z",
+  karma: 2900,
+  gender: "Female",
+};
+
+const user11: User = {
+  id: "u11",
+  username: "backend_bison",
+  displayName: "Ben Harris",
+  avatarUrl: "https://i.pravatar.cc/150?u=u11",
+  createdAt: "2022-12-01T06:00:00Z",
+  karma: 1100,
+  gender: "Male",
+};
+
+const user12: User = {
+  id: "u12",
+  username: "frontend_fox",
+  displayName: "Fiona Garcia",
+  avatarUrl: "https://i.pravatar.cc/150?u=u12",
+  createdAt: "2024-01-10T19:55:00Z",
+  karma: 780,
+  gender: "Female",
+};
+
+const user13: User = {
+  id: "u13",
+  username: "devops_drake",
+  displayName: "Dan Martinez",
+  avatarUrl: "https://i.pravatar.cc/150?u=u13",
+  createdAt: "2023-09-03T13:00:00Z",
+  karma: 950,
+  gender: "Male",
+};
+
+const user14: User = {
+  id: "u14",
+  username: "react_rocket",
+  displayName: "Rachel Nguyen",
+  avatarUrl: "https://i.pravatar.cc/150?u=u14",
+  createdAt: "2024-02-05T10:00:00Z",
+  karma: 620,
+  gender: "Female",
+};
+
+const user15: User = {
+  id: "u15",
+  username: "node_ninja",
+  displayName: "Nate Robinson",
+  avatarUrl: "https://i.pravatar.cc/150?u=u15",
+  createdAt: "2023-03-12T00:00:00Z",
+  karma: 1350,
+  gender: "Male",
+};
+
+const user16: User = {
+  id: "u16",
+  username: "cloud_creator",
+  displayName: "Casey Thompson",
+  avatarUrl: "https://i.pravatar.cc/150?u=u16",
+  createdAt: "2024-04-01T17:20:00Z",
+  karma: 250,
+  gender: "Prefer not to say",
+};
+
+const user17: User = {
+  id: "u17",
+  username: "agile_ace",
+  displayName: "Aaron Walker",
+  avatarUrl: "https://i.pravatar.cc/150?u=u17",
+  createdAt: "2023-06-19T09:40:00Z",
+  karma: 175,
+  gender: "Male",
+};
+
+const user18: User = {
+  id: "u18",
+  username: "design_diva",
+  displayName: "Diana Lewis",
+  avatarUrl: "https://i.pravatar.cc/150?u=u18",
+  createdAt: "2023-10-30T21:00:00Z",
+  karma: 3100,
+  gender: "Female",
+};
+
+const user19: User = {
+  id: "u19",
+  username: "design_abby",
+  displayName: "Abby Howard",
+  avatarUrl: "https://i.pravatar.cc/150?u=u19",
+  createdAt: "2024-05-01T12:00:00Z",
+  karma: 115,
+  gender: "Female",
+};
+
+const user20: User = {
+  id: "u20",
+  username: "tester_titan",
+  displayName: "Tom Clark",
+  avatarUrl: "https://i.pravatar.cc/150?u=u20",
+  createdAt: "2024-05-01T12:00:00Z",
+  karma: 95,
+  gender: "Male",
+};
+
+const user21: User = {
+  id: "u21",
+  username: "design_alissa",
+  displayName: "Alissa Houston",
+  avatarUrl: "https://i.pravatar.cc/150?u=u21",
+  createdAt: "2024-05-01T12:00:00Z",
+  karma: 200,
+  gender: "Female",
+};
+
+export const allMockUsers = [
+  adminUser,
+  user1,
+  user2,
+  user3,
+  user4,
+  user5,
+  user6,
+  user7,
+  user8,
+  user9,
+  user10,
+  user11,
+  user12,
+  user13,
+  user14,
+  user15,
+  user16,
+  user17,
+  user18,
+  user19,
+  user20,
+  user21,
+];
 
 // Mock Communities
 export const mockCommunities: Community[] = [
@@ -57,7 +260,9 @@ export const mockCommunities: Community[] = [
     imageUrl: "https://i.pravatar.cc/150?u=comm1",
     description: "A community for developers passionate about the Next.js framework, Vercel, and the future of the web.",
     createdAt: "2023-01-15T10:00:00Z",
-    memberCount: 15432
+    memberCount: 15432,
+    ownerId: user1.id,
+    moderatorIds: [ user2.id ]
   },
   {
     id: "comm2",
@@ -66,7 +271,9 @@ export const mockCommunities: Community[] = [
     imageUrl: "https://i.pravatar.cc/150?u=comm2",
     description: "Discuss all things React: hooks, components, state management, and the ecosystem.",
     createdAt: "2022-08-20T14:30:00Z",
-    memberCount: 120543
+    memberCount: 120543,
+    ownerId: user3.id,
+    moderatorIds: [],
   },
   {
     id: "comm3",
@@ -75,7 +282,9 @@ export const mockCommunities: Community[] = [
     imageUrl: "https://i.pravatar.cc/150?u=comm3",
     description: "The central hub for news, articles, and discussions about modern web development.",
     createdAt: "2021-05-01T18:00:00Z",
-    memberCount: 250100
+    memberCount: 250100,
+    ownerId: user4.id,
+    moderatorIds: [],
   },
 ];
 

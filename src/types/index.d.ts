@@ -7,6 +7,7 @@ export type User = {
   createdAt: string;
   karma: number;
   gender: string;
+  birthday?: string;
 };
 
 // Comment type

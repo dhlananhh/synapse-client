@@ -31,7 +31,7 @@ interface AuthContextType {
   isSubscribed: (communityId: string) => boolean;
   subscribeToCommunity: (communityId: string) => void;
   unsubscribeFromCommunity: (communityId: string) => void;
-  updateUserProfile: (data: TUserProfileSchema | TUpdateDisplayNameSchema) => void;
+  updateUserProfile: (data: Partial<User>) => void;
   isOnboardingModalOpen: boolean;
   setIsOnboardingModalOpen: (isOpen: boolean) => void;
   userVotes: UserVotes;
@@ -121,12 +121,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSubscribedCommunityIds(prev => prev.filter(id => id !== communityId));
   };
 
-  const updateUserProfile = (data: TUserProfileSchema | TUpdateDisplayNameSchema) => {
+  const updateUserProfile = (data: Partial<User>) => {
     if (currentUser) {
       const updatedUser: User = {
         ...currentUser,
-        username: "username" in data ? data.username : currentUser.username,
-        displayName: "displayName" in data ? data.displayName : currentUser.displayName,
+        ...data,
       };
       setCurrentUser(updatedUser);
     }

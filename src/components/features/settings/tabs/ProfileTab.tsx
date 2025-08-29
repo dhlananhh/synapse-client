@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState } from "react";
 import {
   Card,
@@ -39,10 +40,9 @@ export default function ProfileTab() {
           >
             <SettingsRow
               title="Display name"
-              description="Help people discover your account by using the name you're known by: either your full name, nickname, or business name."
+              description={ `Help people discover your account by using the name you're known by: either your full name, nickname, or business name.` }
             >
               <Button variant="outline" size="sm">Change</Button>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
@@ -55,7 +55,6 @@ export default function ProfileTab() {
               description="Your unique username"
             >
               <Button variant="outline" size="sm">Change</Button>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
@@ -68,7 +67,6 @@ export default function ProfileTab() {
               description="A brief description of yourself"
             >
               <Button variant="outline" size="sm">Update</Button>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
@@ -77,7 +75,9 @@ export default function ProfileTab() {
               title="Avatar & Banner"
               description="Edit your avatar and upload a profile banner"
             >
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              <Button variant="ghost" size="default">
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              </Button>
             </SettingsRow>
           </div>
 

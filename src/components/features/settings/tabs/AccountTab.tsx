@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -43,7 +44,6 @@ export default function AccountTab() {
               description={ userEmail }
             >
               <Button variant="outline" size="sm">Change</Button>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
@@ -56,7 +56,6 @@ export default function AccountTab() {
               description="Update your gender"
             >
               <Button variant="outline" size="sm">Update</Button>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
             </SettingsRow>
           </div>
 
@@ -90,7 +89,9 @@ export default function AccountTab() {
               title="Delete account"
               description="Permanently delete your account and all data"
             >
-              <ChevronRight className="h-5 w-5" />
+              <Button variant="ghost" size="default" className="hover:text-destructive">
+                <ChevronRight className="h-5 w-5" />
+              </Button>
             </SettingsRow>
           </div>
         </CardContent>

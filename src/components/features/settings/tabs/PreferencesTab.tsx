@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
@@ -66,11 +67,13 @@ export default function PreferencesTab() {
               title={ t("settings.preferences.display_language") }
               description={ t("settings.preferences.display_language_desc") }
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <span className="text-sm font-semibold">
                   { currentDisplayLanguageName }
                 </span>
-                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                <Button variant="ghost" size="default">
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                </Button>
               </div>
             </SettingsRow>
           </div>
@@ -81,12 +84,15 @@ export default function PreferencesTab() {
           >
             <SettingsRow
               title={ t("settings.preferences.content_languages") }
-              description={ t("settings.preferences.content_languages_desc") }>
-              <div className="flex items-center gap-2">
+              description={ t("settings.preferences.content_languages_desc") }
+            >
+              <div className="flex items-center gap-4">
                 <span className="text-sm font-semibold">
                   { currentContentLanguagesDesc }
                 </span>
-                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                <Button variant="ghost" size="default">
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                </Button>
               </div>
             </SettingsRow>
           </div>
@@ -94,23 +100,27 @@ export default function PreferencesTab() {
           <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
             { t("settings.preferences.content_languages") }
           </h3>
+
           <SettingsRow
             title="Show mature content (I'm over 18)"
             description="See Not Safe for Work (NSFW) content in your feeds"
           >
             <Switch defaultChecked />
           </SettingsRow>
+
           <SettingsRow
             title="Blur mature images and media"
             description="Blur NSFW content until you click to view it">
             <Switch defaultChecked />
           </SettingsRow>
+
           <SettingsRow
             title="Show recommendations in home feed"
             description="Allow us to suggest content and communities for you"
           >
             <Switch defaultChecked />
           </SettingsRow>
+
           <div
             onClick={ () => setIsMutedCommunitiesDialogOpen(true) }
             className="cursor-pointer"
@@ -119,13 +129,16 @@ export default function PreferencesTab() {
               title="Muted communities"
               description="Manage communities you've muted"
             >
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              <Button variant="ghost" size="default">
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              </Button>
             </SettingsRow>
           </div>
 
           <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
             Experience
           </h3>
+
           <SettingsRow
             title="Default feed view"
             description="Choose how your feed is displayed"
@@ -133,6 +146,7 @@ export default function PreferencesTab() {
           >
             <span>Card</span>
           </SettingsRow>
+
           <SettingsRow
             title="Open posts in new tab"
             description="Automatically open posts in a new browser tab"
@@ -140,20 +154,23 @@ export default function PreferencesTab() {
             <Switch />
           </SettingsRow>
 
-          <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">Accessibility</h3>
+          <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
+            Accessibility
+          </h3>
+
           <SettingsRow
             title="Autoplay media"
             description="Play videos and GIFs automatically when they are in view"
           >
             <Switch defaultChecked />
           </SettingsRow>
+
           <SettingsRow
             title="Reduce Motion"
             description="Reduce animations and motion effects"
           >
             <Switch />
           </SettingsRow>
-
         </CardContent >
       </Card >
 

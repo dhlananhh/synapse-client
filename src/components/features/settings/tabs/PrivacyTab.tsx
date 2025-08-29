@@ -22,19 +22,21 @@ export default function PrivacyTab() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Privacy & Security</CardTitle>
+          <CardTitle className="uppercase">Privacy & Security</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
 
           <h3 className="font-semibold text-sm px-4 pt-2 text-muted-foreground uppercase tracking-wider">
             Social interactions
           </h3>
+
           <SettingsRow
             title="Allow people to follow you"
             description="Let people follow you to see your profile posts in their home feed"
           >
             <Switch defaultChecked />
           </SettingsRow>
+
           <SettingsRow
             title="Who can send you chat requests"
             description="Control who can initiate a chat with you"
@@ -42,12 +44,18 @@ export default function PrivacyTab() {
           >
             <span>Everyone</span>
           </SettingsRow>
+
           <div
             onClick={ () => setIsBlockDialogOpen(true) }
             className="cursor-pointer"
           >
-            <SettingsRow title="Blocked accounts" description="View and manage accounts you've blocked">
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            <SettingsRow
+              title="Blocked accounts"
+              description="View and manage accounts you've blocked"
+            >
+              <Button variant="ghost" size="default">
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              </Button>
             </SettingsRow>
           </div>
 
@@ -64,6 +72,7 @@ export default function PrivacyTab() {
           <h3 className="font-semibold text-sm px-4 pt-6 text-muted-foreground uppercase tracking-wider">
             Advanced
           </h3>
+
           <SettingsRow
             title="Third-party app authorizations"
             description="Manage apps you've given access to your account"

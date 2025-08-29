@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+
 export const UserProfileSchema = z.object({
   username: z.string()
     .min(3, { message: "Username must be at least 3 characters long." })
@@ -32,3 +33,17 @@ export const UpdateDescriptionSchema = z.object({
   description: z.string().max(200, "Description cannot exceed 200 characters.").optional(),
 });
 export type TUpdateDescriptionSchema = z.infer<typeof UpdateDescriptionSchema>;
+
+
+const thirteenYearsAgo = new Date();
+thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 13);
+
+export const UpdateBirthdaySchema = z.object({
+  birthday: z.date({
+    required_error: "Your date of birth is required.",
+  })
+    .max(thirteenYearsAgo, { message: "You must be at least 13 years old to use Synapse." })
+    .min(new Date("1900-01-01"), { message: "Please enter a valid date." }),
+});
+
+export type TUpdateBirthdaySchema = z.infer<typeof UpdateBirthdaySchema>;

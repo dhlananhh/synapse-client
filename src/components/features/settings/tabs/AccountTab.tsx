@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { format } from "date-fns";
 import {
   Card,
   CardContent,
@@ -15,6 +16,7 @@ import SettingsRow from "../SettingsRow";
 import ChangeEmailDialog from "../dialogs/ChangeEmailDialog";
 import UpdateGenderDialog from "../dialogs/UpdateGenderDialog";
 import DeleteAccountDialog from "../dialogs/DeleteAccountDialog";
+import UpdateBirthdayDialog from "../dialogs/UpdateBirthdayDialog";
 import { ChevronRight } from "lucide-react";
 
 
@@ -23,8 +25,13 @@ export default function AccountTab() {
   const [ isEmailDialogOpen, setIsEmailDialogOpen ] = useState(false);
   const [ isGenderDialogOpen, setIsGenderDialogOpen ] = useState(false);
   const [ isDeleteDialogOpen, setIsDeleteDialogOpen ] = useState(false);
+  const [ isBirthdayDialogOpen, setIsBirthdayDialogOpen ] = useState(false);
 
   const userEmail = "youremail@gmail.com";
+
+  const birthdayDisplay = currentUser?.birthday
+    ? format(new Date(currentUser.birthday), "MMMM d, yyyy")
+    : "Not set";
 
   return (
     <>
@@ -54,6 +61,18 @@ export default function AccountTab() {
             <SettingsRow
               title="Gender"
               description="Update your gender"
+            >
+              <Button variant="outline" size="sm">Update</Button>
+            </SettingsRow>
+          </div>
+
+          <div
+            onClick={ () => setIsBirthdayDialogOpen(true) }
+            className="cursor-pointer"
+          >
+            <SettingsRow
+              title="Date of birth"
+              description={ birthdayDisplay }
             >
               <Button variant="outline" size="sm">Update</Button>
             </SettingsRow>
@@ -113,6 +132,11 @@ export default function AccountTab() {
       <DeleteAccountDialog
         isOpen={ isDeleteDialogOpen }
         onOpenChange={ setIsDeleteDialogOpen }
+      />
+
+      <UpdateBirthdayDialog
+        isOpen={ isBirthdayDialogOpen }
+        onOpenChange={ setIsBirthdayDialogOpen }
       />
     </>
   );

@@ -189,6 +189,83 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .rdp-button {
+    height: 40px;
+    width: 40px;
+  }
+  .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+    background-color: hsl(var(--accent));
+  }
+
+  .rdp {
+    --rdp-cell-size: 40px;
+    --rdp-caption-font-weight: 500;
+  }
+  .rdp-caption_label {
+    font-size: 0.875rem;
+  }
+  .rdp-nav_button_previous {
+    position: absolute;
+    left: 0.25rem;
+  }
+  .rdp-nav_button_next {
+    position: absolute;
+    right: 0.25rem;
+  }
+
+  .rdp-caption_dropdowns {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .rdp-dropdown_year,
+  .rdp-dropdown_month {
+    border-radius: var(--radius);
+    padding: 0.25rem 0.5rem;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    padding-right: 2rem;
+    font-size: 0.875rem;
+  }
+  .dark .rdp-dropdown_year,
+  .dark .rdp-dropdown_month {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23FFF'%3e%3cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3e%3c/svg%3e");
+  }
+
+  .rdp-day {
+    height: var(--rdp-cell-size);
+    width: var(--rdp-cell-size);
+  }
+  .rdp-day_selected {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+  }
+  .rdp-day_selected:hover {
+    background-color: hsl(var(--primary)) !important;
+  }
+  .rdp-day_today {
+    font-weight: 500;
+    border: 1px solid hsl(var(--primary));
+  }
+  .rdp-day:focus-visible:not([aria-disabled]) {
+    box-shadow: none;
+    border-radius: var(--radius);
+    border-color: hsl(var(--ring));
+    border: 2px solid;
+  }
+  .rdp-day_outside {
+    color: hsl(var(--muted-foreground));
+  }
 }
 
 .react-calendar-heatmap .color-empty {

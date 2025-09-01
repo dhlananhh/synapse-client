@@ -49,7 +49,7 @@ export default function HistoryPage() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-10">
         <h1 className="text-3xl font-bold">Browsing History</h1>
         {
           historyPosts.length > 0 && (

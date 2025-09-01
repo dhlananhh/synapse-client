@@ -34,7 +34,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <Card className="mx-auto max-w-sm w-full">
+    <Card className="mx-auto max-w-lg w-full">
       <CardHeader className="items-center justify-center">
         <Link href="/" className="flex flex-col items-center gap-2 mb-2">
           <BrainCircuit className="h-10 w-10 text-primary" />
@@ -45,7 +45,10 @@ export default function RegisterForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={ handleSubmit(onSubmit) } className="grid gap-4">
+        <form
+          onSubmit={ handleSubmit(onSubmit) }
+          className="grid gap-4"
+        >
           <div className="grid gap-2">
             <Label htmlFor="username">Username</Label>
             <Input
@@ -54,7 +57,13 @@ export default function RegisterForm() {
               type="text"
               placeholder="Enter your username"
             />
-            { errors.username && <p className="text-xs text-destructive">{ errors.username.message }</p> }
+            {
+              errors.username && (
+                <p className="text-xs text-destructive">
+                  { errors.username.message }
+                </p>
+              )
+            }
           </div>
 
           <div className="grid gap-2">
@@ -65,29 +74,60 @@ export default function RegisterForm() {
               type="email"
               placeholder="Enter your email address"
             />
-            { errors.email && <p className="text-xs text-destructive">{ errors.email.message }</p> }
+            {
+              errors.email && (
+                <p className="text-xs text-destructive">{ errors.email.message }</p>
+              )
+            }
           </div>
 
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input { ...register("password") } id="password" type="password" />
-            { errors.password && <p className="text-xs text-destructive">{ errors.password.message }</p> }
+            <Input
+              { ...register("password") }
+              id="password"
+              type="password"
+            />
+            {
+              errors.password && (
+                <p className="text-xs text-destructive">
+                  { errors.password.message }
+                </p>
+              )
+            }
           </div>
 
           <div className="grid gap-2">
             <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Input { ...register("confirmPassword") } id="confirmPassword" type="password" />
-            { errors.confirmPassword && <p className="text-xs text-destructive">{ errors.confirmPassword.message }</p> }
+            <Input
+              { ...register("confirmPassword") }
+              id="confirmPassword"
+              type="password"
+            />
+            {
+              errors.confirmPassword && (
+                <p className="text-xs text-destructive">
+                  { errors.confirmPassword.message }
+                </p>
+              )
+            }
           </div>
 
-          <Button type="submit" className="w-full" disabled={ isSubmitting }>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={ isSubmitting }
+          >
             { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
             Create an account
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          Already have an account?{ " " }
-          <Link href="/login" className="underline">
+          Already have an account? { " " }
+          <Link
+            href="/login"
+            className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
+          >
             Log in
           </Link>
         </div>

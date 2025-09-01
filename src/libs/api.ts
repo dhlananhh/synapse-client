@@ -253,3 +253,26 @@ export const fetchPostsByIds = async (postIds: string[]): Promise<Post[]> => {
 
   return foundPosts.sort((a, b) => postIds.indexOf(a.id) - postIds.indexOf(b.id));
 }
+
+
+export const requestPasswordReset = async (email: string): Promise<{ success: true }> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  console.log(`--- PASSWORD RESET REQUESTED ---
+    Email: ${email}
+    -----------------------------`);
+
+  return { success: true };
+}
+
+
+export const resetPassword = async (token: string, newPassword: string): Promise<{ success: true }> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  console.log(`--- PASSWORD RESET ---
+    Token Used: ${token}
+    New Password: [redacted]
+    ----------------------`);
+
+  return { success: true };
+}

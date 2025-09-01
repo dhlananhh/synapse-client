@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  useCallback,
   useState,
   useEffect,
   useContext,
@@ -20,6 +21,9 @@ import { toast } from "sonner";
 
 type UserVote = "UP" | "DOWN";
 type UserVotes = Record<string, UserVote>;
+
+const HISTORY_STORAGE_KEY = "synapse-view-history";
+const MAX_HISTORY_LENGTH = 50;
 
 
 interface AuthContextType {
@@ -50,6 +54,9 @@ interface AuthContextType {
   savedPostIds: string[];
   isPostSaved: (postId: string) => boolean;
   toggleSavePost: (postId: string) => void;
+  viewedPostIds: string[];
+  logPostView: (postId: string) => void;
+  clearHistory: () => void;
 }
 
 
@@ -63,19 +70,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ subscribedCommunityIds, setSubscribedCommunityIds ] = useState<string[]>([]);
   const [ isOnboardingModalOpen, setIsOnboardingModalOpen ] = useState(false);
   const [ userVotes, setUserVotes ] = useState<UserVotes>({});
-  const [ displayLanguage, setDisplayLanguage ] = useState<string>(i18n.language.split('-')[ 0 ]);
-  const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split('-')[ 0 ] ]);
+  const [ displayLanguage, setDisplayLanguage ] = useState<string>(i18n.language.split("-")[ 0 ]);
+  const [ contentLanguages, setContentLanguages ] = useState<string[]>([ i18n.language.split("-")[ 0 ] ]);
   const [ mutedCommunityIds, setMutedCommunityIds ] = useState<string[]>([]);
   const [ blockedUserIds, setBlockedUserIds ] = useState<string[]>([]);
-  const [ savedPostIds, setSavedPostIds ] = useState<string[]>([ 'p2' ]);
+  const [ savedPostIds, setSavedPostIds ] = useState<string[]>([ "p2" ]);
+  const [ viewedPostIds, setViewedPostIds ] = useState<string[]>([]);
 
 
   useEffect(() => {
-    const currentLang = i18n.language.split('-')[ 0 ];
+    const currentLang = i18n.language.split("-")[ 0 ];
     if (displayLanguage !== currentLang) {
       i18n.changeLanguage(displayLanguage);
     }
   }, [ displayLanguage, i18n ]);
+
+  useEffect(() => {
+    try {
+      const savedHistory = localStorage.getItem(HISTORY_STORAGE_KEY);
+      if (savedHistory) {
+        setViewedPostIds(JSON.parse(savedHistory));
+      }
+    } catch (error) {
+      console.error("Failed to parse view history from localStorage:", error);
+    }
+  }, []);
 
 
   const login = (username: string) => {
@@ -199,6 +218,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const logPostView = useCallback((postId: string) => {
+    setViewedPostIds(currentHistory => {
+      // 1. Remove any existing instance of the postId to move it to the front.
+      const newHistory = currentHistory.filter(id => id !== postId);
+      // 2. Add the new postId to the beginning of the array.
+      newHistory.unshift(postId);
+      // 3. Trim the array to the maximum length.
+      const trimmedHistory = newHistory.slice(0, MAX_HISTORY_LENGTH);
+
+      // 4. Save the updated history to localStorage.
+      localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(trimmedHistory));
+      return trimmedHistory;
+    });
+  }, []);
+
+  const clearHistory = useCallback(() => {
+    setViewedPostIds([]);
+    localStorage.removeItem(HISTORY_STORAGE_KEY);
+  }, []);
+
 
   const value = {
     currentUser,
@@ -228,6 +267,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     savedPostIds,
     isPostSaved,
     toggleSavePost,
+    viewedPostIds,
+    logPostView,
+    clearHistory,
   };
 
 

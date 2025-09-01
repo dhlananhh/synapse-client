@@ -80,7 +80,7 @@ export default function ForgotPasswordForm() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="youremail@example.com"
               { ...register("email") }
             />
             {

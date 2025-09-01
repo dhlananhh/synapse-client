@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
@@ -14,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import ConfirmDialog from "./ConfirmDialog";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Clock } from "lucide-react";
 
 
 export default function UserNav() {
@@ -37,15 +38,25 @@ export default function UserNav() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full" aria-label="Open user menu">
+          <Button
+            variant="ghost"
+            className="relative h-8 w-8 rounded-full"
+            aria-label="Open user menu"
+          >
             <UserAvatar user={ currentUser } />
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuContent
+          className="w-56"
+          align="end"
+          forceMount
+        >
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{ currentUser.username }</p>
+              <p className="text-sm font-medium leading-none">
+                { currentUser.username }
+              </p>
               <p className="text-xs leading-none text-muted-foreground">
                 { currentUser.id }@synapse.io
               </p>
@@ -68,6 +79,13 @@ export default function UserNav() {
             >
               <Bookmark className="mr-2 h-4 w-4" />
               Saved
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
+            <Link href="/history">
+              <Clock className="mr-2 h-4 w-4" />
+              History
             </Link>
           </DropdownMenuItem>
 

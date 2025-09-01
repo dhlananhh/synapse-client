@@ -151,9 +151,15 @@ function PostView({ post }: { post: Post }) {
 
 export default function PostDetailPage(props: { params: Promise<{ postId: string }> }) {
   const params = use(props.params);
+
   const [ post, setPost ] = useState<Post | null>(null);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ error, setError ] = useState<string | null>(null);
+  const { logPostView } = useAuth();
+
+  useEffect(() => {
+    logPostView(params.postId);
+  }, [ params.postId, logPostView ]);
 
   const loadPost = useCallback(async () => {
     setIsLoading(true);

@@ -5,7 +5,7 @@
       "name": "synapse-client",
       "dependencies": {
         "@hookform/resolvers": "^5.2.1",
-        "@next/codemod": "^15.4.6",
+        "@next/codemod": "^15.5.2",
         "@radix-ui/colors": "^3.0.0",
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -1205,7 +1205,7 @@
       "sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ=="
     ],
     "@next/codemod": [
-      "@next/codemod@15.4.6",
+      "@next/codemod@15.5.2",
       "",
       {
         "dependencies": {
@@ -1225,7 +1225,7 @@
           "codemod": "bin/next-codemod.js"
         }
       },
-      "sha512-bfgfUPNTr3BxP+DrPgYDKGMwFqWoRVEFLypaCBNcYcdt9uTA6yJ5njFEYLDDJQLgbVRGBtNPgHIFFI5m68JTbg=="
+      "sha512-zruYtKyXbdBb5tIFuz0GcQlI6KDvLuH8KMUxxH5MIFzhlHIhBVfi1PKgUIkjUIHR+c30uQk6cejsQW8neN3LMQ=="
     ],
     "@next/env": [
       "@next/env@15.5.0",

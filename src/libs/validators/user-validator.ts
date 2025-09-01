@@ -47,3 +47,20 @@ export const UpdateBirthdaySchema = z.object({
 });
 
 export type TUpdateBirthdaySchema = z.infer<typeof UpdateBirthdaySchema>;
+
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address." }),
+});
+
+export type TForgotPasswordSchema = z.infer<typeof ForgotPasswordSchema>;
+
+
+export const ResetPasswordSchema = z.object({
+  password: z.string().min(8, { message: "Password must be at least 8 characters long." }),
+  confirmPassword: z.string(),
+}).refine(data => data.password === data.confirmPassword, {
+  message: "Passwords do not match.",
+  path: [ "confirmPassword" ],
+});
+export type TResetPasswordSchema = z.infer<typeof ResetPasswordSchema>;

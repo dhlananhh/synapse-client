@@ -15,7 +15,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import ConfirmDialog from "./ConfirmDialog";
-import { Bookmark, Clock } from "lucide-react";
+import {
+  Bookmark,
+  Clock,
+  UserRound,
+  Settings,
+  LogOut
+} from "lucide-react";
 
 
 export default function UserNav() {
@@ -69,6 +75,7 @@ export default function UserNav() {
             <Link
               href={ `/u/${currentUser.username}` }
             >
+              <UserRound className="mr-2 h-4 w-4" />
               Profile
             </Link>
           </DropdownMenuItem>
@@ -93,6 +100,7 @@ export default function UserNav() {
             <Link
               href="/settings"
             >
+              <Settings className="mr-2 h-4 w-4" />
               Settings
             </Link>
           </DropdownMenuItem>
@@ -103,6 +111,7 @@ export default function UserNav() {
             onClick={ () => setIsLogoutDialogOpen(true) }
             className="cursor-pointer"
           >
+            <LogOut className="mr-2 h-4 w-4" />
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>

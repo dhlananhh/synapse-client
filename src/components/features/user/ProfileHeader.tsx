@@ -21,7 +21,10 @@ import {
   MessageSquare,
   MoreHorizontal,
   ShieldOff,
-  UserX
+  UserX,
+  UserPlus,
+  UserCheck,
+  CalendarPlus
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -36,7 +39,9 @@ export default function ProfileHeader({
   const {
     currentUser,
     isBlocked,
-    toggleBlockUser
+    toggleBlockUser,
+    isFollowing,
+    toggleFollowUser
   } = useAuth();
 
   const { openChat } = useChatStore();
@@ -51,8 +56,12 @@ export default function ProfileHeader({
   const [ isBlockDialogOpen, setIsBlockDialogOpen ] = useState(false);
   const [ isUpdatingBlock, setIsUpdatingBlock ] = useState(false);
 
+  const [ isConfirmingUnfollow, setIsConfirmingUnfollow ] = useState(false);
+  const [ isUnfollowDialogOpen, setIsUnfollowDialogOpen ] = useState(false);
+
   const canInteract = currentUser && currentUser.id !== user.id;
   const isUserBlocked = isBlocked(user.id);
+  const isUserFollowed = isFollowing(user.id);
 
   const handleBlock = () => {
     setIsBlockDialogOpen(true);
@@ -69,6 +78,24 @@ export default function ProfileHeader({
     setIsBlockDialogOpen(false);
   }
 
+  const handleFollowClick = () => {
+    if (isUserFollowed) {
+      setIsUnfollowDialogOpen(true);
+    } else {
+      toggleFollowUser(user.id);
+      toast.success(`You are now following u/${user.username}`);
+    }
+  };
+
+  const handleConfirmUnfollow = async () => {
+    setIsConfirmingUnfollow(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    toggleFollowUser(user.id);
+    toast.success(`You have unfollowed u/${user.username}`);
+    setIsConfirmingUnfollow(false);
+    setIsUnfollowDialogOpen(false);
+  }
+
   return (
     <>
       <div className="flex flex-col sm:flex-row gap-4 sm:items-end justify-between">
@@ -76,11 +103,15 @@ export default function ProfileHeader({
           <UserAvatar user={ user } className="h-24 w-24 sm:h-32 sm:w-32 text-4xl" />
 
           <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-bold">{ user.username }</h1>
+            <h1 className="text-3xl font-bold">
+              { user.username }
+            </h1>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mt-2">
               <div className="flex items-center gap-1">
                 <Zap className="h-4 w-4" />
-                <span>{ user.karma.toLocaleString() } Karma</span>
+                <span>
+                  { user.karma.toLocaleString() } Karma
+                </span>
               </div>
               <span>•</span>
               <div className="flex items-center gap-1">
@@ -88,8 +119,10 @@ export default function ProfileHeader({
               </div>
               <span>•</span>
               <div className="flex items-center gap-1">
-                <Cake className="h-4 w-4" />
-                <span>Joined { format(new Date(user.createdAt), "MMM d, yyyy") }</span>
+                <CalendarPlus className="h-4 w-4" />
+                <span>
+                  Joined { format(new Date(user.createdAt), "MMM d, yyyy") }
+                </span>
               </div>
             </div>
           </div>
@@ -98,6 +131,16 @@ export default function ProfileHeader({
         {
           canInteract && (
             <div className="flex items-center gap-1">
+              <Button onClick={ handleFollowClick }>
+                {
+                  isUserFollowed
+                    ? <UserCheck className="mr-2 h-4 w-4" />
+                    : <UserPlus className="mr-2 h-4 w-4" />
+                }
+                {
+                  isUserFollowed ? "Following" : "Follow"
+                }
+              </Button>
               <Button onClick={ handleMessageClick }>
                 <MessageSquare className="h-4 w-4" />
                 Message
@@ -116,8 +159,14 @@ export default function ProfileHeader({
                       : "text-destructive focus:bg-destructive/10 focus:text-destructive"
                     }
                   >
-                    { isUserBlocked ? <ShieldOff className="mr-2 h-4 w-4" /> : <UserX className="mr-2 h-4 w-4" /> }
-                    { isUserBlocked ? "Unblock User" : "Block User" }
+                    {
+                      isUserBlocked
+                        ? <ShieldOff className="mr-2 h-4 w-4" />
+                        : <UserX className="mr-2 h-4 w-4" />
+                    }
+                    {
+                      isUserBlocked ? "Unblock User" : "Block User"
+                    }
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -139,6 +188,16 @@ export default function ProfileHeader({
         }
         confirmText={ isUserBlocked ? "Unblock" : "Block" }
         isDestructive={ !isUserBlocked }
+      />
+
+      <ConfirmDialog
+        open={ isUnfollowDialogOpen }
+        onOpenChange={ setIsUnfollowDialogOpen }
+        onConfirm={ handleConfirmUnfollow }
+        isConfirming={ isConfirmingUnfollow }
+        title={ `Unfollow u/${user.username}?` }
+        description={ `They will no longer appear in your personalized feeds. They will not be notified.` }
+        confirmText="Unfollow"
       />
     </>
   )

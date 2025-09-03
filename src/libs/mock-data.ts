@@ -1,10 +1,60 @@
 import {
   Post,
   User,
+  Trophy,
   Community,
   UserComment,
   Activity
 } from "@/types";
+import {
+  Award,
+  Bird,
+  Crown,
+  Heart,
+  Star,
+  Cake
+} from "lucide-react";
+
+
+// Mock Trohy
+export const allMockTrophies: Trophy[] = [
+  {
+    id: "t1",
+    name: "First Post",
+    description: "You took your first step as a contributor!",
+    Icon: Star
+  },
+  {
+    id: "t2",
+    name: "Prolific Commenter",
+    description: "Awarded for making over 50 comments.",
+    Icon: Heart
+  },
+  {
+    id: "t3",
+    name: "Top 10% Karma",
+    description: "Your contributions are highly valued by the community.",
+    Icon: Crown
+  },
+  {
+    id: "t4",
+    name: "Community Pioneer",
+    description: "Created a community that gained over 100 members.",
+    Icon: Bird
+  },
+  {
+    id: "t5",
+    name: "One-Year Club",
+    description: "You have been a member of Synapse for over one year.",
+    Icon: Cake
+  },
+  {
+    id: "t6",
+    name: "Helpful Hand",
+    description: "Received an award on one of your posts or comments.",
+    Icon: Award
+  },
+];
 
 // Mock Admin
 export const adminUser: User = {

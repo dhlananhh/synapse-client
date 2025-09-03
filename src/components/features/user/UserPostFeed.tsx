@@ -1,5 +1,6 @@
 "use client";
 
+
 import React from "react";
 import { Post } from "@/types";
 import PostCard from "@/components/features/post/PostCard";
@@ -14,14 +15,14 @@ export default function UserPostFeed({ posts }: { posts: Post[] }) {
         <EmptyState
           Icon={ MessageSquarePlus }
           title="No Posts Yet"
-          description="This user hasn't created any posts. When they do, their posts will appear here."
+          description={ `This user hasn't created any posts. When they do, their posts will appear here.` }
         />
       </div>
     );
   }
 
   return (
-    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="mt-4 flex flex-col gap-4">
       {
         posts.map(
           post => (

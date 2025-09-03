@@ -1,5 +1,8 @@
 "use client"
 
+
+import React from "react";
+import { useAuth } from "@/context/AuthContext";
 import {
   User,
   Post,
@@ -9,7 +12,8 @@ import {
 import ProfileHeader from "./ProfileHeader";
 import UserPostFeed from "./UserPostFeed";
 import UserCommentFeed from "./UserCommentFeed";
-import ActivityCalendar from './ActivityCalendar';
+import ActivityCalendar from "./ActivityCalendar";
+import FollowingTab from "./FollowingTab";
 import {
   Tabs,
   TabsContent,
@@ -25,17 +29,29 @@ interface UserProfileProps {
   activity: Activity[];
 }
 
-export default function UserProfile({ user, userPosts, userComments, activity }: UserProfileProps) {
+export default function UserProfile({
+  user,
+  userPosts,
+  userComments,
+  activity
+}: UserProfileProps) {
+
+  const { currentUser } = useAuth();
+  const isOwnProfile = currentUser?.id === user.id;
+
   return (
-    <div className="mt-10 mb-10">
+    <div className="mt-10 mb-10 space-y-8">
       <ProfileHeader user={ user } postCount={ userPosts.length } />
       <ActivityCalendar activityData={ activity } />
 
       <div className="mt-6">
-        <Tabs defaultValue="posts" className="w-full">
+        <Tabs defaultValue="posts" className="max-w-full">
           <TabsList>
             <TabsTrigger value="posts">Posts</TabsTrigger>
             <TabsTrigger value="comments">Comments</TabsTrigger>
+            {
+              isOwnProfile && <TabsTrigger value="following">Following</TabsTrigger>
+            }
           </TabsList>
           <TabsContent value="posts">
             <UserPostFeed posts={ userPosts } />
@@ -43,6 +59,13 @@ export default function UserProfile({ user, userPosts, userComments, activity }:
           <TabsContent value="comments">
             <UserCommentFeed comments={ userComments } />
           </TabsContent>
+          {
+            isOwnProfile && (
+              <TabsContent value="following">
+                <FollowingTab />
+              </TabsContent>
+            )
+          }
         </Tabs>
       </div>
     </div>

@@ -10,6 +10,14 @@ export type User = {
   birthday?: string;
 };
 
+// Trophy type
+export type Trophy = {
+  id: string;
+  name: string;
+  description: string;
+  Icon: React.ElementType;
+};
+
 // Comment type
 export type Comment = {
   id: string;

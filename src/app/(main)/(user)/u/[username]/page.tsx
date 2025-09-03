@@ -2,39 +2,76 @@
 
 
 import React, { use } from "react";
-import { notFound } from "next/navigation";
-import { mockPosts, mockCommunities } from "@/libs/mock-data";
-import { getAllComments, generateUserActivity } from "@/libs/mock-data";
+import {
+  notFound,
+  useParams
+} from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import {
+  mockPosts,
+  getAllComments,
+  generateUserActivity,
+  allMockUsers
+} from "@/libs/mock-data";
 import UserProfile from "@/components/features/user/UserProfile";
-import { User, Post, UserComment } from "@/types";
+import UserPostFeed from "@/components/features/user/UserPostFeed";
+import UserCommentFeed from "@/components/features/user/UserCommentFeed";
+import FollowingTab from "@/components/features/user/FollowingTab";
+import {
+  User,
+  Post,
+  UserComment,
+  Activity,
+} from "@/types";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "@/components/ui/tabs";
+import ActivityCalendar from "@/components/features/user/ActivityCalendar";
 
 
-const getUserProfileData = (username: string) => {
-  const allUsers: User[] = [
-    ...new Set(mockPosts.map(p => p.author))
-  ];
+export default function ProfilePage() {
+  const params = useParams();
+  const username = typeof params.username === "string" ? params.username : "";
+  const { currentUser } = useAuth();
 
-  const user = allUsers.find(u => u.username === username);
+  const user = allMockUsers.find(u => u.username === username);
 
   if (!user) {
-    return null;
+    return notFound();
   }
 
   const userPosts = mockPosts.filter(p => p.author.id === user.id);
   const userComments = getAllComments().filter(c => c.author.id === user.id);
-  const activity = generateUserActivity(username);
+  const activityData: Activity[] = generateUserActivity(user.username);
+  const isOwnProfile = currentUser?.id === user.id;
 
-  return { user, userPosts, userComments, activity };
-}
+  return (
+    <div className="space-y-6">
+      <ActivityCalendar activityData={ activityData } />
+      <Tabs defaultValue="posts" className="w-full">
+        <TabsList>
+          <TabsTrigger value="posts">Posts</TabsTrigger>
+          <TabsTrigger value="comments">Comments</TabsTrigger>
+          { isOwnProfile && <TabsTrigger value="following">Following</TabsTrigger> }
+        </TabsList>
 
+        <TabsContent value="posts" className="mt-4">
+          <UserPostFeed posts={ userPosts } />
+        </TabsContent>
 
-export default function ProfilePage(props: { params: Promise<{ username: string }> }) {
-  const params = use(props.params);
-  const data = getUserProfileData(params.username);
+        <TabsContent value="comments" className="mt-4">
+          <UserCommentFeed comments={ userComments } />
+        </TabsContent>
 
-  if (!data) {
-    notFound();
-  }
-
-  return <UserProfile { ...data } />
-}
+        { isOwnProfile && (
+          <TabsContent value="following" className="mt-4">
+            <FollowingTab />
+          </TabsContent>
+        ) }
+      </Tabs>
+    </div>
+  );
+} 

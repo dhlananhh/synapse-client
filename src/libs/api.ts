@@ -1,10 +1,12 @@
 import {
   mockPosts,
   allMockUsers,
-  mockCommunities
+  mockCommunities,
+  allMockTrophies,
 } from "./mock-data";
 import {
   User,
+  Trophy,
   Post,
   Comment,
   SortType,
@@ -276,3 +278,32 @@ export const resetPassword = async (token: string, newPassword: string): Promise
 
   return { success: true };
 }
+
+
+export const fetchUsersByIds = async (userIds: string[]): Promise<User[]> => {
+  await new Promise(resolve => setTimeout(resolve, 750));
+  const foundUsers = allMockUsers.filter(user => userIds.includes(user.id));
+  return foundUsers;
+};
+
+
+export const fetchUserTrophies = async (username: string): Promise<Trophy[]> => {
+  await new Promise(resolve => setTimeout(resolve, 600));
+
+  let seed = username.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const earnedTrophies: Trophy[] = [];
+
+  allMockTrophies.forEach(trophy => {
+    seed = (seed * 9301 + 49297) % 233280;
+    const random = seed / 233280;
+    if (random > 0.4) {
+      earnedTrophies.push(trophy);
+    }
+  });
+
+  if (earnedTrophies.length === 0) {
+    return [ allMockTrophies[ 0 ] ];
+  }
+
+  return earnedTrophies;
+};

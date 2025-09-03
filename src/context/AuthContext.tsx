@@ -57,6 +57,9 @@ interface AuthContextType {
   viewedPostIds: string[];
   logPostView: (postId: string) => void;
   clearHistory: () => void;
+  followingUserIds: string[];
+  isFollowing: (userId: string) => boolean;
+  toggleFollowUser: (userId: string) => void;
 }
 
 
@@ -76,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ blockedUserIds, setBlockedUserIds ] = useState<string[]>([]);
   const [ savedPostIds, setSavedPostIds ] = useState<string[]>([ "p2" ]);
   const [ viewedPostIds, setViewedPostIds ] = useState<string[]>([]);
+  const [ followingUserIds, setFollowingUserIds ] = useState<string[]>([ "u1" ]);
 
 
   useEffect(() => {
@@ -238,6 +242,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(HISTORY_STORAGE_KEY);
   }, []);
 
+  const isFollowing = (userId: string): boolean => {
+    return followingUserIds.includes(userId);
+  };
+
+  const toggleFollowUser = (userId: string) => {
+    setFollowingUserIds(prevFollowing => {
+      if (prevFollowing.includes(userId)) {
+        // If already following, unfollow
+        return prevFollowing.filter(id => id !== userId);
+      } else {
+        // If not following, follow
+        return [ ...prevFollowing, userId ];
+      }
+    });
+  };
+
 
   const value = {
     currentUser,
@@ -270,6 +290,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     viewedPostIds,
     logPostView,
     clearHistory,
+    followingUserIds,
+    isFollowing,
+    toggleFollowUser,
   };
 
 

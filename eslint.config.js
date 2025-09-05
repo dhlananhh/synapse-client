@@ -10,9 +10,11 @@ const globals = require("globals");
 module.exports = [
   {
     ignores: [
-      ".next/",
-      "node_modules/",
-      "dist/",
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
     ],
   },
 

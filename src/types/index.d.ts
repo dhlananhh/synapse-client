@@ -128,3 +128,6 @@ export type Language = {
   name: string;
   FlagComponent: React.ElementType;
 };
+
+// View Mode type
+export type ViewMode = "card" | "compact";

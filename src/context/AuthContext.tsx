@@ -9,7 +9,7 @@ import React, {
   ReactNode
 } from "react";
 import { useTranslation } from "react-i18next";
-import { User, Language } from "@/types";
+import { User, Language, ViewMode } from "@/types";
 import { TRegisterSchema } from "@/libs/validators/auth-validator";
 import {
   TUserProfileSchema,
@@ -24,6 +24,7 @@ type UserVotes = Record<string, UserVote>;
 
 const HISTORY_STORAGE_KEY = "synapse-view-history";
 const MAX_HISTORY_LENGTH = 50;
+const VIEW_MODE_STORAGE_KEY = "synapse-view-mode";
 
 
 interface AuthContextType {
@@ -60,6 +61,8 @@ interface AuthContextType {
   followingUserIds: string[];
   isFollowing: (userId: string) => boolean;
   toggleFollowUser: (userId: string) => void;
+  viewMode: ViewMode;
+  setViewMode: (mode: ViewMode) => void;
 }
 
 
@@ -80,7 +83,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ savedPostIds, setSavedPostIds ] = useState<string[]>([ "p2" ]);
   const [ viewedPostIds, setViewedPostIds ] = useState<string[]>([]);
   const [ followingUserIds, setFollowingUserIds ] = useState<string[]>([ "u1" ]);
+  const [ viewMode, setViewModeInternal ] = useState<ViewMode>("card");
 
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem(VIEW_MODE_STORAGE_KEY) as ViewMode | null;
+    if (savedMode && [ 'card', 'compact' ].includes(savedMode)) {
+      setViewModeInternal(savedMode);
+    }
+  }, []);
+
+  const setViewMode = (mode: ViewMode) => {
+    localStorage.setItem(VIEW_MODE_STORAGE_KEY, mode);
+    setViewModeInternal(mode);
+  };
 
   useEffect(() => {
     const currentLang = i18n.language.split("-")[ 0 ];
@@ -293,6 +309,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     followingUserIds,
     isFollowing,
     toggleFollowUser,
+    viewMode,
+    setViewMode,
   };
 
 

@@ -36,8 +36,16 @@ export default function SavePostButton({ postId }: SavePostButtonProps) {
       size="sm"
       className="rounded-full flex items-center gap-1.5 px-2"
     >
-      <Bookmark className={ cn("h-5 w-5", saved && "fill-primary text-primary") } />
-      <span className="hidden sm:inline">{ saved ? "Unsave" : "Save" }</span>
+      <Bookmark className={
+        cn(
+          "h-5 w-5",
+          saved && "fill-primary text-primary"
+        )
+      }
+      />
+      <span className="hidden sm:inline">
+        { saved ? "Unsave" : "Save" }
+      </span>
     </Button>
   );
 }

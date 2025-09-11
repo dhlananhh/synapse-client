@@ -12,6 +12,7 @@ export type User = {
   };
   gender: string;
   birthday?: string;
+  bannerUrl?: string;
 };
 
 // Trophy type

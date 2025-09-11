@@ -68,6 +68,7 @@ export const adminUser: User = {
     comment: 2499
   },
   gender: "Female",
+  bannerUrl: "https://placehold.co/1200x400/000000/FFF?text=SynapseAdmin"
 };
 
 // Mock Users
@@ -82,6 +83,7 @@ const user1: User = {
     comment: 350
   },
   gender: "Male",
+  bannerUrl: "https://placehold.co/1200x400/1f2937/d1d5db?text=JohnDoe",
 };
 const user2: User = {
   id: "u2",

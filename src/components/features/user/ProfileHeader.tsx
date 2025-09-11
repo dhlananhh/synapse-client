@@ -10,10 +10,14 @@ import { useChatStore } from "@/store/useChatStore";
 import { User } from "@/types";
 import { toast } from "sonner";
 import { UserAvatar } from "@/components/shared/UserAvatar";
-import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import KarmaBreakdown from "./KarmaBreakdown";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover";
 import {
   DropdownMenu,
   DropdownMenuContent,

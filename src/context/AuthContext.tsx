@@ -139,7 +139,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       displayName: data.displayName,
       gender: data.gender,
       createdAt: new Date().toISOString(),
-      karma: 0,
+      karma: {
+        post: 0,
+        comment: 0,
+      },
     };
     setCurrentUser(newUser);
     const hasCompletedOnboarding = localStorage.getItem("onboardingComplete");

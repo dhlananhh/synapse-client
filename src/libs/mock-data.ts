@@ -63,7 +63,10 @@ export const adminUser: User = {
   displayName: "Synapse Admin",
   avatarUrl: "https://i.pravatar.cc/150?u=admin",
   createdAt: "2024-01-01T00:00:00Z",
-  karma: 9999,
+  karma: {
+    post: 7500,
+    comment: 2499
+  },
   gender: "Female",
 };
 
@@ -74,7 +77,10 @@ const user1: User = {
   displayName: "John Doe",
   avatarUrl: "https://i.pravatar.cc/150?u=u1",
   createdAt: "2023-05-10T12:00:00Z",
-  karma: 1250,
+  karma: {
+    post: 900,
+    comment: 350
+  },
   gender: "Male",
 };
 const user2: User = {
@@ -83,7 +89,10 @@ const user2: User = {
   displayName: "Dev Guru",
   avatarUrl: "https://i.pravatar.cc/150?u=u2",
   createdAt: "2022-11-20T15:30:00Z",
-  karma: 3400,
+  karma: {
+    post: 2800,
+    comment: 600
+  },
   gender: "Male",
 };
 const user3: User = {
@@ -92,7 +101,10 @@ const user3: User = {
   displayName: "Jane Smith",
   avatarUrl: "https://i.pravatar.cc/150?u=u3",
   createdAt: "2022-11-20T15:30:00Z",
-  karma: 850,
+  karma: {
+    post: 550,
+    comment: 300
+  },
   gender: "Female",
 };
 
@@ -102,7 +114,7 @@ const user4: User = {
   displayName: "Alex Riley",
   avatarUrl: "https://i.pravatar.cc/150?u=u4",
   createdAt: "2023-02-15T18:45:00Z",
-  karma: 2100,
+  karma: { post: 1500, comment: 600 },
   gender: "Male",
 };
 
@@ -112,7 +124,7 @@ const user5: User = {
   displayName: "Chloe Davis",
   avatarUrl: "https://i.pravatar.cc/150?u=u5",
   createdAt: "2023-11-05T20:00:00Z",
-  karma: 1550,
+  karma: { post: 800, comment: 750 },
   gender: "Female",
 };
 
@@ -122,7 +134,7 @@ const user6: User = {
   displayName: "Mia Evans",
   avatarUrl: "https://i.pravatar.cc/150?u=u6",
   createdAt: "2024-03-20T11:10:00Z",
-  karma: 450,
+  karma: { post: 150, comment: 300 },
   gender: "Female",
 };
 
@@ -132,7 +144,7 @@ const user7: User = {
   displayName: "Leo Carter",
   avatarUrl: "https://i.pravatar.cc/150?u=u7",
   createdAt: "2022-09-12T08:00:00Z",
-  karma: 320,
+  karma: { post: 120, comment: 200 },
   gender: "Male",
 };
 
@@ -142,7 +154,7 @@ const user8: User = {
   displayName: "Dr. Evelyn Reed",
   avatarUrl: "https://i.pravatar.cc/150?u=u8",
   createdAt: "2023-01-30T14:25:00Z",
-  karma: 5600,
+  karma: { post: 4000, comment: 1600 },
   gender: "Female",
 };
 
@@ -152,7 +164,7 @@ const user9: User = {
   displayName: "Sam Jones",
   avatarUrl: "https://i.pravatar.cc/150?u=u9",
   createdAt: "2023-07-22T16:05:00Z",
-  karma: 1800,
+  karma: { post: 950, comment: 850 },
   gender: "Other",
 };
 
@@ -162,7 +174,7 @@ const user10: User = {
   displayName: "Olivia Chen",
   avatarUrl: "https://i.pravatar.cc/150?u=u10",
   createdAt: "2023-04-18T22:30:00Z",
-  karma: 2900,
+  karma: { post: 1800, comment: 1100 },
   gender: "Female",
 };
 
@@ -172,7 +184,7 @@ const user11: User = {
   displayName: "Ben Harris",
   avatarUrl: "https://i.pravatar.cc/150?u=u11",
   createdAt: "2022-12-01T06:00:00Z",
-  karma: 1100,
+  karma: { post: 700, comment: 400 },
   gender: "Male",
 };
 
@@ -182,7 +194,7 @@ const user12: User = {
   displayName: "Fiona Garcia",
   avatarUrl: "https://i.pravatar.cc/150?u=u12",
   createdAt: "2024-01-10T19:55:00Z",
-  karma: 780,
+  karma: { post: 480, comment: 300 },
   gender: "Female",
 };
 
@@ -192,7 +204,7 @@ const user13: User = {
   displayName: "Dan Martinez",
   avatarUrl: "https://i.pravatar.cc/150?u=u13",
   createdAt: "2023-09-03T13:00:00Z",
-  karma: 950,
+  karma: { post: 600, comment: 350 },
   gender: "Male",
 };
 
@@ -202,7 +214,7 @@ const user14: User = {
   displayName: "Rachel Nguyen",
   avatarUrl: "https://i.pravatar.cc/150?u=u14",
   createdAt: "2024-02-05T10:00:00Z",
-  karma: 620,
+  karma: { post: 320, comment: 300 },
   gender: "Female",
 };
 
@@ -212,7 +224,7 @@ const user15: User = {
   displayName: "Nate Robinson",
   avatarUrl: "https://i.pravatar.cc/150?u=u15",
   createdAt: "2023-03-12T00:00:00Z",
-  karma: 1350,
+  karma: { post: 1000, comment: 350 },
   gender: "Male",
 };
 
@@ -222,7 +234,10 @@ const user16: User = {
   displayName: "Casey Thompson",
   avatarUrl: "https://i.pravatar.cc/150?u=u16",
   createdAt: "2024-04-01T17:20:00Z",
-  karma: 250,
+  karma: {
+    post: 100,
+    comment: 150
+  },
   gender: "Prefer not to say",
 };
 
@@ -232,7 +247,10 @@ const user17: User = {
   displayName: "Aaron Walker",
   avatarUrl: "https://i.pravatar.cc/150?u=u17",
   createdAt: "2023-06-19T09:40:00Z",
-  karma: 175,
+  karma: {
+    post: 75,
+    comment: 100
+  },
   gender: "Male",
 };
 
@@ -242,7 +260,10 @@ const user18: User = {
   displayName: "Diana Lewis",
   avatarUrl: "https://i.pravatar.cc/150?u=u18",
   createdAt: "2023-10-30T21:00:00Z",
-  karma: 3100,
+  karma: {
+    post: 2200,
+    comment: 900
+  },
   gender: "Female",
 };
 
@@ -252,7 +273,10 @@ const user19: User = {
   displayName: "Abby Howard",
   avatarUrl: "https://i.pravatar.cc/150?u=u19",
   createdAt: "2024-05-01T12:00:00Z",
-  karma: 115,
+  karma: {
+    post: 45,
+    comment: 50
+  },
   gender: "Female",
 };
 
@@ -262,7 +286,10 @@ const user20: User = {
   displayName: "Tom Clark",
   avatarUrl: "https://i.pravatar.cc/150?u=u20",
   createdAt: "2024-05-01T12:00:00Z",
-  karma: 95,
+  karma: {
+    post: 2300,
+    comment: 1000
+  },
   gender: "Male",
 };
 
@@ -272,7 +299,10 @@ const user21: User = {
   displayName: "Alissa Houston",
   avatarUrl: "https://i.pravatar.cc/150?u=u21",
   createdAt: "2024-05-01T12:00:00Z",
-  karma: 200,
+  karma: {
+    post: 50,
+    comment: 100
+  },
   gender: "Female",
 };
 

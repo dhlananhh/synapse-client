@@ -25,7 +25,10 @@ export default function UserProfileLayout({
 
   return (
     <div className="space-y-8 mt-10 mb-10">
-      <ProfileHeader user={ user } postCount={ userPostCount } />
+      <ProfileHeader
+        user={ user }
+        postCount={ userPostCount }
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-6 lg:gap-x-6">
 
@@ -34,7 +37,7 @@ export default function UserProfileLayout({
         </div>
 
         <aside className="lg:col-span-1">
-          <div className="sticky top-72 space-y-4">
+          <div className="sticky top-10 space-y-4">
             <TrophyCaseWidget username={ user.username } />
           </div>
         </aside>

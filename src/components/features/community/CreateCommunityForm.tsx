@@ -24,7 +24,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { PATHS } from "@/libs/paths";
 
 
 export default function CreateCommunityForm() {
@@ -47,7 +46,7 @@ export default function CreateCommunityForm() {
       toast.success(`Community c/${newCommunity.slug} created successfully!`, {
         description: "You are now the owner of this community."
       });
-      router.push(PATHS.community(newCommunity.slug));
+      router.push("/communities/create");
     } catch (error: any) {
       toast.error("Failed to create community", {
         description: error.message || "An unexpected error occurred."

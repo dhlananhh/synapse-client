@@ -20,7 +20,9 @@ export default function CreateCommunityPage() {
   }, [ currentUser, router ]);
 
   if (currentUser === undefined) {
-    return <Skeleton className="h-96 w-full" />;
+    return (
+      <Skeleton className="h-96 w-full" />
+    )
   }
 
   return (

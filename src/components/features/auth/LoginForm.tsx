@@ -45,7 +45,7 @@ export default function LoginForm() {
       description: "Redirecting you to the feed...",
     });
 
-    router.push('/feed');
+    router.push("/feed");
   };
 
   return (

@@ -11,4 +11,5 @@ export const PATHS = {
   postEdit: (postId: string) => `/p/${postId}/edit`,
   userProfile: (username: string) => `/u/${username}`,
   communityMembers: (slug: string) => `/c/${slug}/members`,
+  createCommunity: "/communities/create",
 };

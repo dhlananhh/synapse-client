@@ -123,6 +123,7 @@ export default function ProfileHeader({
             fill
             priority
             className="object-cover"
+            unoptimized={ true }
           />
         </div>
 
@@ -209,7 +210,7 @@ export default function ProfileHeader({
             <h1 className="text-2xl sm:text-3xl font-bold">
               { user.displayName || user.username }
             </h1>
-            <p className="text-sm text-muted-foreground -mt-1">
+            <p className="text-sm text-muted-foreground -mt-0.5">
               u/{ user.username }
             </p>
 

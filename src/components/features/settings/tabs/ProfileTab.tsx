@@ -14,6 +14,7 @@ import SettingsRow from "../SettingsRow";
 import ChangeDisplayNameDialog from "../dialogs/ChangeDisplayNameDialog";
 import ChangeUsernameDialog from "../dialogs/ChangeUsernameDialog";
 import UpdateDescriptionDialog from "../dialogs/UpdateDescriptionDialog";
+import EditProfileImagesDialog from "../dialogs/EditProfileImagesDialog";
 import { ChevronRight } from "lucide-react";
 
 
@@ -21,6 +22,7 @@ export default function ProfileTab() {
   const [ isDisplayNameDialogOpen, setIsDisplayNameDialogOpen ] = useState(false);
   const [ isDescriptionDialogOpen, setIsDescriptionDialogOpen ] = useState(false);
   const [ isUsernameDialogOpen, setIsUsernameDialogOpen ] = useState(false);
+  const [ isImagesDialogOpen, setIsImagesDialogOpen ] = useState(false);
 
   const mockUserDescription = "A Senior Software Engineer with over 10 years of experience.";
 
@@ -28,11 +30,15 @@ export default function ProfileTab() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="uppercase">Profile Customization</CardTitle>
+          <CardTitle className="uppercase">
+            Profile Customization
+          </CardTitle>
         </CardHeader>
 
         <CardContent className="p-0">
-          <h3 className="font-semibold px-4 pt-2">General</h3>
+          <h3 className="font-semibold px-4 pt-2">
+            General
+          </h3>
 
           <div
             onClick={ () => setIsDisplayNameDialogOpen(true) }
@@ -42,7 +48,12 @@ export default function ProfileTab() {
               title="Display name"
               description={ `Help people discover your account by using the name you're known by: either your full name, nickname, or business name.` }
             >
-              <Button variant="outline" size="sm">Change</Button>
+              <Button
+                variant="outline"
+                size="sm"
+              >
+                Change
+              </Button>
             </SettingsRow>
           </div>
 
@@ -54,7 +65,12 @@ export default function ProfileTab() {
               title="Username"
               description="Your unique username"
             >
-              <Button variant="outline" size="sm">Change</Button>
+              <Button
+                variant="outline"
+                size="sm"
+              >
+                Change
+              </Button>
             </SettingsRow>
           </div>
 
@@ -66,7 +82,12 @@ export default function ProfileTab() {
               title="About description"
               description="A brief description of yourself"
             >
-              <Button variant="outline" size="sm">Update</Button>
+              <Button
+                variant="outline"
+                size="sm"
+              >
+                Update
+              </Button>
             </SettingsRow>
           </div>
 
@@ -75,13 +96,30 @@ export default function ProfileTab() {
               title="Avatar & Banner"
               description="Edit your avatar and upload a profile banner"
             >
-              <Button variant="ghost" size="default">
+              <Button
+                variant="ghost"
+                size="default"
+              >
                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
               </Button>
             </SettingsRow>
           </div>
 
-          <h3 className="font-semibold px-4 pt-6">Curate your profile</h3>
+          <div
+            onClick={ () => setIsImagesDialogOpen(true) }
+            className="cursor-pointer"
+          >
+            <SettingsRow
+              title="Avatar & Banner"
+              description="Edit your avatar and upload a profile banner"
+            >
+              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            </SettingsRow>
+          </div>
+
+          <h3 className="font-semibold px-4 pt-6">
+            Curate your profile
+          </h3>
           <SettingsRow
             title="Mark as mature (18+)"
             description="Labels your profile as Not Safe for Work (NSFW)"
@@ -118,6 +156,11 @@ export default function ProfileTab() {
       <ChangeUsernameDialog
         isOpen={ isUsernameDialogOpen }
         onOpenChange={ setIsUsernameDialogOpen }
+      />
+
+      <EditProfileImagesDialog
+        isOpen={ isImagesDialogOpen }
+        onOpenChange={ setIsImagesDialogOpen }
       />
     </>
   );

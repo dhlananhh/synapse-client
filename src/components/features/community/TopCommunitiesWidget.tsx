@@ -1,13 +1,25 @@
 "use client";
 
+
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 import { mockCommunities } from "@/libs/mock-data";
 import { Community } from "@/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Users } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from "@/components/ui/avatar";
+import { Users, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PATHS } from "@/libs/paths";
 
 
 const getTopCommunities = (): Community[] => {
@@ -17,6 +29,7 @@ const getTopCommunities = (): Community[] => {
 
 export default function TopCommunitiesWidget() {
   const topCommunities = getTopCommunities();
+  const { currentUser } = useAuth();
 
   return (
     <Card>
@@ -25,27 +38,59 @@ export default function TopCommunitiesWidget() {
       </CardHeader>
       <CardContent>
         <ul className="space-y-3">
-          { topCommunities.map((community, index) => (
-            <li key={ community.id }>
-              <Link href={ `/c/${community.slug}` } className="flex items-center gap-3 group">
-                <span className="font-bold text-lg">{ index + 1 }</span>
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={ community.imageUrl } />
-                  <AvatarFallback>{ community.name.slice(0, 2).toUpperCase() }</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <p className="font-semibold group-hover:underline">c/{ community.slug }</p>
-                  <div className="text-xs text-muted-foreground flex items-center">
-                    { community.memberCount.toLocaleString() } members
+          {
+            topCommunities.map((community, index) => (
+              <li key={ community.id }>
+                <Link
+                  href={ `/c/${community.slug}` }
+                  className="flex items-center gap-3 group"
+                >
+                  <span className="font-bold text-lg">
+                    { index + 1 }
+                  </span>
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={ community.imageUrl } />
+                    <AvatarFallback>
+                      { community.name.slice(0, 2).toUpperCase() }
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <p className="font-semibold group-hover:underline">
+                      c/{ community.slug }
+                    </p>
+                    <div className="text-xs text-muted-foreground flex items-center">
+                      { community.memberCount.toLocaleString() } members
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </li>
-          )) }
+                </Link>
+              </li>
+            ))
+          }
         </ul>
-        <Button className="w-full mt-6" variant="outline" asChild>
-          <Link href="#">View All</Link>
-        </Button>
+
+        <div className="mt-6 flex flex-col gap-2">
+          <Button
+            className="w-full mt-6"
+            variant="outline"
+            asChild
+          >
+            <Link href="#">View All</Link>
+          </Button>
+
+          {
+            currentUser && (
+              <Button
+                className="w-full"
+                asChild
+              >
+                <Link href={ PATHS.createCommunity }>
+                  <PlusCircle className="h-4 w-4 mr-2" />
+                  Create Community
+                </Link>
+              </Button>
+            )
+          }
+        </div>
       </CardContent>
     </Card>
   );

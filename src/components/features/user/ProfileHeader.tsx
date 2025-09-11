@@ -6,15 +6,21 @@ import { toast } from "sonner";
 import { useChatStore } from "@/store/useChatStore";
 import { useAuth } from "@/context/AuthContext";
 import { User } from "@/types";
+import { UserAvatar } from "@/components/shared/UserAvatar";
+import ConfirmDialog from "@/components/shared/ConfirmDialog";
+import KarmaBreakdown from "./KarmaBreakdown";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { UserAvatar } from "@/components/shared/UserAvatar";
-import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import {
   Cake,
   Zap,
@@ -62,6 +68,7 @@ export default function ProfileHeader({
   const canInteract = currentUser && currentUser.id !== user.id;
   const isUserBlocked = isBlocked(user.id);
   const isUserFollowed = isFollowing(user.id);
+  const totalKarma = user.karma.post + user.karma.comment;
 
   const handleBlock = () => {
     setIsBlockDialogOpen(true);
@@ -71,8 +78,12 @@ export default function ProfileHeader({
     setIsUpdatingBlock(true);
     await new Promise(resolve => setTimeout(resolve, 500));
     toggleBlockUser(user.id);
-    toast.success(isUserBlocked ? `Unblocked u/${user.username}` : `Blocked u/${user.username}`, {
-      description: isUserBlocked ? "You will now see their content again." : "You will no longer see their posts or comments."
+    toast.success(
+      isUserBlocked ? `Unblocked u/${user.username}` : `Blocked u/${user.username}`, {
+      description:
+        isUserBlocked
+          ? "You will now see their content again."
+          : "You will no longer see their posts or comments."
     });
     setIsUpdatingBlock(false);
     setIsBlockDialogOpen(false);
@@ -100,24 +111,40 @@ export default function ProfileHeader({
     <>
       <div className="flex flex-col sm:flex-row gap-4 sm:items-end justify-between">
         <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-          <UserAvatar user={ user } className="h-24 w-24 sm:h-32 sm:w-32 text-4xl" />
+          <UserAvatar
+            user={ user }
+            className="h-24 w-24 sm:h-32 sm:w-32 text-4xl"
+          />
 
           <div className="flex flex-col gap-1">
             <h1 className="text-3xl font-bold">
-              { user.username }
+              { user.displayName || user.username }
             </h1>
+            <p className="text-sm text-muted-foreground -mt-1">
+              u/{ user.username }
+            </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mt-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <div className="flex items-center gap-1 cursor-pointer hover:text-primary">
+                    <Zap className="h-4 w-4" />
+                    <span>
+                      { totalKarma.toLocaleString() } Karma
+                    </span>
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent className="w-64">
+                  <KarmaBreakdown karma={ user.karma } />
+                </PopoverContent>
+              </Popover>
+
+              <span className="hidden sm:inline">•</span>
               <div className="flex items-center gap-1">
-                <Zap className="h-4 w-4" />
                 <span>
-                  { user.karma.toLocaleString() } Karma
+                  { postCount } Posts
                 </span>
               </div>
-              <span>•</span>
-              <div className="flex items-center gap-1">
-                <span>{ postCount } Posts</span>
-              </div>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <div className="flex items-center gap-1">
                 <CalendarPlus className="h-4 w-4" />
                 <span>

@@ -339,3 +339,14 @@ export const createCommunity = async (
 
   return newCommunity;
 };
+
+
+export const uploadImage = async (file: File): Promise<string> => {
+  console.log(`Simulating upload for file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`);
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  const newImageUrl = `https://picsum.photos/seed/${Math.random()}/400`;
+
+  console.log(`Upload complete. New URL: ${newImageUrl}`);
+  return newImageUrl;
+};

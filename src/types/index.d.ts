@@ -5,7 +5,11 @@ export type User = {
   displayName?: string;
   avatarUrl?: string;
   createdAt: string;
-  karma: number;
+  // karma: number;
+  karma: {
+    post: number;
+    comment: number;
+  };
   gender: string;
   birthday?: string;
 };

@@ -36,7 +36,9 @@ export default function TrophyCaseWidget({ username }: { username: string }) {
   if (isLoading) {
     return (
       <Card>
-        <CardHeader><Skeleton className="h-6 w-3/4" /></CardHeader>
+        <CardHeader>
+          <Skeleton className="h-6 w-3/4" />
+        </CardHeader>
         <CardContent className="grid grid-cols-4 gap-4">
           <Skeleton className="h-12 w-12 rounded-lg" />
           <Skeleton className="h-12 w-12 rounded-lg" />
@@ -49,30 +51,36 @@ export default function TrophyCaseWidget({ username }: { username: string }) {
 
   return (
     <Card>
-      <CardHeader><CardTitle>Trophy Case</CardTitle></CardHeader>
+      <CardHeader>
+        <CardTitle>
+          Trophy Case
+        </CardTitle>
+      </CardHeader>
       <CardContent>
         {
           trophies.length > 0 ? (
             <TooltipProvider delayDuration={ 100 }>
               <div className="grid grid-cols-4 gap-4">
                 {
-                  trophies.map(({ id, name, description, Icon }) => (
-                    <Tooltip key={ id }>
-                      <TooltipTrigger asChild>
-                        <div className="flex items-center justify-center p-3 bg-secondary rounded-lg border aspect-square">
-                          <Icon className="h-8 w-8 text-amber-500" />
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="font-bold">
-                          { name }
-                        </p>
-                        <p className="text-xs text-gray-300">
-                          { description }
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ))
+                  trophies.map(
+                    ({ id, name, description, Icon }) => (
+                      <Tooltip key={ id }>
+                        <TooltipTrigger asChild>
+                          <div className="flex items-center justify-center p-3 bg-secondary rounded-lg border aspect-square">
+                            <Icon className="h-8 w-8 text-amber-500" />
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="font-bold">
+                            { name }
+                          </p>
+                          <p className="text-xs text-gray-300">
+                            { description }
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    )
+                  )
                 }
               </div>
             </TooltipProvider>

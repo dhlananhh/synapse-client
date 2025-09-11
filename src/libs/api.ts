@@ -10,8 +10,10 @@ import {
   Post,
   Comment,
   SortType,
+  Community,
 } from "@/types";
 import { TPostSchema } from "./validators/post-validator";
+import { TCreateCommunitySchema } from "./validators/community-validator";
 
 
 const POSTS_PER_PAGE = 6;
@@ -306,4 +308,34 @@ export const fetchUserTrophies = async (username: string): Promise<Trophy[]> => 
   }
 
   return earnedTrophies;
+};
+
+
+export const createCommunity = async (
+  data: TCreateCommunitySchema,
+  ownerId: string
+): Promise<Community> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const slugExists = mockCommunities.some(c => c.slug === data.slug);
+  if (slugExists) {
+    throw new Error("A community with this URL (slug) already exists.");
+  }
+
+  const newCommunity: Community = {
+    id: `comm_${Math.random().toString(36).substr(2, 9)}`,
+    name: data.name,
+    slug: data.slug,
+    description: data.description || "",
+    createdAt: new Date().toISOString(),
+    memberCount: 1,
+    ownerId: ownerId,
+    moderatorIds: [],
+    imageUrl: `https://i.pravatar.cc/150?u=${data.slug}`,
+  };
+
+  mockCommunities.push(newCommunity);
+  console.log("New community created:", newCommunity);
+
+  return newCommunity;
 };

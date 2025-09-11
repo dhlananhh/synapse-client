@@ -19,10 +19,12 @@ export default function ActivityCalendar({ activityData }: ActivityCalendarProps
   const totalContributions = activityData.reduce((sum, day) => sum + day.count, 0);
 
   return (
-    <div className="mt-10">
+    <div>
       <Card>
         <CardHeader>
-          <CardTitle>{ totalContributions.toLocaleString() } contributions in the last year</CardTitle>
+          <CardTitle>
+            { totalContributions.toLocaleString() } contributions in the last year
+          </CardTitle>
         </CardHeader>
         <CardContent className="px-6">
           <CalendarHeatmap

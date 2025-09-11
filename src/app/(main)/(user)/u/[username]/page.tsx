@@ -53,9 +53,19 @@ export default function ProfilePage() {
       <ActivityCalendar activityData={ activityData } />
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
-          <TabsTrigger value="posts">Posts</TabsTrigger>
-          <TabsTrigger value="comments">Comments</TabsTrigger>
-          { isOwnProfile && <TabsTrigger value="following">Following</TabsTrigger> }
+          <TabsTrigger value="posts">
+            Posts
+          </TabsTrigger>
+          <TabsTrigger value="comments">
+            Comments
+          </TabsTrigger>
+          {
+            isOwnProfile && (
+              <TabsTrigger value="following">
+                Following
+              </TabsTrigger>
+            )
+          }
         </TabsList>
 
         <TabsContent value="posts" className="mt-4">
@@ -66,11 +76,13 @@ export default function ProfilePage() {
           <UserCommentFeed comments={ userComments } />
         </TabsContent>
 
-        { isOwnProfile && (
-          <TabsContent value="following" className="mt-4">
-            <FollowingTab />
-          </TabsContent>
-        ) }
+        {
+          isOwnProfile && (
+            <TabsContent value="following" className="mt-4">
+              <FollowingTab />
+            </TabsContent>
+          )
+        }
       </Tabs>
     </div>
   );

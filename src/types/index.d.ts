@@ -67,6 +67,15 @@ export type Post = {
   createdAt: string;
   votes: number;
   comments: Comment[];
+  flair?: Flair;
+};
+
+// Flair type
+export type Flair = {
+  id: string;
+  name: string;
+  color: string;
+  communityId: string;
 };
 
 // NotificationType

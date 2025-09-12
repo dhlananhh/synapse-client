@@ -13,8 +13,8 @@ import {
   TabsList,
   TabsTrigger
 } from "@/components/ui/tabs";
-import ManageMembersTab from "@/components/features/community/manage/ManageMembersTab";
-import DangerZoneTab from "@/components/features/community/manage/DangerZoneTab";
+import ManageMembersTab from "@/components/features/community/manage/tabs/ManageMembersTab";
+import DangerZoneTab from "@/components/features/community/manage/tabs/DangerZoneTab";
 
 
 export default function ManageCommunityPage() {

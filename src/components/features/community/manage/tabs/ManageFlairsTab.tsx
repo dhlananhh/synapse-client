@@ -11,7 +11,7 @@ import {
   CardContent
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import ManageFlairsDialog from "./dialogs/ManageFlairsDialog";
+import ManageFlairsDialog from "../dialogs/ManageFlairsDialog";
 import { Tags } from "lucide-react";
 
 

@@ -3,7 +3,10 @@
 
 import React from "react";
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
 import { Post } from "@/types";
+import VoteClient from "./VoteClient";
+import SavePostButton from "./SavePostButton";
 import {
   Card,
   CardContent,
@@ -11,13 +14,11 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   MessageCircle,
   Share2
 } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
-import VoteClient from "./VoteClient";
-import SavePostButton from './SavePostButton';
 
 
 interface PostCardProps {
@@ -52,6 +53,24 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             </Link>
           </div>
           <CardTitle className="mt-1 text-lg sm:text-xl font-semibold leading-tight break-words">
+            <Link
+              href={ `/p/${post.id}` }
+              className="hover:underline"
+            >
+              { post.title }
+            </Link>
+          </CardTitle>
+          <CardTitle className="mt-1 text-xl flex items-center gap-2">
+            {
+              post.flair && (
+                <Badge
+                  style={ { backgroundColor: post.flair.color, color: '#fff' } }
+                  className="flex-shrink-0"
+                >
+                  { post.flair.name }
+                </Badge>
+              )
+            }
             <Link
               href={ `/p/${post.id}` }
               className="hover:underline"

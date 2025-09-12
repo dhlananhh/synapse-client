@@ -2,7 +2,12 @@
 
 import React from "react";
 import CalendarHeatmap from "react-calendar-heatmap";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Activity } from "@/types";
 import "react-calendar-heatmap/dist/styles.css";
 

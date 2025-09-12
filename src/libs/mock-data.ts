@@ -1,57 +1,109 @@
+// import types
 import {
+  Award,
   Post,
   Flair,
   User,
   Trophy,
   Community,
 } from "@/types";
+
+// import icons
 import {
-  Award,
-  Bird,
-  Crown,
-  Heart,
-  Star,
-  Cake
-} from "lucide-react";
+  FaAward,
+  FaMedal
+} from "react-icons/fa6";
+import { SiThunderbird } from "react-icons/si";
+import { BsFillCake2Fill } from "react-icons/bs";
+import {
+  GiStarSattelites,
+  GiSteelwingEmblem,
+  GiLaurelCrown,
+  GiHeartburn,
+  GiSparkles,
+  GiRocketFlight
+} from "react-icons/gi";
+import { BsPostcardHeart } from "react-icons/bs";
 
 
-// Mock Trohy
+// Mock Awards
+export const ALL_AWARDS: Award[] = [
+  {
+    id: "award1",
+    name: "Brilliant",
+    description: "For an exceptionally insightful comment or post.",
+    cost: 100,
+    Icon: GiSteelwingEmblem,
+  },
+  {
+    id: "award2",
+    name: "Wholesome",
+    description: "For content that warms the heart.",
+    cost: 50,
+    Icon: GiHeartburn,
+  },
+  {
+    id: "award3",
+    name: "Helpful",
+    description: "A token of thanks for a helpful post.",
+    cost: 75,
+    Icon: FaMedal,
+  },
+  {
+    id: "award4",
+    name: "Mind Blown",
+    description: "When a post or comment is simply mind-blowing.",
+    cost: 200,
+    Icon: GiRocketFlight,
+  },
+  {
+    id: "award5",
+    name: "Inspiring",
+    description: "For content that inspires and motivates.",
+    cost: 125,
+    Icon: GiSparkles,
+  },
+];
+
+
+
+// Mock Trohies
 export const allMockTrophies: Trophy[] = [
   {
     id: "t1",
     name: "First Post",
     description: "You took your first step as a contributor!",
-    Icon: Star
+    Icon: GiStarSattelites,
   },
   {
     id: "t2",
     name: "Prolific Commenter",
     description: "Awarded for making over 50 comments.",
-    Icon: Heart
+    Icon: BsPostcardHeart,
   },
   {
     id: "t3",
     name: "Top 10% Karma",
     description: "Your contributions are highly valued by the community.",
-    Icon: Crown
+    Icon: GiLaurelCrown,
   },
   {
     id: "t4",
     name: "Community Pioneer",
     description: "Created a community that gained over 100 members.",
-    Icon: Bird
+    Icon: SiThunderbird,
   },
   {
     id: "t5",
     name: "One-Year Club",
     description: "You have been a member of Synapse for over one year.",
-    Icon: Cake
+    Icon: BsFillCake2Fill,
   },
   {
     id: "t6",
     name: "Helpful Hand",
     description: "Received an award on one of your posts or comments.",
-    Icon: Award
+    Icon: FaAward,
   },
 ];
 
@@ -428,10 +480,8 @@ export const mockPosts: Post[] = [
 ];
 
 
-
-
-
-export let mockFlairs: Flair[] = [
+// Mock Flairs
+export const mockFlairs: Flair[] = [
   { id: "f1", name: "Discussion", color: "#06b6d4", communityId: "comm1" },
   { id: "f2", name: "Question", color: "#f59e0b", communityId: "comm1" },
   { id: "f3", name: "Showcase", color: "#8b5cf6", communityId: "comm2" },

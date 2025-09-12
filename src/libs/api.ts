@@ -11,6 +11,7 @@ import {
   Comment,
   SortType,
   Community,
+  CommunityMemberWithRole,
 } from "@/types";
 import { TPostSchema } from "./validators/post-validator";
 import {
@@ -374,4 +375,31 @@ export const updateCommunity = async (
 
   console.log("Community updated:", mockCommunities[ communityIndex ]);
   return mockCommunities[ communityIndex ];
+};
+
+
+export const fetchCommunityModerators = async (communityId: string): Promise<CommunityMemberWithRole[]> => {
+  await new Promise(resolve => setTimeout(resolve, 600)); // Simulate network latency
+
+  const community = mockCommunities.find(c => c.id === communityId);
+  if (!community) {
+    throw new Error("Community not found.");
+  }
+
+  const owner = allMockUsers.find(u => u.id === community.ownerId);
+  const moderators = allMockUsers.filter(u => community.moderatorIds.includes(u.id));
+
+  const moderatorList: CommunityMemberWithRole[] = [];
+
+  if (owner) {
+    moderatorList.push({ ...owner, role: 'Owner' });
+  }
+
+  moderators.forEach(mod => {
+    if (mod.id !== owner?.id) {
+      moderatorList.push({ ...mod, role: 'Moderator' });
+    }
+  });
+
+  return moderatorList;
 };

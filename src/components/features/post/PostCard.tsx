@@ -67,8 +67,8 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
         <Card
           ref={ ref }
           className="flex flex-col h-full overflow-hidden shadow-sm hover:border-primary/50 transition-colors
-        w-full max-w-xl mx-auto rounded-2xl sm:rounded-xl border bg-card
-        min-w-0 sm:min-w-[300px]"
+          w-full max-w-xl mx-auto rounded-2xl sm:rounded-xl border bg-card
+          min-w-0 sm:min-w-[400px]"
         >
           <CardHeader className="p-3 sm:p-4">
             <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1">

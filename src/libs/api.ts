@@ -5,6 +5,7 @@ import {
   allMockTrophies,
 } from "./mock-data";
 import {
+  Award,
   User,
   Trophy,
   Post,
@@ -500,4 +501,18 @@ export const updateFlair = async (flairId: string, data: TFlairSchema): Promise<
 export const deleteFlair = async (flairId: string): Promise<void> => {
   await new Promise(r => setTimeout(r, 600));
   mockFlairs = mockFlairs.filter(f => f.id !== flairId);
+}
+
+
+export const giveAwardToPost = async (postId: string, award: Award): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const post = mockPosts.find(p => p.id === postId);
+  if (post) {
+    if (!post.receivedAwards) {
+      post.receivedAwards = [];
+    }
+    post.receivedAwards.push(award);
+  } else {
+    throw new Error("Post not found to give award.");
+  }
 }

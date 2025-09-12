@@ -2,9 +2,13 @@
 
 
 import React, { use } from "react";
-import { notFound } from "next/navigation";
+import {
+  notFound,
+  useSearchParams
+} from "next/navigation";
 import { mockCommunities } from "@/libs/mock-data";
 import AboutCommunityWidget from "@/components/features/community/widgets/AboutCommunityWidget";
+import FlairFilterWidget from "@/components/features/community/widgets/FlairFilterWidget";
 
 
 interface CommunityLayoutProps {
@@ -22,6 +26,8 @@ const getCommunity = (slug: string) => {
 
 export default function CommunityLayout(props: CommunityLayoutProps) {
   const params = use(props.params);
+  const searchParams = useSearchParams();
+  const activeFlairId = searchParams.get("flair");
 
   const {
     children
@@ -42,6 +48,10 @@ export default function CommunityLayout(props: CommunityLayoutProps) {
       <aside className="hidden md:block">
         <div className="sticky top-20">
           <AboutCommunityWidget community={ community } />
+          <FlairFilterWidget
+            community={ community }
+            activeFlairId={ activeFlairId }
+          />
         </div>
       </aside>
     </div>

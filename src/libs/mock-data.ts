@@ -27,7 +27,7 @@ import { BsPostcardHeart } from "react-icons/bs";
 
 
 // Mock Awards
-export const ALL_AWARDS: Award[] = [
+export const allMockAwards: Award[] = [
   {
     id: "award1",
     name: "Brilliant",

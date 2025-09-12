@@ -1,90 +1,331 @@
 "use client";
 
-import { useForm, FormProvider } from "react-hook-form";
+
+import React, { useState, useEffect } from "react";
+import {
+  useForm,
+  Controller,
+  useWatch
+} from "react-hook-form";
+import {
+  useRouter,
+  useSearchParams
+} from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { PostSchema, TPostSchema } from "@/libs/validators/post-validator";
-import { mockPosts } from "@/libs/mock-data";
+import {
+  TPostSchema,
+  PostSchema
+} from "@/libs/validators/post-validator";
 import { useAuth } from "@/context/AuthContext";
-import { Post } from "@/types";
-import Editor from "@/components/shared/Editor";
+import {
+  createPost,
+  fetchFlairsForCommunity
+} from "@/libs/api";
+import { mockCommunities } from "@/libs/mock-data";
+import {
+  Community,
+  Flair,
+  Post,
+  User
+} from "@/types";
 import { toast } from "sonner";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import {
+  Loader2,
+  Check,
+  ChevronsUpDown
+} from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList
+} from "@/components/ui/command";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge";
+import Editor from "@/components/shared/Editor";
+import { cn } from "@/libs/utils";
+import { PATHS } from "@/libs/paths";
+import { FormProvider } from "react-hook-form";
 
 
 export default function CreatePostForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { currentUser } = useAuth();
+
+  const [ flairs, setFlairs ] = useState<Flair[]>([]);
+  const [ isLoadingFlairs, setIsLoadingFlairs ] = useState(false);
+
+  const preselectedCommunitySlug = searchParams.get("community");
+  const preselectedCommunity = mockCommunities.find(c => c.slug === preselectedCommunitySlug);
 
   const methods = useForm<TPostSchema>({
     resolver: zodResolver(PostSchema),
     defaultValues: {
-      title: "",
-      communityId: "nextjs",
-      content: "",
+      communityId: preselectedCommunity?.id || "",
     }
   });
 
   const {
+    control,
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting }
   } = methods;
 
-  const onSubmit = async (data: TPostSchema) => {
-    if (!currentUser) return;
+  const selectedCommunityId = useWatch({
+    control,
+    name: "communityId"
+  });
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  useEffect(() => {
+    if (!selectedCommunityId) {
+      setFlairs([]);
+      return;
+    }
 
-    const newPost: Post = {
-      id: `p${Math.random().toString(36).substr(2, 9)}`,
-      title: data.title,
-      content: data.content,
-      author: currentUser,
-      community: {
-        id: data.communityId,
-        slug: data.communityId,
-        name: `${data.communityId.charAt(0).toUpperCase() + data.communityId.slice(1)} Community`,
-      },
-      createdAt: new Date().toISOString(),
-      votes: 1,
-      comments: [],
+    const loadFlairs = async () => {
+      setIsLoadingFlairs(true);
+      try {
+        const fetchedFlairs = await fetchFlairsForCommunity(selectedCommunityId);
+        setFlairs(fetchedFlairs);
+      } catch (error) {
+        console.error("Failed to fetch flairs", error);
+        toast.error("Could not load flairs for this community.");
+        setFlairs([]);
+      } finally {
+        setIsLoadingFlairs(false);
+      }
     };
 
-    mockPosts.unshift(newPost);
+    loadFlairs();
+  }, [ selectedCommunityId ]);
 
-    toast.success("Post Created!", {
-      description: "Your new post is now live and ready for discussion.",
-      duration: 3000,
-    });
 
-    setTimeout(() => router.push(`/p/${newPost.id}`), 500);
-  }
+  const onSubmit = async (data: TPostSchema) => {
+    if (!currentUser) {
+      toast.error("You must be logged in to create a post.");
+      return;
+    }
+
+    try {
+      const newPost = await createPost(data, currentUser as User);
+      toast.success("Post created successfully!");
+      router.push(PATHS.post(newPost.id));
+    } catch (error: any) {
+      toast.error("Failed to create post", {
+        description: error.message || "A community with that URL already exists. Please choose another.",
+      });
+    }
+  };
+
 
   return (
-    <FormProvider { ...methods }>
-      <form onSubmit={ handleSubmit(onSubmit) } className="space-y-6">
-        <div className="space-y-2">
-          <label htmlFor="title" className="text-sm font-medium">Title</label>
-          <Input id="title" { ...register("title") } placeholder="An interesting title" />
-          { errors.title && <p className="text-xs text-destructive">{ errors.title.message }</p> }
-        </div>
+    <form onSubmit={ handleSubmit(onSubmit) }>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Create a Post
+          </CardTitle>
+          <CardDescription>
+            Choose a community and share your thoughts with the world.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Choose a Community</Label>
+            <Controller
+              control={ control }
+              name="communityId"
+              render={
+                ({ field }) => (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className="w-full justify-between mt-1"
+                      >
+                        {
+                          field.value
+                            ? `c/${mockCommunities.find(c => c.id === field.value)?.slug}`
+                            : "Select a community..."
+                        }
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search communities..." />
+                        <CommandList>
+                          <CommandEmpty>
+                            No communities found.
+                          </CommandEmpty>
+                          <CommandGroup>
+                            {
+                              mockCommunities.map(community => (
+                                <CommandItem
+                                  key={ community.id }
+                                  value={ community.slug }
+                                  onSelect={ () => field.onChange(community.id) }
+                                >
+                                  <Check
+                                    className={
+                                      cn(
+                                        "mr-2 h-4 w-4",
+                                        community.id === field.value ? "opacity-100" : "opacity-0"
+                                      )
+                                    }
+                                  />
+                                  c/{ community.slug }
+                                </CommandItem>
+                              ))
+                            }
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                )
+              }
+            />
+            {
+              errors.communityId && (
+                <p className="text-sm text-destructive mt-1">
+                  { errors.communityId.message }
+                </p>
+              )
+            }
+          </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Content</label>
-          <Editor name="content" />
-          { errors.content && <p className="text-xs text-destructive">{ (errors.content as any).message }</p> }
-        </div>
+          <div
+            className={
+              cn(
+                "space-y-2 transition-opacity",
+                !selectedCommunityId
+                  ? "opacity-50 pointer-events-none"
+                  : "opacity-100"
+              )
+            }
+          >
+            <Label>
+              Flair (Optional)
+            </Label>
+            <Controller
+              control={ control }
+              name="flairId"
+              render={
+                ({ field }) => (
+                  <Select
+                    onValueChange={ field.onChange }
+                    defaultValue={ field.value }
+                    disabled={ !selectedCommunityId || isLoadingFlairs }
+                  >
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder={ isLoadingFlairs ? "Loading flairs..." : "Select a flair..." }
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {
+                        flairs.length > 0 ? (
+                          flairs.map(flair => (
+                            <SelectItem
+                              key={ flair.id }
+                              value={ flair.id }
+                            >
+                              <div className="flex items-center gap-2">
+                                <div
+                                  style={ { backgroundColor: flair.color } }
+                                  className="h-4 w-4 rounded-full"
+                                />
+                                { flair.name }
+                              </div>
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <p className="text-sm text-muted-foreground p-2">
+                            No flairs for this community.
+                          </p>
+                        )
+                      }
+                    </SelectContent>
+                  </Select>
+                )
+              }
+            />
+          </div>
 
-        <div className="flex justify-end">
-          <Button type="submit" disabled={ isSubmitting }>
-            { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+          <div className="space-y-2">
+            <Label htmlFor="title">
+              Title
+            </Label>
+            <Input
+              id="title"
+              { ...register("title") }
+            />
+            {
+              errors.title && (
+                <p className="text-sm text-destructive mt-1">
+                  { errors.title.message }
+                </p>
+              )
+            }
+          </div>
+
+          <div className="space-y-2">
+            <Label>
+              Content
+            </Label>
+            <FormProvider { ...methods }>
+              <Editor name="content" />
+            </FormProvider>
+            {
+              errors.content && (
+                <p className="text-sm text-destructive mt-1">
+                  { (errors.content as any).message }
+                </p>
+              )
+            }
+          </div>
+        </CardContent>
+
+        <CardFooter className="justify-end">
+          <Button
+            type="submit"
+            disabled={ isSubmitting }
+          >
+            {
+              isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            }
             Create Post
           </Button>
-        </div>
-      </form>
-    </FormProvider>
-  )
+        </CardFooter>
+      </Card>
+    </form>
+  );
 }

@@ -106,7 +106,12 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               {
                 post.flair && (
                   <Badge
-                    style={ { backgroundColor: post.flair.color, color: "#fff" } }
+                    style={
+                      {
+                        backgroundColor: post.flair.color,
+                        color: "#fff"
+                      }
+                    }
                     className="flex-shrink-0"
                   >
                     { post.flair.name }

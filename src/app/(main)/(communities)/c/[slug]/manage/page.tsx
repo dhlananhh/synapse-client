@@ -14,6 +14,7 @@ import {
   TabsTrigger
 } from "@/components/ui/tabs";
 import ManageMembersTab from "@/components/features/community/manage/tabs/ManageMembersTab";
+import ManageFlairsTab from "@/components/features/community/manage/tabs/ManageFlairsTab";
 import DangerZoneTab from "@/components/features/community/manage/tabs/DangerZoneTab";
 
 
@@ -63,8 +64,13 @@ export default function ManageCommunityPage() {
         <TabsContent value="members">
           <ManageMembersTab community={ community } />
         </TabsContent>
+        <TabsContent value="flairs">
+          <ManageFlairsTab community={ community } />
+        </TabsContent>
         <TabsContent value="settings">
-          <p className="p-4 text-muted-foreground">Community general settings will be here...</p>
+          <p className="p-4 text-muted-foreground">
+            Community general settings will be here...
+          </p>
         </TabsContent>
         <TabsContent value="danger">
           <DangerZoneTab community={ community } />

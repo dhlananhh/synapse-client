@@ -13,7 +13,10 @@ import {
   Community,
 } from "@/types";
 import { TPostSchema } from "./validators/post-validator";
-import { TCreateCommunitySchema } from "./validators/community-validator";
+import {
+  TCreateCommunitySchema,
+  TEditCommunitySchema,
+} from "./validators/community-validator";
 
 
 const POSTS_PER_PAGE = 6;
@@ -173,7 +176,7 @@ export const fetchCommunityMembers = async (
 
   const membersWithRoles = allMockUsers.map((user, index) => ({
     ...user,
-    role: index === 0 ? 'Moderator' : 'Member',
+    role: index === 0 ? "Moderator" : "Member",
   }));
 
   const MEMBERS_PER_PAGE = 20;
@@ -231,7 +234,7 @@ export const updateCommunityModerators = async (
 
 export const reportContent = async (
   itemId: string,
-  itemType: 'POST' | 'COMMENT',
+  itemType: "POST" | "COMMENT",
   reason: string,
   reportingUserId: string
 ): Promise<{ success: true }> => {
@@ -292,7 +295,7 @@ export const fetchUsersByIds = async (userIds: string[]): Promise<User[]> => {
 export const fetchUserTrophies = async (username: string): Promise<Trophy[]> => {
   await new Promise(resolve => setTimeout(resolve, 600));
 
-  let seed = username.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  let seed = username.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const earnedTrophies: Trophy[] = [];
 
   allMockTrophies.forEach(trophy => {
@@ -349,4 +352,26 @@ export const uploadImage = async (file: File): Promise<string> => {
 
   console.log(`Upload complete. New URL: ${newImageUrl}`);
   return newImageUrl;
+};
+
+
+export const updateCommunity = async (
+  communityId: string,
+  data: TEditCommunitySchema
+): Promise<Community> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const communityIndex = mockCommunities.findIndex(c => c.id === communityId);
+  if (communityIndex === -1) {
+    throw new Error("Community not found. Update failed.");
+  }
+
+  mockCommunities[ communityIndex ] = {
+    ...mockCommunities[ communityIndex ],
+    name: data.name,
+    description: data.description || "",
+  };
+
+  console.log("Community updated:", mockCommunities[ communityIndex ]);
+  return mockCommunities[ communityIndex ];
 };

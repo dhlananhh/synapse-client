@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Community } from "@/types";
-import EditCommunityDialog from "./manage/dialogs/EditCommunityDialog";
+import EditCommunityDialog from "../manage/dialogs/EditCommunityDialog";
 import ModeratorListWidget from "./ModeratorListWidget";
 import {
   Card,

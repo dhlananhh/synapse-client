@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import TopCommunitiesWidget from "@/components/features/community/TopCommunitiesWidget";
+import TopCommunitiesWidget from "@/components/features/community/widgets/TopCommunitiesWidget";
 
 export default function FeedLayout({ children }: { children: React.ReactNode }) {
   return (

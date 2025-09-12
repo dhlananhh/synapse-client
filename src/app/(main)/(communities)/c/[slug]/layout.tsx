@@ -1,9 +1,11 @@
 "use client";
 
+
 import React, { use } from "react";
 import { notFound } from "next/navigation";
 import { mockCommunities } from "@/libs/mock-data";
-import AboutCommunityWidget from "@/components/features/community/AboutCommunityWidget";
+import AboutCommunityWidget from "@/components/features/community/widgets/AboutCommunityWidget";
+
 
 interface CommunityLayoutProps {
   children: React.ReactNode;
@@ -12,9 +14,11 @@ interface CommunityLayoutProps {
   }>;
 }
 
+
 const getCommunity = (slug: string) => {
   return mockCommunities.find((c) => c.slug === slug);
 }
+
 
 export default function CommunityLayout(props: CommunityLayoutProps) {
   const params = use(props.params);

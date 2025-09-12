@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+
+import React, { useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import CreatePostForm from "@/components/features/post/CreatePostForm";
@@ -42,7 +43,9 @@ export default function SubmitPage() {
           <CardDescription>Share your thoughts with a community.</CardDescription>
         </CardHeader>
         <CardContent>
-          <CreatePostForm />
+          <Suspense>
+            <CreatePostForm />
+          </Suspense>
         </CardContent>
       </Card>
     </div>

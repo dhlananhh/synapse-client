@@ -31,6 +31,7 @@ export type Comment = {
   createdAt: string;
   votes: number;
   replies?: Comment[];
+  receivedAwards?: Award[];
 };
 
 // UserComment interface
@@ -68,6 +69,7 @@ export type Post = {
   votes: number;
   comments: Comment[];
   flair?: Flair;
+  receivedAwards?: Award[];
 };
 
 // Flair type
@@ -76,6 +78,15 @@ export type Flair = {
   name: string;
   color: string;
   communityId: string;
+};
+
+// Award type
+export type Award = {
+  id: string;
+  name: string;
+  description: string;
+  cost: number;
+  Icon: React.ElementType;
 };
 
 // NotificationType

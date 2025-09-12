@@ -113,12 +113,6 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                   </Badge>
                 )
               }
-              <Link
-                href={ `/p/${post.id}` }
-                className="hover:underline"
-              >
-                { post.title }
-              </Link>
             </CardTitle>
           </CardHeader>
 

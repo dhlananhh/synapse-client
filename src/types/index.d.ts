@@ -136,3 +136,6 @@ export type Language = {
 
 // View Mode type
 export type ViewMode = "card" | "compact";
+
+// CommunityMemberWithRole type
+export type CommunityMemberWithRole = User & { role?: "Owner" | "Moderator" };

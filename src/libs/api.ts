@@ -516,3 +516,39 @@ export const giveAwardToPost = async (postId: string, award: Award): Promise<voi
     throw new Error("Post not found to give award.");
   }
 }
+
+
+export const createPost = async (data: TPostSchema, author: User): Promise<Post> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const community = mockCommunities.find(c => c.id === data.communityId);
+  if (!community) {
+    throw new Error("Community not found.");
+  }
+
+  const newPost: Post = {
+    id: `p${Date.now()}`,
+    title: data.title,
+    content: data.content,
+    author: author,
+    community: {
+      id: community.id,
+      slug: community.slug,
+      name: community.name,
+    },
+    createdAt: new Date().toISOString(),
+    votes: 1,
+    comments: [],
+    receivedAwards: [],
+  };
+
+  if (data.flairId) {
+    const flair = mockFlairs.find(f => f.id === data.flairId);
+    if (flair) {
+      newPost.flair = flair;
+    }
+  }
+
+  mockPosts.unshift(newPost);
+  return newPost;
+};

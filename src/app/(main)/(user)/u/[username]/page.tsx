@@ -1,7 +1,7 @@
 "use client";
 
 
-import React, { use } from "react";
+import React from "react";
 import {
   notFound,
   useParams
@@ -9,20 +9,17 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import {
   mockPosts,
-  getAllComments,
-  generateUserActivity,
   allMockUsers
 } from "@/libs/mock-data";
+import {
+  getAllComments,
+  generateUserActivity,
+} from "@/libs/api"
 import UserProfile from "@/components/features/user/UserProfile";
 import UserPostFeed from "@/components/features/user/UserPostFeed";
 import UserCommentFeed from "@/components/features/user/UserCommentFeed";
 import FollowingTab from "@/components/features/user/FollowingTab";
-import {
-  User,
-  Post,
-  UserComment,
-  Activity,
-} from "@/types";
+import { Activity } from "@/types";
 import {
   Tabs,
   TabsContent,

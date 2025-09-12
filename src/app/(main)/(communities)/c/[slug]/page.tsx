@@ -1,13 +1,15 @@
 "use client";
 
+
 import React, { use } from "react";
-import { notFound } from "next/navigation";
+import {
+  notFound,
+  useSearchParams
+} from "next/navigation";
 import { mockPosts, mockCommunities } from "@/libs/mock-data";
 import CommunityHeader from "@/components/features/community/CommunityHeader";
+import CommunityPostFeed from "@/components/features/community/CommunityPostFeed";
 import CreatePostWidget from "@/components/shared/CreatePostWidget";
-import PostCard from "@/components/features/post/PostCard";
-import EmptyState from "@/components/shared/EmptyState";
-import { Telescope } from "lucide-react";
 
 
 const getCommunityPageData = (slug: string) => {
@@ -22,12 +24,14 @@ const getCommunityPageData = (slug: string) => {
 export default function CommunityPage(props: { params: Promise<{ slug: string }> }) {
   const params = use(props.params);
   const data = getCommunityPageData(params.slug);
+  const searchParams = useSearchParams();
+  const activeFlairId = searchParams.get("flair");
 
   if (!data) {
     notFound();
+    return null;
   }
-
-  const { community, posts } = data;
+  const { community } = data;
 
   return (
     <div>
@@ -35,26 +39,7 @@ export default function CommunityPage(props: { params: Promise<{ slug: string }>
       <CreatePostWidget />
 
       <div className="mt-6">
-        {
-          posts.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              { posts.map(post => <PostCard key={ post.id } post={ post } />) }
-            </div>
-          ) : (
-            <EmptyState
-              Icon={ Telescope }
-              title="Be the First to Post"
-              description={
-                `This community is quiet... for now. 
-                Create the first post in c/${community.slug} and get the conversation started.`
-              }
-              action={ {
-                label: "Create Post",
-                href: `/submit?community=${community.slug}`
-              } }
-            />
-          )
-        }
+        <CommunityPostFeed communityId={ community.id } flairId={ activeFlairId } />
       </div>
     </div>
   );

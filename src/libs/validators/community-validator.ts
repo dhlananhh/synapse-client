@@ -35,3 +35,22 @@ export const CreateCommunitySchema = z.object({
 });
 
 export type TCreateCommunitySchema = z.infer<typeof CreateCommunitySchema>;
+
+
+export const EditCommunitySchema = z.object({
+  name: z.string()
+    .min(3, {
+      message: "Community name must be at least 3 characters long."
+    })
+    .max(50, {
+      message: "Community name cannot exceed 50 characters."
+    }
+    ),
+  description: z.string()
+    .max(250, {
+      message: "Description cannot exceed 250 characters."
+    })
+    .optional(),
+});
+
+export type TEditCommunitySchema = z.infer<typeof EditCommunitySchema>;

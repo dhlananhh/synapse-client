@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Community } from "@/types";
 import EditCommunityDialog from "./manage/dialogs/EditCommunityDialog";
+import ModeratorListWidget from "./ModeratorListWidget";
 import {
   Card,
   CardContent,
@@ -64,6 +65,14 @@ export default function AboutCommunityWidget({ community }: AboutCommunityWidget
                 { community.memberCount.toLocaleString() } members
               </span>
             </Link>
+          </div>
+
+          <div>
+            <hr className="my-3" />
+            <h4 className="font-semibold text-sm mb-2">
+              Moderators
+            </h4>
+            <ModeratorListWidget community={ community } />
           </div>
 
           <Button

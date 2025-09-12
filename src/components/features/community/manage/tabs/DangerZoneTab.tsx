@@ -11,8 +11,8 @@ import {
   CardTitle,
   CardDescription
 } from "@/components/ui/card";
-import DeleteCommunityDialog from "./dialogs/DeleteCommunityDialog";
-import TransferOwnershipDialog from "./dialogs/TransferOwnershipDialog";
+import DeleteCommunityDialog from "../dialogs/DeleteCommunityDialog";
+import TransferOwnershipDialog from "../dialogs/TransferOwnershipDialog";
 import { ChevronRight } from "lucide-react";
 
 

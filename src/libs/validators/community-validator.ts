@@ -54,3 +54,13 @@ export const EditCommunitySchema = z.object({
 });
 
 export type TEditCommunitySchema = z.infer<typeof EditCommunitySchema>;
+
+
+export const FlairSchema = z.object({
+  name: z.string()
+    .min(1, "Flair text cannot be empty.")
+    .max(20, "Flair text cannot exceed 20 characters."),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Must be a valid hex color code."),
+});
+
+export type TFlairSchema = z.infer<typeof FlairSchema>;

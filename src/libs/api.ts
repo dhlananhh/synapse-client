@@ -44,37 +44,37 @@ const POSTS_PER_PAGE = 6;
 // }
 
 
-export const fetchPosts = async (
-  page: number,
-  sortBy: SortType = "hot",
-  mutedCommunityIds: string[] = []
-): Promise<{ data: Post[], hasMore: boolean }> => {
+// export const fetchPosts = async (
+//   page: number,
+//   sortBy: SortType = "hot",
+//   mutedCommunityIds: string[] = []
+// ): Promise<{ data: Post[], hasMore: boolean }> => {
 
-  await new Promise(resolve => setTimeout(resolve, 500));
+//   await new Promise(resolve => setTimeout(resolve, 500));
 
-  let sortedPosts = [ ...mockPosts ];
+//   let sortedPosts = [ ...mockPosts ];
 
-  if (sortBy === "new") {
-    sortedPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  } else if (sortBy === "top") {
-    sortedPosts.sort((a, b) => b.votes - a.votes);
-  }
+//   if (sortBy === "new") {
+//     sortedPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+//   } else if (sortBy === "top") {
+//     sortedPosts.sort((a, b) => b.votes - a.votes);
+//   }
 
-  const visiblePosts = sortedPosts.filter(
-    post => !mutedCommunityIds.includes(post.community.id)
-  );
+//   const visiblePosts = sortedPosts.filter(
+//     post => !mutedCommunityIds.includes(post.community.id)
+//   );
 
-  const start = (page - 1) * POSTS_PER_PAGE;
-  const end = start + POSTS_PER_PAGE;
+//   const start = (page - 1) * POSTS_PER_PAGE;
+//   const end = start + POSTS_PER_PAGE;
 
-  const postsSlice = visiblePosts.slice(start, end);
-  const hasMore = end < visiblePosts.length;
+//   const postsSlice = visiblePosts.slice(start, end);
+//   const hasMore = end < visiblePosts.length;
 
-  return {
-    data: postsSlice,
-    hasMore: hasMore,
-  };
-}
+//   return {
+//     data: postsSlice,
+//     hasMore: hasMore,
+//   };
+// }
 
 
 export const fetchPostById = async (postId: string): Promise<Post> => {
@@ -397,12 +397,12 @@ export const fetchCommunityModerators = async (communityId: string): Promise<Com
   const moderatorList: CommunityMemberWithRole[] = [];
 
   if (owner) {
-    moderatorList.push({ ...owner, role: 'Owner' });
+    moderatorList.push({ ...owner, role: "Owner" });
   }
 
   moderators.forEach(mod => {
     if (mod.id !== owner?.id) {
-      moderatorList.push({ ...mod, role: 'Moderator' });
+      moderatorList.push({ ...mod, role: "Moderator" });
     }
   });
 
@@ -552,3 +552,43 @@ export const createPost = async (data: TPostSchema, author: User): Promise<Post>
   mockPosts.unshift(newPost);
   return newPost;
 };
+
+
+export const fetchPosts = async (
+  page: number,
+  sortBy: SortType = "hot",
+  mutedCommunityIds: string[] = [],
+  options: {
+    filterByCommunityId?: string;
+    filterByFlairId?: string;
+  } = {}
+): Promise<{ data: Post[], hasMore: boolean }> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  let sortedPosts = [ ...mockPosts ];
+
+  let visiblePosts = sortedPosts.filter(
+    post => !mutedCommunityIds.includes(post.community.id)
+  );
+
+  if (options.filterByCommunityId) {
+    visiblePosts = visiblePosts.filter(p => p.community.id === options.filterByCommunityId);
+  }
+  if (options.filterByFlairId) {
+    visiblePosts = visiblePosts.filter(p => p.flair?.id === options.filterByFlairId);
+  }
+
+  if (sortBy === "new") {
+    visiblePosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  } else if (sortBy === "top") {
+    visiblePosts.sort((a, b) => b.votes - a.votes);
+  }
+
+  const start = (page - 1) * POSTS_PER_PAGE;
+  const end = start + POSTS_PER_PAGE;
+
+  const postsSlice = visiblePosts.slice(start, end);
+  const hasMore = end < visiblePosts.length;
+
+  return { data: postsSlice, hasMore };
+}

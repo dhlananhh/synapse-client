@@ -47,7 +47,9 @@ const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       if (!currentUser) return;
 
       if (!spendCoins(award.cost)) {
-        toast.error("Not enough coins", { description: "You don't have enough coins to give this award." });
+        toast.error("Not enough coins", {
+          description: "You don't have enough coins to give this award."
+        });
         return;
       }
       try {

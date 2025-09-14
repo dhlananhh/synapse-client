@@ -6,7 +6,10 @@ import React, {
   useEffect,
   useCallback
 } from "react";
-import { Post, SortType } from "@/types";
+import {
+  Post,
+  SortType
+} from "@/types";
 import { fetchPosts } from "@/libs/api";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useAuth } from "@/context/AuthContext";
@@ -15,7 +18,10 @@ import SortTabs from "./SortTabs";
 import PostCard from "./PostCard";
 import PostFeedSkeleton from "./PostFeedSkeleton";
 import EmptyState from "@/components/shared/EmptyState";
-import { Globe, Loader2 } from "lucide-react";
+import {
+  Globe,
+  Loader2
+} from "lucide-react";
 import CompactPostCard from "./CompactPostCard";
 import CompactPostCardSkeleton from "./CompactPostCardSkeleton";
 import ViewModeToggle from "./ViewModeToggle";
@@ -148,7 +154,12 @@ export default function PostFeed() {
             Icon={ Globe }
             title="The Feed is Empty"
             description="There are no posts matching your criteria. Why not be the first?"
-            action={ { label: "Create a Post", href: "/submit" } }
+            action={
+              {
+                label: "Create a Post",
+                href: "/submit"
+              }
+            }
           />
         ) : (
           <>

@@ -1,17 +1,31 @@
 "use client";
 
+
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TRegisterSchema, RegisterSchema } from "@/libs/validators/auth-validator";
+import {
+  TRegisterSchema,
+  RegisterSchema
+} from "@/libs/validators/auth-validator";
 import { useAuth } from "@/context/AuthContext";
-
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BrainCircuit, Loader2 } from "lucide-react";
+import {
+  BrainCircuit,
+  Loader2
+} from "lucide-react";
+
 
 export default function RegisterForm() {
   const { register: authRegister } = useAuth();
@@ -76,7 +90,9 @@ export default function RegisterForm() {
             />
             {
               errors.email && (
-                <p className="text-xs text-destructive">{ errors.email.message }</p>
+                <p className="text-xs text-destructive">
+                  { errors.email.message }
+                </p>
               )
             }
           </div>
@@ -87,6 +103,7 @@ export default function RegisterForm() {
               { ...register("password") }
               id="password"
               type="password"
+              placeholder="Enter your password"
             />
             {
               errors.password && (
@@ -103,6 +120,7 @@ export default function RegisterForm() {
               { ...register("confirmPassword") }
               id="confirmPassword"
               type="password"
+              placeholder="Re-enter your password to confirm"
             />
             {
               errors.confirmPassword && (
@@ -118,7 +136,11 @@ export default function RegisterForm() {
             className="w-full"
             disabled={ isSubmitting }
           >
-            { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+            {
+              isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )
+            }
             Create an account
           </Button>
         </form>

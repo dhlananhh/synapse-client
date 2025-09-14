@@ -62,6 +62,7 @@ export default function LoginForm() {
           Enter your username below to login to your account
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <form
           onSubmit={ handleSubmit(onSubmit) }
@@ -84,11 +85,12 @@ export default function LoginForm() {
             }
           </div>
           <div className="grid gap-2">
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
               <Link
                 href="/forgot-password"
                 className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
+                tabIndex={ -1 }
               >
                 Forgot your password?
               </Link>

@@ -48,14 +48,22 @@ export default function ForgotPasswordForm() {
       <Card className="mx-auto max-w-lg w-full text-center">
         <CardHeader>
           <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-2" />
-          <CardTitle>Check your email</CardTitle>
+          <CardTitle>
+            Check your email
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
             If an account with that email exists, we"ve sent a link to reset your password.
           </p>
-          <Button asChild variant="secondary" className="mt-6">
-            <Link href="/login">Back to Login</Link>
+          <Button
+            asChild
+            variant="secondary"
+            className="mt-6"
+          >
+            <Link href="/login">
+              Back to Login
+            </Link>
           </Button>
         </CardContent>
       </Card>
@@ -65,7 +73,9 @@ export default function ForgotPasswordForm() {
   return (
     <Card className="mx-auto max-w-sm w-full">
       <CardHeader>
-        <CardTitle className="text-2xl">Forgot Password</CardTitle>
+        <CardTitle className="text-2xl">
+          Forgot Password
+        </CardTitle>
         <CardDescription>
           Enter your email and we"ll send you a link to reset your password.
         </CardDescription>
@@ -80,7 +90,7 @@ export default function ForgotPasswordForm() {
             <Input
               id="email"
               type="email"
-              placeholder="youremail@example.com"
+              placeholder="Enter your email address"
               { ...register("email") }
             />
             {
@@ -96,7 +106,11 @@ export default function ForgotPasswordForm() {
             className="w-full"
             disabled={ isSubmitting }
           >
-            { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+            {
+              isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )
+            }
             Send Reset Link
           </Button>
         </form>

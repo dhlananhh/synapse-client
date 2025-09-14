@@ -86,14 +86,12 @@ export default function LoginForm() {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              <span tabIndex={ -1 }>
-                <Link
-                  href="/forgot-password"
-                  className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
-                >
-                  Forgot your password?
-                </Link>
-              </span>
+              <Link
+                href="/forgot-password"
+                className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
+              >
+                Forgot your password?
+              </Link>
             </div>
             <Input
               { ...register("password") }
@@ -114,7 +112,11 @@ export default function LoginForm() {
             className="w-full"
             disabled={ isSubmitting }
           >
-            { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+            {
+              isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )
+            }
             Login
           </Button>
           <Button variant="outline" className="w-full">

@@ -1,11 +1,17 @@
 "use client";
 
+
+import React from "react";
 import Link from "next/link";
 import { Notification } from "@/types";
 import { useNotificationStore } from "@/store/useNotificationStore";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { cn } from "@/libs/utils";
-import { MessageSquare, ThumbsUp, UserPlus } from "lucide-react";
+import {
+  MessageSquare,
+  ThumbsUp,
+  UserPlus
+} from "lucide-react";
 
 
 const notificationIcons = {
@@ -31,7 +37,10 @@ export default function NotificationItem({ notification }: { notification: Notif
       }
       >
         <div className="relative">
-          <UserAvatar user={ notification.actor } className="h-8 w-8" />
+          <UserAvatar
+            user={ notification.actor }
+            className="h-8 w-8"
+          />
           <div className="absolute -bottom-1 -right-1 bg-background p-0.5 rounded-full">
             { notificationIcons[ notification.type ] }
           </div>

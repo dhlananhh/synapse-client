@@ -1,7 +1,11 @@
 "use client";
 
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback
+} from "react";
 import { Post } from "@/types";
 import { fetchPosts } from "@/libs/api";
 import { useAuth } from "@/context/AuthContext";

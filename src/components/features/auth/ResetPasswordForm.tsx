@@ -61,23 +61,60 @@ export default function ResetPasswordForm({ params }: ResetPasswordFormProps) {
   return (
     <Card className="mx-auto max-w-sm w-full">
       <CardHeader>
-        <CardTitle className="text-2xl">Set a new password</CardTitle>
-        <CardDescription>Please enter a new, strong password for your account.</CardDescription>
+        <CardTitle className="text-2xl">
+          Set a new password
+        </CardTitle>
+        <CardDescription>
+          Please enter a new, strong password for your account.
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={ handleSubmit(onSubmit) } className="space-y-4">
+        <form
+          onSubmit={ handleSubmit(onSubmit) }
+          className="space-y-4"
+        >
           <div className="space-y-2">
             <Label htmlFor="password">New Password</Label>
-            <Input id="password" type="password" { ...register("password") } />
-            { errors.password && <p className="text-sm text-destructive">{ errors.password.message }</p> }
+            <Input
+              id="password"
+              type="password"
+              { ...register("password") }
+              placeholder="Enter your new password"
+            />
+            {
+              errors.password && (
+                <p className="text-sm text-destructive">
+                  { errors.password.message }
+                </p>
+              )
+            }
           </div>
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">Confirm New Password</Label>
-            <Input id="confirmPassword" type="password" { ...register("confirmPassword") } />
-            { errors.confirmPassword && <p className="text-sm text-destructive">{ errors.confirmPassword.message }</p> }
+            <Input
+              id="confirmPassword"
+              type="password"
+              { ...register("confirmPassword") }
+              placeholder="Re-enter your new password to confirm"
+            />
+            {
+              errors.confirmPassword && (
+                <p className="text-sm text-destructive">
+                  { errors.confirmPassword.message }
+                </p>
+              )
+            }
           </div>
-          <Button type="submit" className="w-full" disabled={ isSubmitting }>
-            { isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" /> }
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={ isSubmitting }
+          >
+            {
+              isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )
+            }
             Reset Password
           </Button>
         </form>

@@ -70,6 +70,7 @@ export type Post = {
   comments: Comment[];
   flair?: Flair;
   receivedAwards?: Award[];
+  isNew?: boolean;
 };
 
 // Flair type

@@ -14,7 +14,7 @@ type CombinedProps = UserAvatarProps & React.HTMLAttributes<HTMLSpanElement>;
 
 export function UserAvatar({ user, name, imageUrl, ...props }: CombinedProps) {
   const src = user?.avatarUrl || imageUrl;
-  const displayName = user?.username || name;
+  const displayName = user?.name || name;
 
   return (
     <Avatar { ...props }>

@@ -3,7 +3,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { mockCommunities } from "@/libs/mock-data";
 import { Community } from "@/types";
 import {

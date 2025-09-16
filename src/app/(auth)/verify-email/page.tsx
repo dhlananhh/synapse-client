@@ -14,10 +14,13 @@ import {
   useForm,
   Controller
 } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import apiClient from "@/libs/api";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,8 +38,6 @@ import {
   BrainCircuit,
   Loader2
 } from "lucide-react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 
 const VerifyCodeSchema = z.object({
@@ -45,7 +46,7 @@ const VerifyCodeSchema = z.object({
 type TVerifyCodeSchema = z.infer<typeof VerifyCodeSchema>;
 
 
-export default function VerifyEmailPage() {
+function VerifyEmailForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
@@ -88,88 +89,119 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <Suspense>
-      <Card className="mx-auto max-w-lg w-full">
-        <CardHeader className="items-center text-center">
-          <Link
-            href="/"
-            className="flex flex-col items-center gap-2 mb-4"
-          >
-            <BrainCircuit className="h-10 w-10 text-primary" />
-            <CardTitle className="text-2xl">Synapse</CardTitle>
-          </Link>
+    <Card className="mx-auto max-w-lg w-full">
+      <CardHeader className="items-center text-center">
+        <Link
+          href="/"
+          className="flex flex-col items-center gap-2 mb-4"
+        >
+          <BrainCircuit className="h-10 w-10 text-primary" />
+          <CardTitle className="text-2xl">Synapse</CardTitle>
+        </Link>
 
-          <CardTitle className="text-2xl mt-5 uppercase">Verify Your Email</CardTitle>
-          <CardDescription>
-            We&apos;ve sent a 6-digit verification code to { " " }
-            <strong>{ email }</strong>. <br />
-            Please enter it below to activate your account.
-          </CardDescription>
-        </CardHeader>
+        <CardTitle className="text-2xl mt-5 uppercase">Verify Your Email</CardTitle>
+        <CardDescription>
+          We&apos;ve sent a 6-digit verification code to { " " }
+          <strong>{ email }</strong>. <br />
+          Please enter it below to activate your account.
+        </CardDescription>
+      </CardHeader>
 
-        <CardContent>
-          <form
-            onSubmit={ handleSubmit(onSubmit) }
-            className="space-y-6"
-          >
-            <div className="flex justify-center">
-              <Controller
-                control={ control }
-                name="code"
-                render={
-                  ({ field }) => (
-                    <InputOTP
-                      maxLength={ 6 }
-                      { ...field }
-                    >
-                      <InputOTPGroup>
-                        <InputOTPSlot index={ 0 } />
-                        <InputOTPSlot index={ 1 } />
-                        <InputOTPSlot index={ 2 } />
-                        <InputOTPSlot index={ 3 } />
-                        <InputOTPSlot index={ 4 } />
-                        <InputOTPSlot index={ 5 } />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  )
-                }
-              />
-            </div>
-
-            {
-              errors.code && (
-                <p className="text-center text-sm text-destructive">
-                  { errors.code.message }
-                </p>
-              )
-            }
-
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={ isSubmitting }
-            >
-              {
-                isSubmitting
-                  ? <Loader2 className="animate-spin" />
-                  : "Verify Account"
+      <CardContent>
+        <form
+          onSubmit={ handleSubmit(onSubmit) }
+          className="space-y-6"
+        >
+          <div className="flex justify-center">
+            <Controller
+              control={ control }
+              name="code"
+              render={
+                ({ field }) => (
+                  <InputOTP
+                    maxLength={ 6 }
+                    { ...field }
+                  >
+                    <InputOTPGroup>
+                      <InputOTPSlot index={ 0 } />
+                      <InputOTPSlot index={ 1 } />
+                      <InputOTPSlot index={ 2 } />
+                      <InputOTPSlot index={ 3 } />
+                      <InputOTPSlot index={ 4 } />
+                      <InputOTPSlot index={ 5 } />
+                    </InputOTPGroup>
+                  </InputOTP>
+                )
               }
-            </Button>
-          </form>
-
-          <div className="mt-4 text-center text-sm text-muted-foreground">
-            Didn&apos;t receive a code? { " " }
-            <Button
-              variant="link"
-              className="p-0 h-auto"
-              onClick={ handleResendCode }
-              disabled={ isResending }
-            >
-              { isResending ? "Sending..." : "Resend Code" }
-            </Button>
+            />
           </div>
-        </CardContent>
-      </Card>
-    </Suspense>
+
+          {
+            errors.code && (
+              <p className="text-center text-sm text-destructive">
+                { errors.code.message }
+              </p>
+            )
+          }
+
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={ isSubmitting }
+          >
+            {
+              isSubmitting
+                ? <Loader2 className="animate-spin" />
+                : "Verify Account"
+            }
+          </Button>
+        </form>
+
+        <div className="mt-4 text-center text-sm text-muted-foreground">
+          Didn&apos;t receive a code? { " " }
+          <Button
+            variant="link"
+            className="p-0 h-auto"
+            onClick={ handleResendCode }
+            disabled={ isResending }
+          >
+            { isResending ? "Sending..." : "Resend Code" }
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
+}
+
+
+function VerifyEmailSkeleton() {
+  return (
+    <Card className="mx-auto max-w-lg w-full">
+      <CardHeader className="items-center text-center">
+        <Skeleton className="h-10 w-10 rounded-full mb-4" />
+        <Skeleton className="h-7 w-48" />
+        <div className="space-y-2 mt-2">
+          <Skeleton className="h-4 w-64" />
+          <Skeleton className="h-4 w-40" />
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="flex justify-center">
+          <Skeleton className="h-12 w-64" />
+        </div>
+        <Skeleton className="h-10 w-full" />
+      </CardContent>
+    </Card>
+  );
+}
+
+
+export default function VerifyEmailPage() {
+  <Suspense
+    fallback={
+      <VerifyEmailSkeleton />
+    }
+  >
+    <VerifyEmailForm />
+  </Suspense>
 }

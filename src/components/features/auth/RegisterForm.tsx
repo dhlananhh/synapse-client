@@ -93,6 +93,17 @@ export default function RegisterForm() {
             />
           </div>
 
+          {/* Username */ }
+          <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              { ...register("username") }
+              id="username"
+              type="username"
+              placeholder="Enter your username"
+            />
+          </div>
+
           {/* Email */ }
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>

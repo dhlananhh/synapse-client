@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   TCreateCommunitySchema, CreateCommunitySchema
 } from "@/libs/validators/community-validator";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { createCommunity } from "@/libs/mock-api";
 import { toast } from "sonner";
 import {
@@ -42,7 +42,7 @@ export default function CreateCommunityForm() {
     if (!currentUser) return;
 
     try {
-      const newCommunity = await createCommunity(data, currentUser.id);
+      const newCommunity = await createCommunity(data, currentUser.email);
       toast.success(`Community c/${newCommunity.slug} created successfully!`, {
         description: "You are now the owner of this community."
       });

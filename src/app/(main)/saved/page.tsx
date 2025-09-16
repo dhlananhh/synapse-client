@@ -49,17 +49,26 @@ export default function SavedPostsPage() {
           <PostFeedSkeleton />
         ) : savedPosts.length > 0 ? (
           <div className="flex flex-col gap-4">
-            { savedPosts.map(post => <PostCard key={ post.id } post={ post } />) }
+            {
+              savedPosts.map(post =>
+                <PostCard
+                  key={ post.id }
+                  post={ post }
+                />
+              )
+            }
           </div>
         ) : (
           <EmptyState
             Icon={ Bookmark }
             title="You haven't saved any posts yet"
             description={ `Find a post you want to read later and click the 'Save' button. It will show up here.` }
-            action={ {
-              label: "Explore the Feed",
-              href: "/feed"
-            } }
+            action={
+              {
+                label: "Explore the Feed",
+                href: "/feed"
+              }
+            }
           />
         )
       }

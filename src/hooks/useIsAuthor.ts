@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 
 export const useIsAuthor = (authorId: string): boolean => {
   const { currentUser } = useAuth();

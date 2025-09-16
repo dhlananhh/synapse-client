@@ -3,7 +3,7 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import CreateCommunityForm from "@/components/features/community/CreateCommunityForm";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PATHS } from "@/libs/paths";

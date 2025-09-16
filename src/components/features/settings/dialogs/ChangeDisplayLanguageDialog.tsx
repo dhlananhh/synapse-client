@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { toast } from "sonner";
 import { SUPPORTED_LANGUAGES } from "@/libs/languages";
 import {

@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { Post } from "@/types";
 import { fetchPosts } from "@/libs/mock-api";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import PostCard from "@/components/features/post/PostCard";
 import PostFeedSkeleton from "@/components/features/post/PostFeedSkeleton";

@@ -2,7 +2,7 @@
 
 
 import React, { useState } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Community } from "@/types";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { Button } from "@/components/ui/button";

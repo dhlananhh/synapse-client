@@ -6,7 +6,7 @@ import {
   notFound,
   useParams
 } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import {
   mockPosts,
   allMockUsers

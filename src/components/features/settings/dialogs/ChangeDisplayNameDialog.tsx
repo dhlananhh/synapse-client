@@ -7,7 +7,7 @@ import {
   UpdateDisplayNameSchema
 } from "@/libs/validators/user-validator";
 import { toast } from "sonner";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import {
   Dialog,
   DialogContent,

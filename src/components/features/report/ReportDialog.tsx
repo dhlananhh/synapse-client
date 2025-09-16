@@ -9,7 +9,7 @@ import {
   ReportSchema,
   REPORT_REASONS
 } from "@/libs/validators/report-validator";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { reportContent } from "@/libs/mock-api";
 import { toast } from "sonner";
 import {

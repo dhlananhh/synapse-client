@@ -16,7 +16,7 @@ import {
   TPostSchema,
   PostSchema
 } from "@/libs/validators/post-validator";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import {
   createPost,
   fetchFlairsForCommunity

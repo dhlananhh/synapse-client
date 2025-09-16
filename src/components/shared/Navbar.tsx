@@ -4,7 +4,7 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Button } from "@/components/ui/button";
 import UserNav from "./UserNav";
 import MobileNav from "./MobileNav";

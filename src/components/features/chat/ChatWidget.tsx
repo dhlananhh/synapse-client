@@ -3,7 +3,7 @@
 import React from "react";
 import { useChatStore } from "@/store/useChatStore";
 import { Conversation, Message } from "@/types"
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { X, Send, CornerDownLeft } from "lucide-react";

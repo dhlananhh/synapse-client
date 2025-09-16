@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Button } from "@/components/ui/button";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useState, useEffect } from "react";

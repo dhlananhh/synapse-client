@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useRef } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { useNotificationStore } from "@/store/useNotificationStore";
 import { mockPosts } from "@/libs/mock-data";
 import { Notification, NotificationType, User } from "@/types";

@@ -3,7 +3,7 @@
 
 import React from "react";
 import { useParams, notFound } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { mockCommunities } from "@/libs/mock-data";
 import ForbiddenDisplay from "@/components/shared/ForbiddenDisplay";
 import { Skeleton } from "@/components/ui/skeleton";

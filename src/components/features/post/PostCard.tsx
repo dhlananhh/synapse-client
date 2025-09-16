@@ -11,7 +11,7 @@ import {
 } from "@/types";
 import { giveAwardToPost } from "@/libs/mock-api";
 import { useUserStore } from "@/store/useUserStore";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import VoteClient from "./VoteClient";
 import SavePostButton from "./SavePostButton";
 import AwardDisplay from "../awards/AwardDisplay";

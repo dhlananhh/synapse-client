@@ -2,7 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import { useRouter, notFound } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { fetchPostById } from "@/libs/mock-api";
 import { Post } from "@/types";
 import EditPostForm from "@/components/features/post/EditPostForm";

@@ -10,7 +10,7 @@ import {
   TRegisterSchema,
   RegisterSchema
 } from "@/libs/validators/auth-validator";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Button } from "@/components/ui/button";
 import {
   Card,

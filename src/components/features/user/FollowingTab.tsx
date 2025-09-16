@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { User } from "@/types";
 import { fetchUsersByIds } from "@/libs/mock-api";
 import { Skeleton } from "@/components/ui/skeleton";

@@ -14,7 +14,7 @@ import {
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import {
   fetchPostById,
   deletePost

@@ -3,7 +3,7 @@
 
 import React, { useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import CreatePostForm from "@/components/features/post/CreatePostForm";
 import {
   Card,

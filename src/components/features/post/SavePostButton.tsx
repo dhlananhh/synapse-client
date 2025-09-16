@@ -2,7 +2,7 @@
 
 
 import React from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Button } from "@/components/ui/button";
 import { Bookmark } from "lucide-react";
 import { toast } from "sonner";

@@ -1,7 +1,7 @@
 "use client";
 
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { mockCommunities } from "@/libs/mock-data";
 import { toast } from "sonner";
 import {

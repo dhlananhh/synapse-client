@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { fetchPostsByIds } from "@/libs/mock-api";
 import { Post } from "@/types";
 import PostCard from "@/components/features/post/PostCard";

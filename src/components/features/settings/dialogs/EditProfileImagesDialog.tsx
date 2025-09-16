@@ -3,7 +3,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { uploadImage } from "@/libs/mock-api";
 import { toast } from "sonner";
 import { User } from "@/types"

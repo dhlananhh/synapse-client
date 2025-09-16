@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/MockAuthContext";
 import { Community } from "@/types";
 import EditCommunityDialog from "../manage/dialogs/EditCommunityDialog";
 import ModeratorListWidget from "./ModeratorListWidget";

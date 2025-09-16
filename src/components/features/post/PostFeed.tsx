@@ -10,7 +10,7 @@ import {
   Post,
   SortType
 } from "@/types";
-import { fetchPosts } from "@/libs/api";
+import { fetchPosts } from "@/libs/mock-api";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/libs/utils";

@@ -10,7 +10,7 @@ import {
   REPORT_REASONS
 } from "@/libs/validators/report-validator";
 import { useAuth } from "@/context/AuthContext";
-import { reportContent } from "@/libs/api";
+import { reportContent } from "@/libs/mock-api";
 import { toast } from "sonner";
 import {
   Dialog,

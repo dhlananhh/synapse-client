@@ -18,7 +18,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   fetchPostById,
   deletePost
-} from "@/libs/api";
+} from "@/libs/mock-api";
 import { Post } from "@/types";
 import { PATHS } from "@/libs/paths";
 

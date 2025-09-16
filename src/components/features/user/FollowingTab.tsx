@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { User } from "@/types";
-import { fetchUsersByIds } from "@/libs/api";
+import { fetchUsersByIds } from "@/libs/mock-api";
 import { Skeleton } from "@/components/ui/skeleton";
 import EmptyState from "@/components/shared/EmptyState";
 import { Users } from "lucide-react";

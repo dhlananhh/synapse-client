@@ -7,7 +7,7 @@ import { Comment } from "@/types";
 import {
   deleteComment,
   updateComment
-} from "@/libs/api";
+} from "@/libs/mock-api";
 import { toast } from "sonner";
 
 import { useForm } from "react-hook-form";

@@ -9,7 +9,7 @@ import {
   TResetPasswordSchema,
   ResetPasswordSchema
 } from "@/libs/validators/user-validator";
-import { resetPassword } from "@/libs/api";
+import { resetPassword } from "@/libs/mock-api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {

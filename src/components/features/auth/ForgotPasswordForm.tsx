@@ -9,7 +9,7 @@ import {
   TForgotPasswordSchema,
   ForgotPasswordSchema
 } from "@/libs/validators/user-validator";
-import { requestPasswordReset } from "@/libs/api";
+import { requestPasswordReset } from "@/libs/mock-api";
 import { Button } from "@/components/ui/button";
 import {
   Card,

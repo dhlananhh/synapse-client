@@ -9,7 +9,7 @@ import {
   TCreateCommunitySchema, CreateCommunitySchema
 } from "@/libs/validators/community-validator";
 import { useAuth } from "@/context/AuthContext";
-import { createCommunity } from "@/libs/api";
+import { createCommunity } from "@/libs/mock-api";
 import { toast } from "sonner";
 import {
   Card,

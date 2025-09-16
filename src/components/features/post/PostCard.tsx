@@ -9,7 +9,7 @@ import {
   Post,
   Award
 } from "@/types";
-import { giveAwardToPost } from "@/libs/api";
+import { giveAwardToPost } from "@/libs/mock-api";
 import { useUserStore } from "@/store/useUserStore";
 import { useAuth } from "@/context/AuthContext";
 import VoteClient from "./VoteClient";

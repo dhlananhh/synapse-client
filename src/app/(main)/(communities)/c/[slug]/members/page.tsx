@@ -7,7 +7,7 @@ import React, {
   useCallback
 } from "react";
 import { useParams } from "next/navigation";
-import { fetchCommunityMembers } from "@/libs/api";
+import { fetchCommunityMembers } from "@/libs/mock-api";
 import { User } from "@/types";
 import { mockCommunities } from "@/libs/mock-data";
 import MemberCard from "@/components/features/community/MemberCard";

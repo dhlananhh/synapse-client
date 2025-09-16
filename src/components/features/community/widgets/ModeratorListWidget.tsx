@@ -6,7 +6,7 @@ import {
   Community,
   CommunityMemberWithRole,
 } from "@/types";
-import { fetchCommunityModerators } from "@/libs/api";
+import { fetchCommunityModerators } from "@/libs/mock-api";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Crown, Shield } from "lucide-react";

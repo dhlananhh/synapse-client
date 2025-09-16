@@ -9,7 +9,7 @@ import {
   TEditCommunitySchema,
   EditCommunitySchema
 } from "@/libs/validators/community-validator";
-import { updateCommunity } from "@/libs/api";
+import { updateCommunity } from "@/libs/mock-api";
 import { Community } from "@/types";
 import { toast } from "sonner";
 import {

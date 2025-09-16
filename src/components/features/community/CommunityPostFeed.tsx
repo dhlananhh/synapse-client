@@ -7,7 +7,7 @@ import React, {
   useCallback
 } from "react";
 import { Post } from "@/types";
-import { fetchPosts } from "@/libs/api";
+import { fetchPosts } from "@/libs/mock-api";
 import { useAuth } from "@/context/AuthContext";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import PostCard from "@/components/features/post/PostCard";

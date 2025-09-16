@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { PostSchema, TPostSchema } from "@/libs/validators/post-validator";
 import { Post } from "@/types";
-import { updatePost } from "@/libs/api";
+import { updatePost } from "@/libs/mock-api";
 import { toast } from "sonner";
 
 import Editor from "@/components/shared/Editor";

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { fetchPostsByIds } from "@/libs/api";
+import { fetchPostsByIds } from "@/libs/mock-api";
 import { Post } from "@/types";
 import PostCard from "@/components/features/post/PostCard";
 import PostFeedSkeleton from "@/components/features/post/PostFeedSkeleton";

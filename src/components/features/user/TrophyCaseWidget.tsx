@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Trophy } from "@/types";
-import { fetchUserTrophies } from "@/libs/api";
+import { fetchUserTrophies } from "@/libs/mock-api";
 import {
   Card,
   CardContent,

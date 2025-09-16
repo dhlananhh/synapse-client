@@ -14,7 +14,7 @@ import {
   deleteFlair,
   fetchFlairsForCommunity,
   updateFlair
-} from "@/libs/api";
+} from "@/libs/mock-api";
 import { toast } from "sonner";
 import {
   Dialog,

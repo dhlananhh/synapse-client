@@ -20,7 +20,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   createPost,
   fetchFlairsForCommunity
-} from "@/libs/api";
+} from "@/libs/mock-api";
 import { mockCommunities } from "@/libs/mock-data";
 import {
   Community,

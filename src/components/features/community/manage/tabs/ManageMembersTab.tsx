@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { allMockUsers } from "@/libs/mock-data";
 import { Community, User } from "@/types";
 import { toast } from "sonner";
-import { updateCommunityModerators } from "@/libs/api";
+import { updateCommunityModerators } from "@/libs/mock-api";
 import {
   Card,
   CardContent,

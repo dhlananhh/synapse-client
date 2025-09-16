@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Community, Flair } from "@/types";
-import { fetchFlairsForCommunity } from "@/libs/api";
+import { fetchFlairsForCommunity } from "@/libs/mock-api";
 import {
   Card,
   CardContent,

@@ -14,7 +14,7 @@ import {
 import {
   getAllComments,
   generateUserActivity,
-} from "@/libs/api"
+} from "@/libs/mock-api"
 import UserProfile from "@/components/features/user/UserProfile";
 import UserPostFeed from "@/components/features/user/UserPostFeed";
 import UserCommentFeed from "@/components/features/user/UserCommentFeed";

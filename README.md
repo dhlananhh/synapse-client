@@ -17,10 +17,43 @@ Synapse is the client-side implementation of a feature-rich, modern discussion f
     src="https://img.shields.io/github/last-commit/dhlananhh/synapse-client?style=for-the-badge&color=F59E0B"
     alt="Last Commit"
   />
-  <a href="https://github.com/dhlananhh/synapse-client/blob/main/LICENSE.md" target="_blank">
+  <a 
+    href="https://github.com/dhlananhh/synapse-client/blob/main/LICENSE.md" 
+    target="_blank"
+  >
     <img
       src="https://img.shields.io/github/license/dhlananhh/synapse-client?style=for-the-badge&color=EC4899"
       alt="License"
+    />
+  </a>
+</div>
+
+<div align="center">
+  <a 
+    href="https://nextjs.org/" 
+    target="_blank"
+  >
+    <img
+      src="https://img.shields.io/badge/Next.js-15-black?logo=next.js?style=for-the-badge"
+      alt="Next.js"
+    />
+  </a>
+  <a 
+    href="https://www.typescriptlang.org/" 
+    target="_blank"
+  >
+    <img
+      src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript?style=for-the-badge"
+      alt="Typescript"
+    />
+  </a>
+  <a 
+    href="https://tailwindcss.com/" 
+    target="_blank"
+  >
+    <img
+      src="https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?logo=tailwind-css?style=for-the-badge"
+      alt="Tailwind CSS"
     />
   </a>
 </div>

@@ -9,8 +9,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PATHS } from "@/libs/paths";
 
 
+export const dynamic = "force-dynamic";
+
+
 export default function CreateCommunityPage() {
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth()
   const router = useRouter();
 
   useEffect(() => {

@@ -86,7 +86,7 @@ export default function VerifyEmailPage() {
 
         <CardTitle className="text-2xl">Verify Your Email</CardTitle>
         <CardDescription>
-          We"ve sent a 6-digit verification code to <br />
+          We&apos;ve sent a 6-digit verification code to <br />
           <strong>{ email }</strong>. Please enter it below to activate your account.
         </CardDescription>
       </CardHeader>

@@ -1,10 +1,19 @@
 "use client";
 
 
-import React, { useState } from "react";
+import React, {
+  useState,
+  Suspense
+} from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useForm, Controller } from "react-hook-form";
+import {
+  useRouter,
+  useSearchParams
+} from "next/navigation";
+import {
+  useForm,
+  Controller
+} from "react-hook-form";
 import { toast } from "sonner";
 
 import apiClient from "@/libs/api";
@@ -75,86 +84,88 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <Card className="mx-auto max-w-lg w-full">
-      <CardHeader className="items-center text-center">
-        <Link
-          href="/"
-          className="flex flex-col items-center gap-2 mb-4"
-        >
-          <BrainCircuit className="h-10 w-10 text-primary" />
-          <CardTitle className="text-2xl">Synapse</CardTitle>
-        </Link>
-
-        <CardTitle className="text-2xl mt-5 uppercase">Verify Your Email</CardTitle>
-        <CardDescription>
-          We&apos;ve sent a 6-digit verification code to { " " }
-          <strong>{ email }</strong>. <br />
-          Please enter it below to activate your account.
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <form
-          onSubmit={ handleSubmit(onSubmit) }
-          className="space-y-6"
-        >
-          <div className="flex justify-center">
-            <Controller
-              control={ control }
-              name="code"
-              render={
-                ({ field }) => (
-                  <InputOTP
-                    maxLength={ 6 }
-                    { ...field }
-                  >
-                    <InputOTPGroup>
-                      <InputOTPSlot index={ 0 } />
-                      <InputOTPSlot index={ 1 } />
-                      <InputOTPSlot index={ 2 } />
-                      <InputOTPSlot index={ 3 } />
-                      <InputOTPSlot index={ 4 } />
-                      <InputOTPSlot index={ 5 } />
-                    </InputOTPGroup>
-                  </InputOTP>
-                )
-              }
-            />
-          </div>
-
-          {
-            errors.code && (
-              <p className="text-center text-sm text-destructive">
-                { errors.code.message }
-              </p>
-            )
-          }
-
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={ isSubmitting }
+    <Suspense>
+      <Card className="mx-auto max-w-lg w-full">
+        <CardHeader className="items-center text-center">
+          <Link
+            href="/"
+            className="flex flex-col items-center gap-2 mb-4"
           >
+            <BrainCircuit className="h-10 w-10 text-primary" />
+            <CardTitle className="text-2xl">Synapse</CardTitle>
+          </Link>
+
+          <CardTitle className="text-2xl mt-5 uppercase">Verify Your Email</CardTitle>
+          <CardDescription>
+            We&apos;ve sent a 6-digit verification code to { " " }
+            <strong>{ email }</strong>. <br />
+            Please enter it below to activate your account.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <form
+            onSubmit={ handleSubmit(onSubmit) }
+            className="space-y-6"
+          >
+            <div className="flex justify-center">
+              <Controller
+                control={ control }
+                name="code"
+                render={
+                  ({ field }) => (
+                    <InputOTP
+                      maxLength={ 6 }
+                      { ...field }
+                    >
+                      <InputOTPGroup>
+                        <InputOTPSlot index={ 0 } />
+                        <InputOTPSlot index={ 1 } />
+                        <InputOTPSlot index={ 2 } />
+                        <InputOTPSlot index={ 3 } />
+                        <InputOTPSlot index={ 4 } />
+                        <InputOTPSlot index={ 5 } />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  )
+                }
+              />
+            </div>
+
             {
-              isSubmitting
-                ? <Loader2 className="animate-spin" />
-                : "Verify Account"
+              errors.code && (
+                <p className="text-center text-sm text-destructive">
+                  { errors.code.message }
+                </p>
+              )
             }
-          </Button>
-        </form>
 
-        <div className="mt-4 text-center text-sm text-muted-foreground">
-          Didn"t receive a code? { " " }
-          <Button
-            variant="link"
-            className="p-0 h-auto"
-            onClick={ handleResendCode }
-            disabled={ isResending }
-          >
-            { isResending ? "Sending..." : "Resend Code" }
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={ isSubmitting }
+            >
+              {
+                isSubmitting
+                  ? <Loader2 className="animate-spin" />
+                  : "Verify Account"
+              }
+            </Button>
+          </form>
+
+          <div className="mt-4 text-center text-sm text-muted-foreground">
+            Didn&apos;t receive a code? { " " }
+            <Button
+              variant="link"
+              className="p-0 h-auto"
+              onClick={ handleResendCode }
+              disabled={ isResending }
+            >
+              { isResending ? "Sending..." : "Resend Code" }
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </Suspense>
   );
 }

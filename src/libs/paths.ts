@@ -1,6 +1,6 @@
 export const PATHS = {
   home: "/",
-  feed: "/",
+  feed: "/feed",
   login: "/login",
   register: "/register",
   submit: "/submit",

@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { User, Language, ViewMode } from "@/types";
-import { TRegisterSchema } from "@/libs/validators/auth-validator";
+import { RegisterFormSchema, TRegisterFormSchema } from "@/libs/validators/auth-validator";
 import {
   TUserProfileSchema,
   TUpdateDisplayNameSchema
@@ -132,12 +132,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setCurrentUser(null);
   };
 
-  const register = (data: TRegisterSchema) => {
+  const register = (data: TRegisterFormSchema) => {
     const newUser: User = {
       id: `u_${Math.random().toString(36).substr(2, 9)}`,
       username: data.username,
-      displayName: data.displayName,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
       gender: data.gender,
+      birthday: typeof data.birthday === "string" ? data.birthday : data.birthday.toISOString(),
       createdAt: new Date().toISOString(),
       karma: {
         post: 0,

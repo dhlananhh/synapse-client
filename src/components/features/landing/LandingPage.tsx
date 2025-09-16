@@ -1,10 +1,15 @@
 "use client";
 
+
 import React from "react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Navbar from "@/components/shared/Navbar";
-import { BrainCircuit, Compass, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  BrainCircuit,
+  Compass,
+  Users
+} from "lucide-react";
 
 
 export default function LandingPage() {
@@ -24,28 +29,44 @@ export default function LandingPage() {
 
           <div className="mt-8 flex justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/feed">Explore Feed</Link>
+              <Link href="/feed">
+                Explore Feed
+              </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/register">Sign Up</Link>
+              <Link href="/register">
+                Sign Up
+              </Link>
             </Button>
           </div>
 
           <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col items-center">
               <Compass className="h-10 w-10 text-primary mb-3" />
-              <h3 className="font-bold">Discover Communities</h3>
-              <p className="text-sm text-muted-foreground">Find your niche in thousands of communities.</p>
+              <h3 className="font-bold">
+                Discover Communities
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Find your niche in thousands of communities.
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <Users className="h-10 w-10 text-primary mb-3" />
-              <h3 className="font-bold">Engage & Connect</h3>
-              <p className="text-sm text-muted-foreground">Vote on content, comment, and chat in real-time.</p>
+              <h3 className="font-bold">
+                Engage & Connect
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Vote on content, comment, and chat in real-time.
+              </p>
             </div>
             <div className="flex flex-col items-center">
               <BrainCircuit className="h-10 w-10 text-primary mb-3" />
-              <h3 className="font-bold">Share Your Knowledge</h3>
-              <p className="text-sm text-muted-foreground">Create posts and become a voice in your community.</p>
+              <h3 className="font-bold">
+                Share Your Knowledge
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Create posts and become a voice in your community.
+              </p>
             </div>
           </div>
         </div>

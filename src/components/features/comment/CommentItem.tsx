@@ -1,18 +1,23 @@
 "use client";
 
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Comment } from "@/types";
-import { deleteComment, updateComment } from "@/libs/api";
+import {
+  deleteComment,
+  updateComment
+} from "@/libs/api";
 import { toast } from "sonner";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import ReportDialog from "../report/ReportDialog";
+
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -98,17 +103,29 @@ export default function CommentItem({
     <>
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <UserAvatar user={ comment.author } className="h-6 w-6" />
+          <UserAvatar
+            user={ comment.author }
+            className="h-6 w-6"
+          />
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <p className="font-semibold text-primary">{ comment.author.username }</p>
+            <p className="font-semibold text-primary">
+              { comment.author.username }
+            </p>
             <span>•</span>
             <p>
               { formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) }
             </p>
-            { isEditing && <span className="text-amber-500">(editing)</span> }
+            {
+              isEditing && (
+                <span className="text-amber-500">
+                  (editing)
+                </span>
+              )
+            }
           </div>
+
           {
-            isAuthor && !isEditing && (
+            currentUser && !isEditing && (
               <div className="ml-auto">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -117,31 +134,31 @@ export default function CommentItem({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                      onClick={ () => setIsEditing(true) }
-                    >
-                      <Pencil className="mr-2 h-4 w-4" />
-                      Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={ () => setIsDeleteDialogOpen(true) }
-                      className="text-destructive focus:text-destructive"
-                    >
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      Delete
-                    </DropdownMenuItem>
+                    {
+                      isAuthor ? (
+                        <>
+                          <DropdownMenuItem onClick={ () => setIsEditing(true) }>
+                            <Pencil className="mr-2 h-4 w-4" />
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={ () => setIsDeleteDialogOpen(true) }
+                            className="text-destructive focus:text-destructive"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete
+                          </DropdownMenuItem>
+                        </>
+                      ) : (
+                        <DropdownMenuItem onClick={ () => setIsReportDialogOpen(true) }>
+                          <Flag className="mr-2 h-4 w-4" />
+                          Report
+                        </DropdownMenuItem>
+                      )
+                    }
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-            )
-          }
-
-          {
-            !isAuthor && (
-              <DropdownMenuItem onClick={ () => setIsReportDialogOpen(true) }>
-                <Flag className="mr-2 h-4 w-4" />
-                Report
-              </DropdownMenuItem>
             )
           }
         </div>
@@ -173,6 +190,24 @@ export default function CommentItem({
             <p className="text-sm ml-8">
               { comment.text }
             </p>
+          )
+        }
+
+        {
+          comment.replies && comment.replies.length > 0 && (
+            <div className="ml-4 pl-4 border-l-2 space-y-4">
+              {
+                comment.replies.map(reply => (
+                  <CommentItem
+                    key={ reply.id }
+                    postId={ postId }
+                    comment={ reply }
+                    onCommentDeleted={ onCommentDeleted }
+                    onCommentUpdated={ onCommentUpdated }
+                  />
+                ))
+              }
+            </div>
           )
         }
       </div>

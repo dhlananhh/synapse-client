@@ -1,9 +1,12 @@
 "use client";
 
+
 import React, { useState } from "react";
 import Link from "next/link";
+
 import { useAuth } from "@/context/AuthContext";
-import { Comment } from "@/types";
+import { Comment, User } from "@/types";
+
 import CommentForm from "./CommentForm";
 import CommentItem from "@/components/features/comment/CommentItem";
 
@@ -14,25 +17,27 @@ interface CommentSectionProps {
 }
 
 
-export default function CommentSection({ postId, initialComments }: CommentSectionProps) {
-  const { currentUser, isBlocked } = useAuth();
+export default function CommentSection({
+  postId,
+  initialComments
+}: CommentSectionProps) {
+  const {
+    currentUser,
+    isBlocked
+  } = useAuth();
   const [ comments, setComments ] = useState<Comment[]>(initialComments);
 
   const handleAddComment = async (text: string) => {
-    if (!currentUser) return;
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     const newComment: Comment = {
-      id: `c${Math.random()}`,
+      id: `c${Date.now()}`,
       text,
-      author: currentUser,
+      author: currentUser as User,
       createdAt: new Date().toISOString(),
       votes: 1,
       replies: [],
     };
-
     setComments(prev => [ newComment, ...prev ]);
-  }
+  };
 
   const removeCommentFromState = (commentId: string) => {
     const filterRecursive = (comments: Comment[]): Comment[] => {
@@ -65,34 +70,44 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
         return comment;
       });
   };
+
   const visibleComments = filterBlockedComments(comments);
 
   return (
     <div className="mt-8">
       <hr className="my-6" />
-      { currentUser ? (
-        <div>
-          <p className="text-sm mb-2">
-            Comment as
-            <span className="font-semibold text-primary">
-              { " " } { currentUser.username }
-            </span>
-          </p>
-          <CommentForm onCommentSubmit={ handleAddComment } />
-        </div>
-      ) : (
-        <div className="text-center text-muted-foreground">
-          <Link
-            href="/login"
-            className="text-primary font-semibold hover:underline"
-          >
-            Log in
-          </Link>
-          { " " } to post a comment.
-        </div>
-      ) }
+      {
+        currentUser ? (
+          <div>
+            <p className="text-sm mb-2">
+              Comment as { " " }
+              <span className="font-semibold text-primary">
+                { currentUser.username }
+              </span>
+            </p>
+            <CommentForm onCommentSubmit={ handleAddComment } />
+          </div>
+        ) : (
+          <div className="text-center text-muted-foreground p-4 border rounded-md">
+            <Link
+              href="/login"
+              className="text-primary font-semibold hover:underline"
+            >
+              Log in
+            </Link>
+            { " " } or { " " }
+            <Link
+              href="/register"
+              className="text-primary font-semibold hover:underline"
+            >
+              Sign up
+            </Link>
+            { " " } to leave a comment.
+          </div>
+        )
+      }
 
-      <div className="mt-6 flex flex-col gap-4">
+      <div className="mt-6 space-y-4">
         {
           visibleComments.map(comment => (
             <CommentItem
@@ -106,5 +121,5 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
         }
       </div>
     </div>
-  )
+  );
 }

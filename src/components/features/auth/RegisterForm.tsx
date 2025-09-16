@@ -104,6 +104,7 @@ export default function RegisterForm() {
             />
           </div>
 
+          {/* Password */ }
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input
@@ -111,16 +112,6 @@ export default function RegisterForm() {
               id="password"
               type="password"
               placeholder="Enter your password"
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Input
-              { ...register("confirmPassword") }
-              id="confirmPassword"
-              type="password"
-              placeholder="Re-enter your password to confirm"
             />
           </div>
 

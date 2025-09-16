@@ -4,14 +4,12 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  TLoginSchema,
-  LoginSchema
-} from "@/libs/validators/auth-validator";
-import { useAuth } from "@/context/MockAuthContext";
+import { toast } from "sonner";
+
+import { useAuth } from "@/context/AuthContext";
+import apiClient from "@/libs/api";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,33 +20,32 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  BrainCircuit,
-  Loader2
-} from "lucide-react";
+import { BrainCircuit } from "lucide-react";
 
 
 export default function LoginForm() {
-  const { login, currentUser } = useAuth();
   const router = useRouter();
+  const { login } = useAuth();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<TLoginSchema>({
-    resolver: zodResolver(LoginSchema),
-  });
+    formState: { isSubmitting }
+  } = useForm();
 
-  const onSubmit = async (data: TLoginSchema) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    login(data.username);
+  const onSubmit = async (data: any) => {
+    try {
+      const response = await apiClient.post('/login', data);
+      login(response.data);
 
-    toast.success("Login Successful!", {
-      description: "Redirecting you to the feed...",
-    });
+      toast.success("Login Successful!");
+      router.push('/feed');
 
-    router.push("/feed");
+    } catch (error: any) {
+      toast.error("Login Failed", {
+        description: error.response?.data?.message || "Invalid credentials."
+      });
+    }
   };
 
   return (
@@ -71,25 +68,22 @@ export default function LoginForm() {
           onSubmit={ handleSubmit(onSubmit) }
           className="grid gap-4"
         >
+          {/* Email */ }
           <div className="grid gap-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
-              { ...register("username") }
-              id="username"
-              type="text"
-              placeholder="your_username"
+              { ...register("email") }
+              id="email"
+              type="email"
+              placeholder="Enter your email address"
             />
-            {
-              errors.username && (
-                <p className="text-xs text-destructive">
-                  { errors.username.message }
-                </p>
-              )
-            }
           </div>
+
+          {/* Password */ }
           <div className="grid gap-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
+
               <Link
                 href="/forgot-password"
                 className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
@@ -98,36 +92,31 @@ export default function LoginForm() {
                 Forgot your password?
               </Link>
             </div>
+
             <Input
               { ...register("password") }
               id="password"
               type="password"
-              placeholder="your_password"
+              placeholder="Enter your password"
             />
-            {
-              errors.password && (
-                <p className="text-xs text-destructive">
-                  { errors.password.message }
-                </p>
-              )
-            }
           </div>
+
           <Button
             type="submit"
             className="w-full"
             disabled={ isSubmitting }
           >
-            {
-              isSubmitting && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )
-            }
-            Login
+            { isSubmitting ? "Logging in..." : "Log In" }
           </Button>
-          <Button variant="outline" className="w-full">
+
+          <Button
+            variant="outline"
+            className="w-full"
+          >
             Login with Google
           </Button>
         </form>
+
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account? { " " }
           <Link

@@ -51,7 +51,11 @@ export default function VerifyEmailPage() {
   const email = searchParams.get("email");
   const [ isResending, setIsResending ] = useState(false);
 
-  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm<TVerifyCodeSchema>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<TVerifyCodeSchema>({
     resolver: zodResolver(VerifyCodeSchema)
   });
 

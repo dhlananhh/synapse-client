@@ -46,6 +46,7 @@
         "i18next": "^25.4.0",
         "i18next-browser-languagedetector": "^8.2.0",
         "input-otp": "^1.4.2",
+        "js-cookie": "^3.0.5",
         "lucide-react": "^0.544.0",
         "negotiator": "^1.0.0",
         "next": "^15.5.3",
@@ -78,6 +79,7 @@
         "@tailwindcss/postcss": "^4.1.12",
         "@types/bun": "latest",
         "@types/country-list": "^2.1.4",
+        "@types/js-cookie": "^3.0.6",
         "@types/node": "^24.3.0",
         "@types/react": "^19.1.12",
         "@types/react-dom": "^19.1.9",
@@ -2974,6 +2976,12 @@
       "",
       {},
       "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="
+    ],
+    "@types/js-cookie": [
+      "@types/js-cookie@3.0.6",
+      "",
+      {},
+      "sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ=="
     ],
     "@types/json-schema": [
       "@types/json-schema@7.0.15",
@@ -6037,6 +6045,12 @@
         "bin": "lib/jiti-cli.mjs"
       },
       "sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w=="
+    ],
+    "js-cookie": [
+      "js-cookie@3.0.5",
+      "",
+      {},
+      "sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw=="
     ],
     "js-tokens": [
       "js-tokens@4.0.0",

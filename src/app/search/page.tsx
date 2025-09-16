@@ -1,14 +1,33 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from "react";
+
+import React, {
+  useEffect,
+  useState,
+  Suspense
+} from "react";
 import { useSearchParams } from "next/navigation";
-import { mockPosts, mockCommunities } from "@/libs/mock-data";
-import { Post, Community } from "@/types";
+import {
+  mockPosts,
+  mockCommunities
+} from "@/libs/mock-data";
+import {
+  Post,
+  Community
+} from "@/types";
 import PostCard from "@/components/features/post/PostCard";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Card,
+  CardContent
+} from "@/components/ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from "@/components/ui/avatar";
 import Link from "next/link";
 import { Users } from "lucide-react";
+
 
 interface SearchResults {
   posts: Post[];
@@ -30,7 +49,9 @@ function CommunityResultCard({ community }: { community: Community }) {
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-bold group-hover:underline">c/{ community.slug }</p>
+            <p className="font-bold group-hover:underline">
+              c/{ community.slug }
+            </p>
             <div className="text-xs text-muted-foreground flex items-center gap-1">
               <Users className="h-3 w-3" />
               { community.memberCount.toLocaleString() } members
@@ -77,13 +98,18 @@ function SearchResultsContent() {
   }, [ query ]);
 
   if (!query) {
-    return <div className="text-center text-muted-foreground mt-10">Please enter a search term to begin.</div>;
+    return <div className="text-center text-muted-foreground mt-10">
+      Please enter a search term to begin.
+    </div>;
   }
 
   return (
     <div className="m-10">
       <h1 className="text-2xl font-bold mb-4">
-        Search results for: <span className="text-primary">&quot;{ query }&quot;</span>
+        Search results for: { " " }
+        <span className="text-primary">
+          &quot;{ query }&quot;
+        </span>
       </h1>
 
       {
@@ -93,13 +119,26 @@ function SearchResultsContent() {
           <div className="space-y-8">
             <div>
               <h2 className="text-xl font-semibold mb-3">Communities</h2>
-              { results.communities.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  { results.communities.map(community => <CommunityResultCard key={ community.id } community={ community } />) }
-                </div>
-              ) : (
-                <p className="text-muted-foreground">No matching communities found.</p>
-              ) }
+              {
+                results.communities.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {
+                      results.communities.map(
+                        community => (
+                          <CommunityResultCard
+                            key={ community.id }
+                            community={ community }
+                          />
+                        )
+                      )
+                    }
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">
+                    No matching communities found.
+                  </p>
+                )
+              }
             </div>
 
             <div>
@@ -107,10 +146,21 @@ function SearchResultsContent() {
               {
                 results.posts.length > 0 ? (
                   <div className="flex flex-col gap-4">
-                    { results.posts.map(post => <PostCard key={ post.id } post={ post } />) }
+                    {
+                      results.posts.map(
+                        post => (
+                          <PostCard
+                            key={ post.id }
+                            post={ post }
+                          />
+                        )
+                      )
+                    }
                   </div>
                 ) : (
-                  <p className="text-muted-foreground">No matching posts found.</p>
+                  <p className="text-muted-foreground">
+                    No matching posts found.
+                  </p>
                 )
               }
             </div>
@@ -124,7 +174,11 @@ function SearchResultsContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Loading search...</div> }>
+    <Suspense fallback={
+      <div className="text-center text-muted-foreground mt-10">
+        Searching...
+      </div>
+    }>
       <SearchResultsContent />
     </Suspense>
   );

@@ -3,7 +3,7 @@
 
 import React, { useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import CreatePostForm from "@/components/features/post/CreatePostForm";
 import {
   Card,
@@ -13,6 +13,9 @@ import {
   CardDescription
 } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+
+
+export const dynamic = "force-dynamic";
 
 
 export default function SubmitPage() {

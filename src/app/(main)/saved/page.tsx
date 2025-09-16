@@ -11,6 +11,9 @@ import EmptyState from "@/components/shared/EmptyState";
 import { Bookmark } from "lucide-react";
 
 
+export const dynamic = "force-dynamic";
+
+
 export default function SavedPostsPage() {
   const { savedPostIds } = useAuth();
   const [ savedPosts, setSavedPosts ] = useState<Post[]>([]);

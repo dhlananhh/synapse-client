@@ -14,6 +14,9 @@ import { Clock, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 
+export const dynamic = "force-dynamic";
+
+
 export default function HistoryPage() {
   const { viewedPostIds, clearHistory } = useAuth();
   const [ historyPosts, setHistoryPosts ] = useState<Post[]>([]);

@@ -35,11 +35,11 @@ export default function LoginForm() {
 
   const onSubmit = async (data: any) => {
     try {
-      const response = await apiClient.post('/login', data);
+      const response = await apiClient.post("/login", data);
       login(response.data);
 
       toast.success("Login Successful!");
-      router.push('/feed');
+      router.push("/feed");
 
     } catch (error: any) {
       toast.error("Login Failed", {

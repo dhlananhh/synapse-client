@@ -4,7 +4,7 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import UserNav from "./UserNav";
 import MobileNav from "./MobileNav";
@@ -33,7 +33,11 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex flex-1 justify-center">
-          <Suspense fallback={ <div className="text-center text-muted-foreground mt-10">Searching...</div> }>
+          <Suspense fallback={
+            <div className="text-center text-muted-foreground mt-10">
+              Searching...
+            </div>
+          }>
             <SearchBar />
           </Suspense>
         </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Sheet,
   SheetContent,
@@ -68,7 +68,7 @@ export default function MobileNav() {
                 <div className="p-2">
                   <h4 className="font-semibold mb-2">My Stuff</h4>
                   <Link
-                    href={ `/u/${currentUser.username}` }
+                    href={ `/u/${currentUser.email}` }
                     className="flex items-center p-2 rounded-md hover:bg-secondary"
                     onClick={ () => setIsOpen(false) }
                   >

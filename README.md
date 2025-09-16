@@ -56,6 +56,15 @@ Synapse is the client-side implementation of a feature-rich, modern discussion f
       alt="Tailwind CSS"
     />
   </a>
+  <a 
+    href="https://ui.shadcn.com/" 
+    target="_blank"
+  >
+    <img
+      src="https://img.shields.io/badge/shadcn-10-black?logo=shadcn?style=for-the-badge"
+      alt="shadcn/ui"
+    />
+  </a>
 </div>
 
 ## 🧠 The Story Behind the Name: "Synapse"

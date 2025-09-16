@@ -3,7 +3,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Navbar from "@/components/shared/Navbar";
 import { Button } from "@/components/ui/button";
 import {
   BrainCircuit,
@@ -15,7 +14,6 @@ import {
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
       <main className="flex-grow flex items-center justify-center">
         <div className="container text-center py-20">
           <BrainCircuit className="h-20 w-20 text-primary mx-auto mb-6" />

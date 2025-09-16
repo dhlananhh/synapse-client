@@ -82,12 +82,14 @@ export default function VerifyEmailPage() {
           className="flex flex-col items-center gap-2 mb-4"
         >
           <BrainCircuit className="h-10 w-10 text-primary" />
+          <CardTitle className="text-2xl">Synapse</CardTitle>
         </Link>
 
-        <CardTitle className="text-2xl">Verify Your Email</CardTitle>
+        <CardTitle className="text-2xl mt-5 uppercase">Verify Your Email</CardTitle>
         <CardDescription>
-          We&apos;ve sent a 6-digit verification code to <br />
-          <strong>{ email }</strong>. Please enter it below to activate your account.
+          We&apos;ve sent a 6-digit verification code to { " " }
+          <strong>{ email }</strong>. <br />
+          Please enter it below to activate your account.
         </CardDescription>
       </CardHeader>
 

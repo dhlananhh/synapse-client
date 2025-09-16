@@ -5,12 +5,10 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  TRegisterSchema,
-  RegisterSchema
-} from "@/libs/validators/auth-validator";
-import { useAuth } from "@/context/MockAuthContext";
+import { toast } from "sonner";
+
+import apiClient from "@/libs/api";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,36 +19,45 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  BrainCircuit,
-  Loader2
-} from "lucide-react";
+import { BrainCircuit } from "lucide-react";
 
 
 export default function RegisterForm() {
-  const { register: authRegister } = useAuth();
   const router = useRouter();
-
-  const {
-    register,
+  const { register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<TRegisterSchema>({
-    resolver: zodResolver(RegisterSchema),
-  });
+    formState: { isSubmitting }
+  } = useForm();
 
-  const onSubmit = async (data: TRegisterSchema) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  const onSubmit = async (data: any) => {
+    try {
+      const payload = {
+        firstName: data.firstName || "New",
+        lastName: data.lastName || "User",
+        email: data.email,
+        password: data.password,
+      }
+      await apiClient.post("/register", payload);
+      toast.success("Registration Successful!", {
+        description: "A verification code has been sent to your email. Please verify to continue."
+      });
+      router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
 
-    authRegister(data);
-
-    router.push("/");
+    } catch (error: any) {
+      toast.error("Registration Failed", {
+        description: error.response?.data?.message || "An unknown error occurred."
+      });
+    }
   };
+
 
   return (
     <Card className="mx-auto max-w-lg w-full">
       <CardHeader className="items-center justify-center">
-        <Link href="/" className="flex flex-col items-center gap-2 mb-2">
+        <Link
+          href="/"
+          className="flex flex-col items-center gap-2 mb-2"
+        >
           <BrainCircuit className="h-10 w-10 text-primary" />
           <CardTitle className="text-2xl">Synapse</CardTitle>
         </Link>
@@ -58,28 +65,35 @@ export default function RegisterForm() {
           Create your account to start connecting
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <form
           onSubmit={ handleSubmit(onSubmit) }
           className="grid gap-4"
         >
+          {/* First Name */ }
           <div className="grid gap-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="firstName">First Name</Label>
             <Input
-              { ...register("username") }
-              id="username"
+              { ...register("firstName") }
+              id="firstName"
               type="text"
-              placeholder="Enter your username"
+              placeholder="Enter your first name"
             />
-            {
-              errors.username && (
-                <p className="text-xs text-destructive">
-                  { errors.username.message }
-                </p>
-              )
-            }
           </div>
 
+          {/* Last Name */ }
+          <div className="grid gap-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              { ...register("lastName") }
+              id="lastName"
+              type="text"
+              placeholder="Enter your last name"
+            />
+          </div>
+
+          {/* Email */ }
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -88,13 +102,6 @@ export default function RegisterForm() {
               type="email"
               placeholder="Enter your email address"
             />
-            {
-              errors.email && (
-                <p className="text-xs text-destructive">
-                  { errors.email.message }
-                </p>
-              )
-            }
           </div>
 
           <div className="grid gap-2">
@@ -105,13 +112,6 @@ export default function RegisterForm() {
               type="password"
               placeholder="Enter your password"
             />
-            {
-              errors.password && (
-                <p className="text-xs text-destructive">
-                  { errors.password.message }
-                </p>
-              )
-            }
           </div>
 
           <div className="grid gap-2">
@@ -122,13 +122,6 @@ export default function RegisterForm() {
               type="password"
               placeholder="Re-enter your password to confirm"
             />
-            {
-              errors.confirmPassword && (
-                <p className="text-xs text-destructive">
-                  { errors.confirmPassword.message }
-                </p>
-              )
-            }
           </div>
 
           <Button
@@ -136,12 +129,7 @@ export default function RegisterForm() {
             className="w-full"
             disabled={ isSubmitting }
           >
-            {
-              isSubmitting && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )
-            }
-            Create an account
+            { isSubmitting ? "Registering..." : "Sign Up" }
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">

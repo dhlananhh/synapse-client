@@ -8,9 +8,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import I18nProvider from "@/components/providers/I18nProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import TopProgressBar from "@/components/providers/TopProgressBar";
-import ChatWidget from "@/components/features/chat/ChatWidget";
+// import ChatWidget from "@/components/features/chat/ChatWidget";
 import NotificationSimulator from "@/components/providers/NotificationSimulator";
-import GlobalModals from "@/components/providers/GlobalModals";
 import { CommandMenuProvider } from "@/context/CommandMenuContext";
 
 
@@ -53,8 +52,7 @@ export default function RootLayout({
               <AuthProvider>
                 <NotificationSimulator />
                 { children }
-                <ChatWidget />
-                <GlobalModals />
+                {/* <ChatWidget /> */ }
               </AuthProvider>
             </CommandMenuProvider>
 

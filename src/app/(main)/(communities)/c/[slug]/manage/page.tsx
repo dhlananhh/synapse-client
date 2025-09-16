@@ -18,6 +18,9 @@ import ManageFlairsTab from "@/components/features/community/manage/tabs/ManageF
 import DangerZoneTab from "@/components/features/community/manage/tabs/DangerZoneTab";
 
 
+export const dynamic = "force-dynamic";
+
+
 export default function ManageCommunityPage() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";

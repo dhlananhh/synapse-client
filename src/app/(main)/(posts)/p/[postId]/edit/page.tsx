@@ -10,6 +10,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ErrorDisplay from "@/components/shared/ErrorDisplay";
 
 
+export const dynamic = "force-dynamic";
+
+
 function EditPageSkeleton() {
   return (
     <div className="space-y-6">

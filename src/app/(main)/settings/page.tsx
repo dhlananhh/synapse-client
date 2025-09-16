@@ -15,6 +15,9 @@ import PreferencesTab from "@/components/features/settings/tabs/PreferencesTab";
 import PrivacyTab from "@/components/features/settings/tabs/PrivacyTab";
 
 
+export const dynamic = "force-dynamic";
+
+
 export default function SettingsPage() {
   return (
     <div className="mt-10 mb-10">

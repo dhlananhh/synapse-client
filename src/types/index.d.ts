@@ -5,7 +5,6 @@ export type User = {
   displayName?: string;
   avatarUrl?: string;
   createdAt: string;
-  // karma: number;
   karma: {
     post: number;
     comment: number;
@@ -14,6 +13,13 @@ export type User = {
   birthday?: string;
   bannerUrl?: string;
 };
+
+// UserFromJwt type
+export type UserFromJwt = {
+  sub: string;
+  email: string;
+  role: string;
+}
 
 // Trophy type
 export type Trophy = {

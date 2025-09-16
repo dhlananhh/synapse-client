@@ -4,7 +4,7 @@ import { Lexend } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "@/libs/utils";
 import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/context/MockAuthContext";
+import { AuthProvider } from "@/context/AuthContext";
 import I18nProvider from "@/components/providers/I18nProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import TopProgressBar from "@/components/providers/TopProgressBar";
@@ -58,7 +58,11 @@ export default function RootLayout({
               </AuthProvider>
             </CommandMenuProvider>
 
-            <Toaster richColors position="top-right" theme="system" />
+            <Toaster
+              richColors
+              position="top-right"
+              theme="system"
+            />
           </ThemeProvider>
         </I18nProvider>
       </body>

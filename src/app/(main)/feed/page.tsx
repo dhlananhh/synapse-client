@@ -1,14 +1,10 @@
 "use client"
 
 import React from "react";
-import CreatePostWidget from "@/components/shared/CreatePostWidget";
-import PostFeed from "@/components/features/post/PostFeed";
+import FeedPage from "@/components/features/feed/FeedPage";
 
-export default function FeedPage() {
+export default function Feed() {
   return (
-    <div className="mt-10">
-      <CreatePostWidget />
-      <PostFeed />
-    </div>
+    <FeedPage />
   )
 }

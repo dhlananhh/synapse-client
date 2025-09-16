@@ -21,3 +21,9 @@ export const RegisterSchema = z.object({
   });
 
 export type TRegisterSchema = z.infer<typeof RegisterSchema>;
+
+
+export const VerifyCodeSchema = z.object({
+  code: z.string().min(6, { message: "Your code must be 6 digits." }),
+});
+export type TVerifyCodeSchema = z.infer<typeof VerifyCodeSchema>;

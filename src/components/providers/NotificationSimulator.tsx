@@ -2,46 +2,26 @@
 
 
 import React, { useEffect, useRef } from "react";
-import { useAuth } from "@/context/MockAuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useNotificationStore } from "@/store/useNotificationStore";
-import { mockPosts } from "@/libs/mock-data";
-import { Notification, NotificationType, User } from "@/types";
+import {
+  mockPosts,
+  allMockUsers
+} from "@/libs/mock-data";
+import {
+  Notification,
+  NotificationType,
+} from "@/types";
 
 
-const mockActors: User[] = [
-  {
-    id: "u1",
-    username: "john_doe",
-    displayName: "John Doe",
-    avatarUrl: "https://i.pravatar.cc/150?u=u1",
-    createdAt: "2023-05-10T12:00:00Z",
-    karma: {
-      post: 900,
-      comment: 350
-    },
-    gender: "Male",
-    bannerUrl: "https://placehold.co/1200x400/1f2937/d1d5db?text=John+Doe",
-  },
-  {
-    id: "u2",
-    username: "dev_guru",
-    displayName: "Dev Guru",
-    avatarUrl: "https://i.pravatar.cc/150?u=u2",
-    createdAt: "2022-11-20T15:30:00Z",
-    karma: {
-      post: 2800,
-      comment: 600
-    },
-    gender: "Male",
-    bannerUrl: "https://placehold.co/1200x400/1f2937/d1d5db?text=Dev+Guru",
-  },
-];
-
-
-const generateRandomNotification = (currentUser: User): Notification => {
-  const type: NotificationType = [ "NEW_COMMENT", "POST_UPVOTE", "NEW_FOLLOWER" ][ Math.floor(Math.random() * 3) ] as NotificationType;
-  const actor = mockActors[ Math.floor(Math.random() * mockActors.length) ];
+const generateRandomNotification = (): Notification => {
+  const actor = allMockUsers[ Math.floor(Math.random() * allMockUsers.length) ];
   const randomPost = mockPosts[ Math.floor(Math.random() * mockPosts.length) ];
+  const type: NotificationType = [
+    "NEW_COMMENT",
+    "POST_UPVOTE",
+    "NEW_FOLLOWER"
+  ][ Math.floor(Math.random() * 3) ] as NotificationType;
 
   let message = "";
   let entityUrl = "";
@@ -81,9 +61,9 @@ export default function NotificationSimulator() {
   useEffect(() => {
     if (currentUser && !intervalRef.current) {
       intervalRef.current = setInterval(() => {
-        const newNotif = generateRandomNotification(currentUser);
+        const newNotif = generateRandomNotification();
         addNotification(newNotif);
-      }, 10000);
+      }, 15000);
     }
 
     if (!currentUser && intervalRef.current) {

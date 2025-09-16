@@ -59,7 +59,7 @@ export default function LoginForm() {
           <CardTitle className="text-2xl">Synapse</CardTitle>
         </Link>
         <CardDescription>
-          Enter your username below to login to your account
+          Enter your email and password below to log in to your account.
         </CardDescription>
       </CardHeader>
 

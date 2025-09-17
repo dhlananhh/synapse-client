@@ -38,7 +38,7 @@ export interface SetNewPasswordPayload {
 interface AuthUser {
   id: string;
   email: string;
-  role: 'USER' | 'SYSTEM_ADMIN';
+  role: "USER" | "SYSTEM_ADMIN";
 }
 
 export interface RegisterResponse {
@@ -46,8 +46,8 @@ export interface RegisterResponse {
     id: string;
     email: string;
     isEmailVerified: boolean;
-    role: 'USER' | 'SYSTEM_ADMIN';
-    status: 'ACTIVE' | 'PENDING';
+    role: "USER" | "SYSTEM_ADMIN";
+    status: "ACTIVE" | "PENDING";
     createdAt: string;
     updatedAt: string;
   };
@@ -55,7 +55,7 @@ export interface RegisterResponse {
 
 export interface LoginResponse {
   access_token: string;
-  token_type: 'Bearer';
+  token_type: "Bearer";
   expires_in: number;
   refresh_token: string;
   user: AuthUser;

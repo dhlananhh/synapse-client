@@ -5,14 +5,12 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { format } from "date-fns";
-import {
-  RegisterFormSchema,
-  TRegisterFormSchema
-} from "@/libs/validators/auth-validator";
-import apiClient from "@/libs/apiClient";
+
+import { authService } from "@/modules/services/auth-service";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -53,38 +51,57 @@ import {
 import { cn } from "@/libs/utils";
 
 
+const formSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  username: z.string().min(3, "Username must be at least 3 characters long.").regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
+  email: z.string().email("Invalid email address."),
+  password: z.string().min(8, "Password must be at least 8 characters long."),
+  confirmPassword: z.string(),
+  birthday: z.date().optional(),
+  gender: z.enum([ "MALE", "FEMALE", "OTHER" ]).optional(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: [ "confirmPassword" ],
+});
+
+
 export default function RegisterForm() {
   const router = useRouter();
 
-  const form = useForm<TRegisterFormSchema>({
-    resolver: zodResolver(RegisterFormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const { isSubmitting } = form.formState;
 
-  const onSubmit = async (data: TRegisterFormSchema) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const payload = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        username: data.username,
-        password: data.password,
-        gender: data.gender,
-        birthday: data.birthday,
-      }
+      toast.info("Creating your account...");
+      await authService.register(values);
 
-      await apiClient.post("/register", payload);
-      toast.success("Registration Successful!", {
-        description: "A verification code has been sent to your email. Please verify to continue."
+      toast.success("Account created successfully!", {
+        description: "We've sent a verification code to your email. Please check and verify.",
       });
-      router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+
+      router.push(`/login?email=${values.email}`);
+
     } catch (error: any) {
-      toast.error("Registration Failed", {
-        description: error.response?.data?.message || "An unknown error occurred."
+      console.error("Registration failed:", error);
+      toast.error("Registration failed", {
+        description: error.response?.data?.message || "An unexpected error occurred. Please try again.",
       });
     }
-  };
+  }
+
 
   return (
     <Card className="mx-auto max-w-lg w-full">
@@ -203,7 +220,7 @@ export default function RegisterForm() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="••••••••"
+                        placeholder="Enter your password"
                         { ...field }
                       />
                     </FormControl>
@@ -211,6 +228,25 @@ export default function RegisterForm() {
                   </FormItem>
                 )
               }
+            />
+
+            {/* Confirm Password */ }
+            <FormField
+              control={ form.control }
+              name="confirmPassword"
+              render={ ({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Re-enter your password to confirm"
+                      { ...field }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              ) }
             />
 
             {/* Date of Birth */ }
@@ -237,7 +273,7 @@ export default function RegisterForm() {
                               field.value
                                 ? format(field.value, "PPP")
                                 : (
-                                  <span>Pick a date</span>
+                                  <span>Select your date of birth</span>
                                 )
                             }
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -294,9 +330,6 @@ export default function RegisterForm() {
                         </SelectItem>
                         <SelectItem value="other">
                           Other
-                        </SelectItem>
-                        <SelectItem value="prefer_not_to_say">
-                          Prefer not to say
                         </SelectItem>
                       </SelectContent>
                     </Select>

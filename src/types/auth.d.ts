@@ -2,8 +2,11 @@
 export interface RegisterPayload {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   password: string;
+  birthday?: Date;
+  gender?: "MALE" | "FEMALE" | "OTHER";
 }
 
 export interface LoginPayload {
@@ -33,6 +36,7 @@ export interface SetNewPasswordPayload {
   reset_token: string;
   new_password: string;
 }
+
 
 // Responses from API
 interface AuthUser {

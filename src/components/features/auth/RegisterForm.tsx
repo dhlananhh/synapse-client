@@ -11,6 +11,10 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 
 import { authService } from "@/modules/services/auth-service";
+import {
+  RegisterFormSchema,
+  TRegisterFormSchema
+} from "@/libs/validators/auth-validator";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -50,38 +54,12 @@ import {
 } from "lucide-react";
 import { cn } from "@/libs/utils";
 
-const eighteenYearsAgo = new Date();
-eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-
-
-const formSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  username: z.string()
-    .min(3, "Username must be at least 3 characters long.")
-    .max(24, { message: "Username must be no longer than 24 characters." })
-    .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
-  email: z.string().email("Please enter a valid email address."),
-  password: z.string().min(8, "Password must be at least 8 characters long."),
-  confirmPassword: z.string(),
-  birthday: z.date({
-    required_error: "Your date of birth is required.",
-  })
-    .max(eighteenYearsAgo, { message: "You must be at least 18 years old to use Synapse." }),
-  gender: z.enum([ "MALE", "FEMALE", "OTHER" ], {
-    required_error: "Please select a gender."
-  }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match",
-  path: [ "confirmPassword" ],
-});
-
 
 export default function RegisterForm() {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<TRegisterFormSchema>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -94,7 +72,7 @@ export default function RegisterForm() {
 
   const { isSubmitting } = form.formState;
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: TRegisterFormSchema) {
     try {
       toast.info("Creating your account...");
       await authService.register(values);
@@ -245,19 +223,21 @@ export default function RegisterForm() {
             <FormField
               control={ form.control }
               name="confirmPassword"
-              render={ ({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Re-enter your password to confirm"
-                      { ...field }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              ) }
+              render={
+                ({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Re-enter your password to confirm"
+                        { ...field }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }
             />
 
             {/* Date of Birth */ }
@@ -333,13 +313,13 @@ export default function RegisterForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="female">
+                        <SelectItem value="FEMALE">
                           Female
                         </SelectItem>
-                        <SelectItem value="male">
+                        <SelectItem value="MALE">
                           Male
                         </SelectItem>
-                        <SelectItem value="other">
+                        <SelectItem value="OTHER">
                           Other
                         </SelectItem>
                       </SelectContent>

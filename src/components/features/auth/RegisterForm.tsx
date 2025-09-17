@@ -12,7 +12,7 @@ import {
   RegisterFormSchema,
   TRegisterFormSchema
 } from "@/libs/validators/auth-validator";
-import apiClient from "@/libs/api";
+import apiClient from "@/libs/apiClient";
 
 import { Button } from "@/components/ui/button";
 import {

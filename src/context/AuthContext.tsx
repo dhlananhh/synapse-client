@@ -10,7 +10,8 @@ import React, {
   useCallback
 } from "react";
 import { useRouter } from "next/navigation";
-import apiClient, { refreshToken as refreshApi } from "@/libs/api";
+import apiClient from "@/libs/apiClient";
+import { refreshToken as refreshApi } from "@/libs/api";
 import { toast } from "sonner";
 
 

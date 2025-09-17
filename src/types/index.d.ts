@@ -5,7 +5,7 @@ export type User = {
   lastName: string;
   username: string;
   email: string;
-  password: string;
+  password?: string;
   displayName?: string;
   avatarUrl?: string;
   createdAt: string;

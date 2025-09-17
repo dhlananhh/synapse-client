@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, {
   createContext,
   useState,
@@ -23,6 +24,7 @@ interface AuthUser {
   role: "USER" | "SYSTEM_ADMIN";
 }
 
+
 interface AuthContextType {
   currentUser: AuthUser | null;
   isLoading: boolean;
@@ -30,7 +32,9 @@ interface AuthContextType {
   logout: () => void;
 }
 
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [ currentUser, setCurrentUser ] = useState<AuthUser | null>(null);
@@ -100,6 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   );
 }
+
 
 export function useAuth() {
   const context = useContext(AuthContext);

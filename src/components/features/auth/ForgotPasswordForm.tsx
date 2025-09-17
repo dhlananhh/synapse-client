@@ -3,13 +3,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+
+import { authService } from "@/modules/services/auth-service";
 import {
-  TForgotPasswordSchema,
-  ForgotPasswordSchema
-} from "@/libs/validators/user-validator";
-import { requestPasswordReset } from "@/libs/mock-api";
+  ForgotPasswordSchema,
+  TForgotPasswordSchema
+} from "@/libs/validators/auth-validator";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,8 +22,15 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Mail,
   CheckCircle,
@@ -28,20 +39,36 @@ import {
 
 
 export default function ForgotPasswordForm() {
+  const router = useRouter();
   const [ isSubmitted, setIsSubmitted ] = useState(false);
+  const [ submittedEmail, setSubmittedEmail ] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<TForgotPasswordSchema>({
+  const form = useForm<TForgotPasswordSchema>({
     resolver: zodResolver(ForgotPasswordSchema),
+    defaultValues: { email: "" },
   });
 
+  const { isSubmitting } = form.formState;
+
   const onSubmit = async (data: TForgotPasswordSchema) => {
-    await requestPasswordReset(data.email);
-    setIsSubmitted(true);
+    try {
+      toast.info("Sending reset code...");
+      await authService.requestPasswordReset(data);
+
+      toast.success("Reset code sent!", {
+        description: "If an account exists for this email, we have sent a 6-digit code."
+      });
+      setSubmittedEmail(data.email);
+      setIsSubmitted(true);
+      router.push(`/reset-password?email=${data.email}`);
+    } catch (error: any) {
+      console.error("Failed to send reset code:", error);
+      toast.error("An Error Occurred", {
+        description: error.response?.data?.message || "Please try again later.",
+      });
+    }
   };
+
 
   if (isSubmitted) {
     return (
@@ -73,47 +100,51 @@ export default function ForgotPasswordForm() {
   return (
     <Card className="mx-auto max-w-sm w-full">
       <CardHeader>
-        <CardTitle className="text-2xl">
-          Forgot Password
-        </CardTitle>
+        <CardTitle className="text-2xl">Forgot Password</CardTitle>
         <CardDescription>
-          Enter your email and we"ll send you a link to reset your password.
+          No worries. Enter your email and we'll send you a reset code.
         </CardDescription>
       </CardHeader>
+
       <CardContent>
-        <form
-          onSubmit={ handleSubmit(onSubmit) }
-          className="space-y-4"
+        <Form
+          { ...form }
         >
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Enter your email address"
-              { ...register("email") }
-            />
-            {
-              errors.email && (
-                <p className="text-sm text-destructive">
-                  { errors.email.message }
-                </p>
-              )
-            }
-          </div>
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={ isSubmitting }
+          <form
+            onSubmit={ form.handleSubmit(onSubmit) }
+            className="space-y-6"
           >
-            {
-              isSubmitting && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )
-            }
-            Send Reset Link
-          </Button>
-        </form>
+            <FormField
+              control={ form.control }
+              name="email"
+              render={
+                ({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Enter your email address"
+                        { ...field }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }
+            />
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={ isSubmitting }
+            >
+              {
+                isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              }
+              Send Reset Code
+            </Button>
+          </form>
+        </Form>
         <div className="mt-4 text-center text-sm">
           Remembered your password? { " " }
           <Link

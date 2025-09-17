@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 
 // Login schema
@@ -16,25 +16,26 @@ eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 
 // Register schema
 export const RegisterFormSchema = z.object({
-  firstName: z.string().min(1, "First name is required."),
-  lastName: z.string().min(1, "Last name is required."),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
   username: z.string()
-    .min(3, { message: "Username must be at least 3 characters long." })
+    .min(3, "Username must be at least 3 characters long.")
     .max(24, { message: "Username must be no longer than 24 characters." })
     .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
   email: z.string().email("Please enter a valid email address."),
   password: z.string().min(8, "Password must be at least 8 characters long."),
-
+  confirmPassword: z.string(),
   birthday: z.date({
     required_error: "Your date of birth is required.",
   })
     .max(eighteenYearsAgo, { message: "You must be at least 18 years old to use Synapse." }),
-
-  gender: z.enum([ "male", "female", "other", "prefer_not_to_say" ], {
+  gender: z.enum([ "MALE", "FEMALE", "OTHER" ], {
     required_error: "Please select a gender."
   }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: [ "confirmPassword" ],
 });
-
 export type TRegisterFormSchema = z.infer<typeof RegisterFormSchema>;
 
 

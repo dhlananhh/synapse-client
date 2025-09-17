@@ -12,9 +12,11 @@ import {
   SetNewPasswordPayload
 } from "@/types/auth";
 
+
 const AUTH_SERVICE_BASE_URL = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL || "http://localhost:4000/api/auth";
 
 const authApiClient = apiClient;
+
 
 export const authService = {
   register: (payload: RegisterPayload): Promise<RegisterResponse> => {

@@ -10,12 +10,24 @@ Synapse is the client-side implementation of a feature-rich, modern discussion f
     />
   </a>
   <img
+    src="https://img.shields.io/github/repo-size/dhlananhh/synapse-client?style=for-the-badge&color=9BF6FF"
+    alt="Repo Size"
+  />
+  <img
     src="https://img.shields.io/github/languages/code-size/dhlananhh/synapse-client?style=for-the-badge&color=8B5CF6"
     alt="Code Size"
   />
   <img
+    src="https://tokei.rs/b1/github/dhlananhh/synapse-client?style=for-the-badge&color=89C9B8"
+    alt="Total Lines of Code"
+  />
+  <img
     src="https://img.shields.io/github/last-commit/dhlananhh/synapse-client?style=for-the-badge&color=F59E0B"
     alt="Last Commit"
+  />
+  <img
+    src="https://img.shields.io/github/commit-activity/m/dhlananhh/synapse-client?style=for-the-badge&color=FDFFB6"
+    alt="Commit Activity"
   />
   <a 
     href="https://github.com/dhlananhh/synapse-client/blob/main/LICENSE.md" 

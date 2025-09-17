@@ -50,16 +50,27 @@ import {
 } from "lucide-react";
 import { cn } from "@/libs/utils";
 
+const eighteenYearsAgo = new Date();
+eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  username: z.string().min(3, "Username must be at least 3 characters long.").regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
-  email: z.string().email("Invalid email address."),
+  username: z.string()
+    .min(3, "Username must be at least 3 characters long.")
+    .max(24, { message: "Username must be no longer than 24 characters." })
+    .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
+  email: z.string().email("Please enter a valid email address."),
   password: z.string().min(8, "Password must be at least 8 characters long."),
   confirmPassword: z.string(),
-  birthday: z.date().optional(),
-  gender: z.enum([ "MALE", "FEMALE", "OTHER" ]).optional(),
+  birthday: z.date({
+    required_error: "Your date of birth is required.",
+  })
+    .max(eighteenYearsAgo, { message: "You must be at least 18 years old to use Synapse." }),
+  gender: z.enum([ "MALE", "FEMALE", "OTHER" ], {
+    required_error: "Please select a gender."
+  }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
   path: [ "confirmPassword" ],

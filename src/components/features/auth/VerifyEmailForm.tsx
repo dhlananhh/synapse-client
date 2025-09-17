@@ -18,7 +18,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
-import apiClient from "@/libs/api";
+import apiClient from "@/libs/apiClient";
 import { VerifyCodeSchema, TVerifyCodeSchema } from "@/libs/validators/auth-validator"
 
 import VerifyEmailSkeleton from "@/components/features/auth/VerifyEmailSkeleton"

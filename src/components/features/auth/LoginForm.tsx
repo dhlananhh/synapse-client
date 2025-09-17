@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useAuth } from "@/context/AuthContext";
-import apiClient from "@/libs/api";
+import apiClient from "@/libs/apiClient";
 
 import { Button } from "@/components/ui/button";
 import {

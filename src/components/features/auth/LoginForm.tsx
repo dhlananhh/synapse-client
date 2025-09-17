@@ -5,10 +5,11 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-import { useAuth } from "@/context/AuthContext";
-import apiClient from "@/libs/apiClient";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { authService } from "@/modules/services/auth-service";
+import { LoginPayload } from "@/types/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,28 +22,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BrainCircuit } from "lucide-react";
+import { toast } from "sonner";
+
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
 
 export default function LoginForm() {
   const router = useRouter();
-  const { login } = useAuth();
-
   const {
     register,
     handleSubmit,
     formState: { isSubmitting }
-  } = useForm();
+  } = useForm<LoginPayload>({
+    resolver: zodResolver(loginSchema)
+  });
 
-  const onSubmit = async (data: any) => {
+
+  const onSubmit = async (data: LoginPayload) => {
     try {
-      const response = await apiClient.post("/login", data);
-      login(response.data);
+      const response = await authService.login(data);
+      console.log("Login successful!", response.user);
 
       toast.success("Login Successful!");
       router.push("/feed");
 
     } catch (error: any) {
-      toast.error("Login Failed", {
+      toast.error("Failed to login", {
         description: error.response?.data?.message || "Invalid credentials."
       });
     }

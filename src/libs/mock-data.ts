@@ -110,6 +110,9 @@ export const allMockTrophies: Trophy[] = [
 // Mock Admin
 export const adminUser: User = {
   id: "u_admin",
+  firstName: "Synapse",
+  lastName: "Admin",
+  email: "synapse_admin@synapse.com",
   username: "synapse_admin",
   displayName: "Synapse Admin",
   avatarUrl: "https://i.pravatar.cc/150?u=admin",
@@ -125,6 +128,9 @@ export const adminUser: User = {
 // Mock Users
 const user1: User = {
   id: "u1",
+  firstName: "John",
+  lastName: "Doe",
+  email: "johndoe@synapse.com",
   username: "john_doe",
   displayName: "John Doe",
   avatarUrl: "https://i.pravatar.cc/150?u=u1",
@@ -138,6 +144,9 @@ const user1: User = {
 };
 const user2: User = {
   id: "u2",
+  firstName: "Dev",
+  lastName: "Guru",
+  email: "dev_guru@synapse.com",
   username: "dev_guru",
   displayName: "Dev Guru",
   avatarUrl: "https://i.pravatar.cc/150?u=u2",
@@ -150,6 +159,9 @@ const user2: User = {
 };
 const user3: User = {
   id: "u3",
+  firstName: "Jane",
+  lastName: "Smith",
+  email: "janesmith@synapse.com",
   username: "jane_smith",
   displayName: "Jane Smith",
   avatarUrl: "https://i.pravatar.cc/150?u=u3",
@@ -163,6 +175,9 @@ const user3: User = {
 
 const user4: User = {
   id: "u4",
+  firstName: "Alex",
+  lastName: "Riley",
+  email: "alexriley@synapse.com",
   username: "code_wizard",
   displayName: "Alex Riley",
   avatarUrl: "https://i.pravatar.cc/150?u=u4",
@@ -173,6 +188,9 @@ const user4: User = {
 
 const user5: User = {
   id: "u5",
+  firstName: "Chloe",
+  lastName: "Davis",
+  email: "chloedavis@synapse.com",
   username: "pixel_artist",
   displayName: "Chloe Davis",
   avatarUrl: "https://i.pravatar.cc/150?u=u5",
@@ -183,6 +201,9 @@ const user5: User = {
 
 const user6: User = {
   id: "u6",
+  firstName: "Mia",
+  lastName: "Evans",
+  email: "miaevans@synapse.com",
   username: "gamer_girl99",
   displayName: "Mia Evans",
   avatarUrl: "https://i.pravatar.cc/150?u=u6",
@@ -194,6 +215,9 @@ const user6: User = {
 const user7: User = {
   id: "u7",
   username: "happy_explorer",
+  firstName: "Leo",
+  lastName: "Carter",
+  email: "leocarter@synapse.com",
   displayName: "Leo Carter",
   avatarUrl: "https://i.pravatar.cc/150?u=u7",
   createdAt: "2022-09-12T08:00:00Z",
@@ -203,6 +227,9 @@ const user7: User = {
 
 const user8: User = {
   id: "u8",
+  firstName: "Evelyn",
+  lastName: "Reed",
+  email: "evelynreed@synapse.com",
   username: "quantum_leap",
   displayName: "Dr. Evelyn Reed",
   avatarUrl: "https://i.pravatar.cc/150?u=u8",
@@ -213,6 +240,9 @@ const user8: User = {
 
 const user9: User = {
   id: "u9",
+  firstName: "Sam",
+  lastName: "Jones",
+  email: "samjones@synapse.com",
   username: "data_dynamo",
   displayName: "Sam Jones",
   avatarUrl: "https://i.pravatar.cc/150?u=u9",
@@ -223,6 +253,9 @@ const user9: User = {
 
 const user10: User = {
   id: "u10",
+  firstName: "Olivia",
+  lastName: "Chen",
+  email: "oliviachen@synapse.com",
   username: "ux_unicorn",
   displayName: "Olivia Chen",
   avatarUrl: "https://i.pravatar.cc/150?u=u10",
@@ -233,6 +266,9 @@ const user10: User = {
 
 const user11: User = {
   id: "u11",
+  firstName: "Ben",
+  lastName: "Harris",
+  email: "benharris@synapse.com",
   username: "backend_bison",
   displayName: "Ben Harris",
   avatarUrl: "https://i.pravatar.cc/150?u=u11",
@@ -243,6 +279,9 @@ const user11: User = {
 
 const user12: User = {
   id: "u12",
+  firstName: "Fiona",
+  lastName: "Garcia",
+  email: "fiona_garcia@synapse.com",
   username: "frontend_fox",
   displayName: "Fiona Garcia",
   avatarUrl: "https://i.pravatar.cc/150?u=u12",
@@ -253,6 +292,9 @@ const user12: User = {
 
 const user13: User = {
   id: "u13",
+  firstName: "Dan",
+  lastName: "Martinez",
+  email: "dan_martinez@synapse.com",
   username: "devops_drake",
   displayName: "Dan Martinez",
   avatarUrl: "https://i.pravatar.cc/150?u=u13",
@@ -263,6 +305,9 @@ const user13: User = {
 
 const user14: User = {
   id: "u14",
+  firstName: "Rachel",
+  lastName: "Nguyen",
+  email: "rachelnguyen@synapse.com",
   username: "react_rocket",
   displayName: "Rachel Nguyen",
   avatarUrl: "https://i.pravatar.cc/150?u=u14",
@@ -273,6 +318,9 @@ const user14: User = {
 
 const user15: User = {
   id: "u15",
+  firstName: "Nate",
+  lastName: "Robinson",
+  email: "nate_robinson@synapse.com",
   username: "node_ninja",
   displayName: "Nate Robinson",
   avatarUrl: "https://i.pravatar.cc/150?u=u15",
@@ -283,6 +331,9 @@ const user15: User = {
 
 const user16: User = {
   id: "u16",
+  firstName: "Casey",
+  lastName: "Thompson",
+  email: "caseythompson@synapse.com",
   username: "cloud_creator",
   displayName: "Casey Thompson",
   avatarUrl: "https://i.pravatar.cc/150?u=u16",
@@ -296,6 +347,9 @@ const user16: User = {
 
 const user17: User = {
   id: "u17",
+  firstName: "Aaron",
+  lastName: "Walker",
+  email: "aaronwalker@synapse.com",
   username: "agile_ace",
   displayName: "Aaron Walker",
   avatarUrl: "https://i.pravatar.cc/150?u=u17",
@@ -309,6 +363,9 @@ const user17: User = {
 
 const user18: User = {
   id: "u18",
+  firstName: "Diana",
+  lastName: "Lewis",
+  email: "dianalewis@synapse.com",
   username: "design_diva",
   displayName: "Diana Lewis",
   avatarUrl: "https://i.pravatar.cc/150?u=u18",
@@ -322,6 +379,9 @@ const user18: User = {
 
 const user19: User = {
   id: "u19",
+  firstName: "Abby",
+  lastName: "Howard",
+  email: "abbyhoward@synapse.com",
   username: "design_abby",
   displayName: "Abby Howard",
   avatarUrl: "https://i.pravatar.cc/150?u=u19",
@@ -335,6 +395,9 @@ const user19: User = {
 
 const user20: User = {
   id: "u20",
+  firstName: "Tom",
+  lastName: "Clark",
+  email: "tomclark@synapse.com",
   username: "tester_titan",
   displayName: "Tom Clark",
   avatarUrl: "https://i.pravatar.cc/150?u=u20",
@@ -348,6 +411,9 @@ const user20: User = {
 
 const user21: User = {
   id: "u21",
+  firstName: "Mia",
+  lastName: "Houston",
+  email: "alissa.houston@synapse.com",
   username: "design_alissa",
   displayName: "Alissa Houston",
   avatarUrl: "https://i.pravatar.cc/150?u=u21",

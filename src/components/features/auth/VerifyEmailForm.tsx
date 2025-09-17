@@ -10,19 +10,27 @@ import {
   useRouter,
   useSearchParams
 } from "next/navigation";
-import {
-  useForm,
-  Controller
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
-import apiClient from "@/libs/apiClient";
-import { VerifyCodeSchema, TVerifyCodeSchema } from "@/libs/validators/auth-validator"
+import { authService } from "@/modules/services/auth-service";
+import {
+  VerifyCodeSchema,
+  TVerifyCodeSchema
+} from "@/libs/validators/auth-validator";
 
 import VerifyEmailSkeleton from "@/components/features/auth/VerifyEmailSkeleton"
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -47,25 +55,25 @@ export default function VerifyEmailForm() {
   const searchParams = useSearchParams();
 
   const [ isClient, setIsClient ] = useState(false);
+  const [ isResending, setIsResending ] = useState(false);
+  const email = searchParams.get("email");
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const email = searchParams.get("email");
-  const [ isResending, setIsResending ] = useState(false);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<TVerifyCodeSchema>({
-    resolver: zodResolver(VerifyCodeSchema)
+  const form = useForm<TVerifyCodeSchema>({
+    resolver: zodResolver(VerifyCodeSchema),
+    defaultValues: { code: "" },
   });
 
+  const { isSubmitting } = form.formState;
+
   const onSubmit = async (data: TVerifyCodeSchema) => {
+    if (!email) return;
+
     try {
-      await apiClient.post("/verify-email", { email, code: data.code });
+      await authService.verifyEmail({ email, code: data.code });
       toast.success("Email Verified!", {
         description: "Your account is now active. You can log in.",
       });
@@ -78,18 +86,21 @@ export default function VerifyEmailForm() {
   };
 
   const handleResendCode = async () => {
+    if (!email)
+      return;
+
     setIsResending(true);
     try {
-      await apiClient.post("/resend-verification", { email });
-      toast.info("A new verification code has been sent to your email.");
+      await authService.resendVerification({ email });
+      toast.info("A new verification code has been sent.");
     } catch (error: any) {
       toast.error("Failed to Resend Code", {
-        description: error.response?.data?.message || "Please try again in a moment.",
+        description: error.response?.data?.message || "Please try again later.",
       });
     } finally {
       setIsResending(false);
     }
-  }
+  };
 
   if (!isClient) {
     return (
@@ -142,55 +153,52 @@ export default function VerifyEmailForm() {
       </CardHeader>
 
       <CardContent>
-        <form
-          onSubmit={ handleSubmit(onSubmit) }
-          className="space-y-6"
+        <Form
+          { ...form }
         >
-          <div className="flex justify-center">
-            <Controller
-              control={ control }
+          <form
+            onSubmit={ form.handleSubmit(onSubmit) }
+            className="space-y-6"
+          >
+            <FormField
+              control={ form.control }
               name="code"
               render={
                 ({ field }) => (
-                  <InputOTP
-                    maxLength={ 6 }
-                    { ...field }
-                  >
-                    <InputOTPGroup>
-                      <InputOTPSlot index={ 0 } />
-                      <InputOTPSlot index={ 1 } />
-                      <InputOTPSlot index={ 2 } />
-                      <InputOTPSlot index={ 3 } />
-                      <InputOTPSlot index={ 4 } />
-                      <InputOTPSlot index={ 5 } />
-                    </InputOTPGroup>
-                  </InputOTP>
+                  <FormItem className="flex flex-col items-center">
+                    <FormLabel>Verification Code</FormLabel>
+                    <FormControl>
+                      <InputOTP
+                        maxLength={ 6 }
+                        { ...field }
+                      >
+                        <InputOTPGroup>
+                          <InputOTPSlot index={ 0 } />
+                          <InputOTPSlot index={ 1 } />
+                          <InputOTPSlot index={ 2 } />
+                          <InputOTPSlot index={ 3 } />
+                          <InputOTPSlot index={ 4 } />
+                          <InputOTPSlot index={ 5 } />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </FormControl>
+                  </FormItem>
                 )
               }
             />
-          </div>
-
-          {
-            errors.code && (
-              <p className="text-center text-sm text-destructive">
-                { errors.code.message }
-              </p>
-            )
-          }
-
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={ isSubmitting }
-          >
-            {
-              isSubmitting
-                ? <Loader2 className="animate-spin" />
-                : "Verify Account"
-            }
-          </Button>
-        </form>
-
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={ isSubmitting }
+            >
+              {
+                isSubmitting
+                  ? <Loader2 className="animate-spin" />
+                  : "Verify Account"
+              }
+            </Button>
+          </form>
+        </Form>
         <div className="mt-4 text-center text-sm text-muted-foreground">
           Didn&apos;t receive a code? { " " }
           <Button
@@ -199,7 +207,9 @@ export default function VerifyEmailForm() {
             onClick={ handleResendCode }
             disabled={ isResending }
           >
-            { isResending ? "Sending..." : "Resend Code" }
+            {
+              isResending ? "Sending..." : "Resend Code"
+            }
           </Button>
         </div>
       </CardContent>

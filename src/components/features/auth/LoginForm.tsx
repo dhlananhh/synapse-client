@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/modules/services/auth-service";
 import { LoginPayload } from "@/types/auth";
 
@@ -33,6 +34,7 @@ const loginSchema = z.object({
 
 export default function LoginForm() {
   const router = useRouter();
+  const { revalidateUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -47,7 +49,9 @@ export default function LoginForm() {
       const response = await authService.login(data);
       console.log("Login successful!", response.user);
 
-      toast.success("Login Successful!");
+      toast.success("Login successful! Redirecting...");
+
+      await revalidateUser();
       router.push("/feed");
 
     } catch (error: any) {

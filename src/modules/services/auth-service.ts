@@ -13,7 +13,7 @@ import {
 } from "@/types/auth";
 
 
-const AUTH_SERVICE_BASE_URL = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL || "http://localhost:4000/api/auth";
+const AUTH_SERVICE_BASE_URL = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL;
 
 const authApiClient = apiClient;
 

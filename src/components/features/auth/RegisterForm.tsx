@@ -66,7 +66,6 @@ export default function RegisterForm() {
       username: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -210,27 +209,6 @@ export default function RegisterForm() {
                       <Input
                         type="password"
                         placeholder="Enter your password"
-                        { ...field }
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }
-            />
-
-            {/* Confirm Password */ }
-            <FormField
-              control={ form.control }
-              name="confirmPassword"
-              render={
-                ({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Re-enter your password to confirm"
                         { ...field }
                       />
                     </FormControl>

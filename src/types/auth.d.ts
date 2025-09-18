@@ -5,7 +5,6 @@ export interface RegisterPayload {
   username: string;
   email: string;
   password: string;
-  confirmPassword?: string;
   birthday?: Date;
   gender?: "MALE" | "FEMALE" | "OTHER";
 }

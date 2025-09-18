@@ -24,7 +24,6 @@ export const RegisterFormSchema = z.object({
     .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores."),
   email: z.string().email("Please enter a valid email address."),
   password: z.string().min(8, "Password must be at least 8 characters long."),
-  confirmPassword: z.string(),
   birthday: z.date({
     required_error: "Your date of birth is required.",
   })
@@ -32,10 +31,7 @@ export const RegisterFormSchema = z.object({
   gender: z.enum([ "MALE", "FEMALE", "OTHER" ], {
     required_error: "Please select a gender."
   }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match",
-  path: [ "confirmPassword" ],
-});
+})
 export type TRegisterFormSchema = z.infer<typeof RegisterFormSchema>;
 
 

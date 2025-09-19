@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/modules/services/auth-service";
-import { LoginPayload } from "@/types/auth";
+import { LoginPayload } from "@/types/services/auth";
 
 import { Button } from "@/components/ui/button";
 import {

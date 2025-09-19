@@ -28,7 +28,7 @@ export const RegisterFormSchema = z.object({
     required_error: "Your date of birth is required.",
   })
     .max(eighteenYearsAgo, { message: "You must be at least 18 years old to use Synapse." }),
-  gender: z.enum([ "MALE", "FEMALE", "OTHER" ], {
+  gender: z.enum([ "MALE", "FEMALE" ], {
     required_error: "Please select a gender."
   }),
 })

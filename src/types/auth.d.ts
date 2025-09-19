@@ -6,7 +6,7 @@ export interface RegisterPayload {
   email: string;
   password: string;
   birthday?: Date;
-  gender?: "MALE" | "FEMALE" | "OTHER";
+  gender?: "MALE" | "FEMALE";
 }
 
 export interface LoginPayload {

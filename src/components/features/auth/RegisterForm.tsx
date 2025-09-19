@@ -291,14 +291,11 @@ export default function RegisterForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="FEMALE">
-                          Female
-                        </SelectItem>
                         <SelectItem value="MALE">
                           Male
                         </SelectItem>
-                        <SelectItem value="OTHER">
-                          Other
+                        <SelectItem value="FEMALE">
+                          Female
                         </SelectItem>
                       </SelectContent>
                     </Select>

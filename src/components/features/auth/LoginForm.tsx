@@ -34,7 +34,6 @@ const loginSchema = z.object({
 
 export default function LoginForm() {
   const router = useRouter();
-  const { revalidateUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -51,7 +50,6 @@ export default function LoginForm() {
 
       toast.success("Login successful! Redirecting...");
 
-      await revalidateUser();
       router.push("/feed");
 
     } catch (error: any) {

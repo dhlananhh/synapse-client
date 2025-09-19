@@ -2,6 +2,7 @@
 
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +25,10 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { authService } from "@/modules/services/auth-service";
+import {
+  BrainCircuit,
+  Loader2
+} from "lucide-react";
 
 
 const formSchema = z.object({
@@ -61,15 +66,24 @@ export default function RequestPasswordResetForm({ onSuccess }: RequestPasswordR
   };
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>
+    <Card className="mx-auto max-w-lg w-full">
+      <CardHeader className="items-center text-center">
+        <Link
+          href="/"
+          className="flex flex-col items-center gap-2 mb-4"
+        >
+          <BrainCircuit className="h-10 w-10 text-primary" />
+          <CardTitle className="text-2xl">Synapse</CardTitle>
+        </Link>
+
+        <CardTitle className="text-2xl mt-5 uppercase">
           Reset Password
         </CardTitle>
         <CardDescription>
           Enter your email to receive a password reset code.
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <Form
           { ...form }
@@ -102,7 +116,9 @@ export default function RequestPasswordResetForm({ onSuccess }: RequestPasswordR
               disabled={ isLoading }
             >
               {
-                isLoading ? "Sending..." : "Send Reset Code"
+                isLoading
+                  ? <Loader2 className="animate-spin" />
+                  : "Send Reset Code"
               }
             </Button>
           </form>

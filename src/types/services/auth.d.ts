@@ -1,12 +1,16 @@
-// Payloads for API requests
+// =================================
+// Payloads for API Requests
+// =================================
+
+
 export interface RegisterPayload {
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   password: string;
-  birthday?: Date;
-  gender?: "MALE" | "FEMALE";
+  birthday: Date;
+  gender: "MALE" | "FEMALE";
 }
 
 export interface LoginPayload {
@@ -37,24 +41,35 @@ export interface SetNewPasswordPayload {
   new_password: string;
 }
 
+export interface ChangePasswordPayload {
+  email: string;
+  current_password: string;
+  new_password: string;
+}
 
+
+// =================================
 // Responses from API
-interface AuthUser {
+// =================================
+
+export interface AuthUser {
   id: string;
   email: string;
   role: "USER" | "SYSTEM_ADMIN";
 }
 
+export interface Account {
+  id: string;
+  email: string;
+  isEmailVerified: boolean;
+  role: "USER" | "SYSTEM_ADMIN";
+  status: "ACTIVE" | "PENDING" | "SUSPENDED" | "BANNED";
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface RegisterResponse {
-  account: {
-    id: string;
-    email: string;
-    isEmailVerified: boolean;
-    role: "USER" | "SYSTEM_ADMIN";
-    status: "ACTIVE" | "PENDING";
-    createdAt: string;
-    updatedAt: string;
-  };
+  account: Account;
 }
 
 export interface LoginResponse {
@@ -65,7 +80,15 @@ export interface LoginResponse {
   user: AuthUser;
 }
 
+export interface RefreshTokenResponse extends Omit<LoginResponse, 'refresh_token'> {
+  refresh_token: string;
+}
+
 export interface VerifyResetCodeResponse {
   reset_token: string;
   expires_in: number;
+}
+
+export interface GenericMessageResponse {
+  message: string;
 }

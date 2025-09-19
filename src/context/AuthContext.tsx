@@ -3,113 +3,110 @@
 
 import React, {
   createContext,
-  useState,
   useContext,
-  ReactNode,
+  useState,
   useEffect,
-  useCallback,
+  ReactNode
 } from "react";
 import { useRouter } from "next/navigation";
 import { authService } from "@/modules/services/auth-service";
 import {
-  getRefreshToken,
-  clearAuthCookies
-} from "@/libs/cookies";
+  AuthUser,
+  LoginPayload,
+  RegisterPayload
+} from "@/types/services/auth";
 import { toast } from "sonner";
 
 
-interface AuthUser {
-  id: string;
-  email: string;
-  role: "USER" | "SYSTEM_ADMIN";
-}
-
-
 interface AuthContextType {
-  currentUser: AuthUser | null;
+  user: AuthUser | null;
   isLoading: boolean;
-  revalidateUser: () => Promise<void>;
-  logout: () => void;
+  login: (payload: LoginPayload) => Promise<void>;
+  register: (payload: RegisterPayload) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [ currentUser, setCurrentUser ] = useState<AuthUser | null>(null);
-  const [ isLoading, setIsLoading ] = useState(true);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-
-  const checkUserSession = useCallback(async () => {
-    const currentRefreshToken = getRefreshToken();
-
-    if (!currentRefreshToken) {
-      setCurrentUser(null);
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const response = await authService.refresh(currentRefreshToken);
-      if (response && response.user) {
-        setCurrentUser(response.user);
-      } else {
-        throw new Error("Invalid session.");
-      }
-    } catch (error) {
-      console.error("Session check failed, logging out.", error);
-      clearAuthCookies();
-      setCurrentUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const [ user, setUser ] = useState<AuthUser | null>(null);
+  const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
-    checkUserSession();
-  }, [ checkUserSession ]);
-
-  const logout = useCallback(async () => {
-    const currentRefreshToken = getRefreshToken();
-    if (currentRefreshToken) {
+    const checkUserSession = async () => {
       try {
-        await authService.logout(currentRefreshToken);
+        // We use getProfile (which calls /refresh) to verify the session
+        // If it succeeds, the user is logged in, and we get their data.
+        // If it fails (HttpOnly refresh token is invalid/expired), it throws an error.
+        const { user } = await authService.getProfile();
+        setUser(user);
       } catch (error) {
-        console.error("Logout API call failed, but clearing client-side session anyway.", error);
+        setUser(null);
+        console.log("No active session found.");
+      } finally {
+        setIsLoading(false);
       }
+    };
+    checkUserSession();
+  }, []);
+
+  const login = async (payload: LoginPayload) => {
+    try {
+      const { user } = await authService.login(payload);
+      setUser(user);
+      toast.success(`Welcome back, ${user.email}!`);
+      router.push("/feed");
+    } catch (error: any) {
+      setUser(null);
+      throw error;
     }
+  };
 
-    clearAuthCookies();
-    setCurrentUser(null);
-    router.push("/");
-    toast.info("You have been logged out.");
-  }, [ router ]);
+  const register = async (payload: RegisterPayload) => {
+    try {
+      await authService.register(payload);
+    } catch (error: any) {
+      throw error;
+    }
+  };
 
-  const revalidateUser = useCallback(async () => {
-    setIsLoading(true);
-    await checkUserSession();
-  }, [ checkUserSession ]);
+  const logout = async () => {
+    try {
+      await authService.logout();
+      setUser(null);
+      router.push("/");
+      toast.info("You have been logged out.");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      setUser(null);
+    }
+  };
 
-  const value: AuthContextType = {
-    currentUser,
+  const value = {
+    user,
     isLoading,
-    logout,
-    revalidateUser,
+    login,
+    register,
+    logout
   };
 
   return (
-    <AuthContext.Provider value={ value }>
-      { children }
+    <AuthContext.Provider
+      value={ value }
+    >
+      { !isLoading && children }
     </AuthContext.Provider>
   );
-}
+};
 
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
-}
+};

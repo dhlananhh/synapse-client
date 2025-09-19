@@ -96,7 +96,7 @@ export default function LoginForm() {
               <Label htmlFor="password">Password</Label>
 
               <Link
-                href="/forgot-password"
+                href="/reset-password"
                 className="ml-auto inline-block text-sm text-muted-foreground hover:text-primary hover:underline"
                 tabIndex={ -1 }
               >

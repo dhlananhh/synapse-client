@@ -121,7 +121,7 @@ This name was chosen because it perfectly encapsulates the core mission of this 
 - **Internationalization (i18n):** `react-i18next` & `i18next`.
 - **UX Libraries:** `next-themes`, `nextjs-toploader`, `sonner`, `lucide-react`.
 
-## 📁 Final Project Structure
+## 📁 Project Structure
 
 The project follows a feature-centric architecture within the Next.js App Router paradigm. This structure is designed for scalability, maintainability, and clear separation of concerns. It incorporates modern best practices, including a clear distinction between different types of components, hooks, and state management strategies.
 
@@ -134,9 +134,11 @@ synapse-client/
     │   │   ├── login
     │   │   │     └── page.tsx
     │   │   └── register
-    │   │   │     └── page.tsx
+    │   │        └── page.tsx
     │   ├── (landing)/                        # - Route Group for the public, unauthenticated marketing page.
     │   │   └── page.tsx                      # -> Handles the root "/" URL for new visitors.
+    │   ├── reset-password/               
+    │   │   └── page.tsx                      # - Handles the complete password reset flow.
     │   ├── (main)/                           # - Group for the main application layout (with Navbar, Footer, etc.)
     │   │   ├── (communities)/
     │   │   │   └── c/[slug]/                 # - Dynamic route for viewing a single community.
@@ -159,21 +161,27 @@ synapse-client/
     │
     ├── components/                           # 🧩 React Components: The building blocks of the UI.
     │   ├── features/                         # - Large, "smart" components, specific to a business feature (e.g., the complete PostFeed, LoginForm).
-    │   │   ├── auth/                         # - LoginForm, RegisterForm
+    │   │   ├── auth/                         # - LoginForm, RegisterForm, VerifyEmailForm,...
+    │   │   ├── award/                        # - AwardDisplay, AwardSelectionDialog
     │   │   ├── chat/                         # - ChatWidget
     │   │   ├── command/                      # - CommandMenu
     │   │   ├── comment/                      # - CommentSection, CommentItem, CommentForm
     │   │   ├── community/                    # - CommunityHeader, TopCommunitiesWidget
+    │   │   ├── feed/                         # - FeedPage
+    │   │   ├── landing/                      # - LandingPage
     │   │   ├── notifications/                # - NotificationBell, NotificationItem
     │   │   ├── onboarding/                   # - OnboardingModal
     │   │   ├── post/                         # - PostFeed, PostCard, VoteClient, CreatePostForm, etc.
-    │   │   ├── settings/                     # - UpdateProfileForm
+    │   │   ├── report/                       # - ReportDialog
+    │   │   ├── report/                       # - ReportDialog
+    │   │   ├── settings/                     # - SettingsRow, UpdateProfileForm
+    │   │   │  └── dialogs/
+    │   │   │  └── tabs/                   
     │   │   └── user/                         # - UserProfile, ProfileHeader, ActivityCalendar, etc.
-    │   ├── providers/                        # - Global "wrapper" components & headless logic (Theme, Auth, CommandMenu, Modals).
-    │   │   ├── CommandMenuProvider.tsx
-    │   │   ├── GlobalModals.tsx
+    │   ├── providers/                        # - Global "wrapper" components & headless logic (Theme, I18nProvider).
     │   │   ├── NotificationSimulator.tsx
     │   │   ├── ThemeProvider.tsx
+    │   │   ├── I18nProvider.tsx
     │   │   └── TopProgressBar.tsx
     │   ├── shared/                           # - "Dumb", highly reusable components used across multiple features
     │   │   ├── ConfirmDialog.tsx
@@ -185,7 +193,7 @@ synapse-client/
     │   │   ├── EmptyState.tsx
     │   │   ├── ErrorDisplay.tsx
     │   │   └── Footer.tsx
-    │   └── ui/                               # - Primitive UI components from Shadcn UI (e.g., Button, Card, Input). The lowest level of the UI.
+    │   └── ui/                               # - Primitive UI components from Shadcn UI. The lowest level of the UI.
     │
     ├── context/                              # 🧠 Global State Management (React Context): For state that updates infrequently.
     │   ├── AuthContext.tsx                   # - Manages user session, permissions, votes, and triggers for global modals.
@@ -195,11 +203,16 @@ synapse-client/
     │   └── useIntersectionObserver.ts        # - Encapsulates the logic for detecting when an element is visible (for infinite scroll).
     │
     ├── libs/                                 # 📚 Libraries & Core Business Logic
-    │   ├── api.ts                            # - Simulated backend API functions (fetch, create, update, delete). The bridge to the "server".
+    │   ├── apiClient.ts                      # - The centralized Axios instance with interceptors for auth/token refresh.
     │   ├── mock-data.ts                      # - The in-memory "database" with mock users, posts, and communities.
     │   ├── paths.ts                          # - Centralized, type-safe route constants to prevent broken links.
     │   ├── utils.ts                          # - General utility functions (e.g., `cn` for classnames)
     │   └── validators/                       # - Zod schemas for all form validation (auth, post, user).
+    │
+    ├── modules/                              # 🧱 Encapsulates communication logic with backend microservices.
+    │     └── services/                       # - Houses API service clients. Each file maps to a microservice.
+    │       └── auth-service.ts 
+    │       └── user-service.ts 
     │
     ├── locales/                              # 🌐 Internationalization (i18n): For multi-language support.   
     │   ├── en.json                           # - English language translation strings.
@@ -210,15 +223,19 @@ synapse-client/
     │   └── useNotificationStore.ts           # - Manages the state for the global real-time notification system.
     │
     ├── styles/                               # 🎨 Styling: Global styles and theme configuration.
-    │   ├── globals.css                       # - Core global styles and custom CSS for libraries.
-    │   └── tailwind.config.ts                # - Tailwind CSS theme configuration (colors, fonts, plugins).
+    │   └── globals.css                       # - Core global styles and custom CSS for libraries.
     │
     ├── types/                                # 📝 TypeScript Type Definitions
+    │   ├── services/
+    │     ├── auth.d.ts 
+    │     └── auth.d.ts 
     │   ├── globals.d.ts                      # - Global type declarations, if needed for third-party libraries.
     │   └── index.d.ts                        # - Centralized definitions for all custom application types (User, Post, Comment, etc.).
     │
-    └── utils/                                # 🛠️ General Utilities: Small, stateless helper functions.
-        └── index.ts                          # - Can re-export functions or contain general helpers (e.g., the `cn` function for classnames).
+    ├── utils/                                # 🛠️ General Utilities: Small, stateless helper functions.
+    │     └── index.ts                        # - Can re-export functions or contain general helpers (e.g., the `cn` function for classnames).
+    ├── middleware.ts
+    └── tailwind.config.ts                    # - Tailwind CSS theme configuration (colors, fonts, plugins).                            
 ```
 
 ### Architectural Decisions Explained:

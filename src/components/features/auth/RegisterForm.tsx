@@ -80,7 +80,7 @@ export default function RegisterForm() {
         description: "We've sent a verification code to your email. Please check and verify.",
       });
 
-      router.push(`/login?email=${values.email}`);
+      router.push(`/verify-email?email=${values.email}`);
 
     } catch (error: any) {
       console.error("Registration failed:", error);

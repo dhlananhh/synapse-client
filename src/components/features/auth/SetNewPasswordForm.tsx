@@ -2,6 +2,7 @@
 
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -25,6 +26,10 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { authService } from "@/modules/services/auth-service";
+import {
+  BrainCircuit,
+  Loader2
+} from "lucide-react";
 
 
 const formSchema = z.object({
@@ -63,15 +68,24 @@ export default function SetNewPasswordForm({ reset_token }: SetNewPasswordFormPr
   };
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>
+    <Card className="mx-auto max-w-lg w-full">
+      <CardHeader className="items-center text-center">
+        <Link
+          href="/"
+          className="flex flex-col items-center gap-2 mb-4"
+        >
+          <BrainCircuit className="h-10 w-10 text-primary" />
+          <CardTitle className="text-2xl">Synapse</CardTitle>
+        </Link>
+
+        <CardTitle className="text-2xl mt-5 uppercase">
           Set New Password
         </CardTitle>
         <CardDescription>
           Enter your new password below.
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <Form
           { ...form }
@@ -99,6 +113,7 @@ export default function SetNewPasswordForm({ reset_token }: SetNewPasswordFormPr
                 )
               }
             />
+
             <Button
               type="submit"
               className="w-full"
@@ -106,7 +121,9 @@ export default function SetNewPasswordForm({ reset_token }: SetNewPasswordFormPr
             >
 
               {
-                isLoading ? "Saving..." : "Set New Password"
+                isLoading
+                  ? <Loader2 className="animate-spin" />
+                  : "Set New Password"
               }
             </Button>
           </form>
